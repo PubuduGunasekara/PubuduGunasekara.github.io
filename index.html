@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Pubudu Gunasekara personal Portafolio">
+    <meta name="keywords" content="HTML, CSS, JavaScript">
+    <meta name="author" content="Pubudu Gunasekara">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/6c7e466214.js" crossorigin="anonymous"></script>
+    <title>Pubudu Gunasekara Personal Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+<body>
+<div id="header">
+  <div class="container">
+    <nav>
+      <img src="images/logo.png" class="logo">
+      <ul id="sidemenu">
+        <li><a href="#header">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portafolio</a></li>
+        <i class="fa-solid fa-xmark" onclick="closeMenu()"></i>
+      </ul>
+     
+      <i class="fa-solid fa-bars" onclick="openMenu()"></i>
+    </nav>
+
+    <div class="header-text">
+      <p>Web and Mobile App Developer</p>
+<h1>Hi, I am <span>Pubudu Gunasekara</span><br> from Canada.</h1>
+    </div>
+  </div>
+</div>
+
+<!---about-->
+<div id="about">
+  <div class="container">
+    <div class="row">
+      <div class="about-col-1">
+        <img src="images/user.png">
+      </div>
+      <div class="about-col-2">
+        <h1 class="sub-title">About Me</h1>
+        <p>kjabsdkjbaskchbaskcbjas calsjdch sadilhcg ailsdc slidycvgds livcygsd kcydgscv kdsygv ksduyvd skuvgds kvcysdgv cliygv i;dgvi dvuo
+           'dvug s'duvg sd
+           viewportsdv
+           sd uvs
+        </p>
+        <div class="tab-titles">
+          <p class="tab-links active-link" onclick="openTab('skills')">Skills</p>
+          <p class="tab-links" onclick="openTab('experience')">Experience</p>
+          <p class="tab-links" onclick="openTab('education')">Education</p>
+        </div>
+        <div class="tab-contents active-tab" id="skills">
+          <ul>
+            <li><span>UI/UX</span><br>Designing web/App interfaces</li>
+            <li><span>Web Development</span><br>Designing web/App interfaces</li>
+            <li><span>App Development</span><br>Designing web/App interfaces</li>
+          </ul>
+        </div>
+        <div class="tab-contents" id="experience">
+          <ul>
+            <li><span>UI/UX</span><br>Designing web/App interfaces</li>
+            <li><span>Web Development</span><br>Designing web/App interfaces</li>
+            <li><span>App Development</span><br>Designing web/App interfaces</li>
+          </ul>
+        </div>
+        <div class="tab-contents" id="education">
+          <ul>
+            <li><span>UI/UX</span><br>Designing web/App interfaces</li>
+            <li><span>Web Development</span><br>Designing web/App interfaces</li>
+            <li><span>App Development</span><br>Designing web/App interfaces</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!---portfolio-->
+<div id="portfolio">
+  <div class="container">
+        <h1 class="sub-title">My Work</h1>
+        <div class="work-list">
+          <div class="work">
+            <img src="images/work-1.png">
+            <div class="layer">
+              <h3>Social Media App</h3>
+              <p>kihdbachbsdkchb</p>
+              <a href="#"><i class="fa-solid fa-up-right-from-square"></i></a>
+            </div>
+          </div>
+          <div class="work">
+            <img src="images/work-2.png">
+            <div class="layer">
+              <h3>Social 2 Media App</h3>
+              <p>kihdbachbsdkchb</p>
+              <a href="#"><i class="fa-solid fa-up-right-from-square"></i></a>
+            </div>
+          </div>
+          <div class="work">
+            <img src="images/work-3.png">
+            <div class="layer">
+              <h3>Social 3 Media App</h3>
+              <p>kihdbachbsdkchb</p>
+              <a href="#"><i class="fa-solid fa-up-right-from-square"></i></a>
+            </div>
+          </div>
+        </div>
+        <a href="#" class="btn">See more</a>
+  </div>
+</div>
+
+<!---copyright-->
+<div id="copyright">
+  <p>copyright &copy; Pubudu Gunasekara</p>
+</div>
+
+<script>
+  var tabLinks = document.getElementsByClassName("tab-links")
+  var tabContents = document.getElementsByClassName("tab-contents")
+
+  function openTab(tabName){
+    for(tabLink of tabLinks){
+      tabLink.classList.remove("active-link");
+    }
+    for(tabContent of tabContents){
+      tabContent.classList.remove("active-tab");
+    }
+    event.currentTarget.classList.add("active-link");
+    document.getElementById(tabName).classList.add("active-tab")
+  }
+
+  var sideMenu = document.getElementById("sidemenu");
+
+  function openMenu(){
+    sideMenu.style.right = "0";
+
+  }
+
+  function closeMenu(){
+    sideMenu.style.right = "-200px";
+    
+  }
+  
+</script>
+</body>
+</html>
