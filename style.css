@@ -149,6 +149,11 @@ margin: 10px 0;
     font-size: 14px;
 }
 
+.tab-contents a{
+    color: #ababad;
+    font-size: 14px;
+}
+
 .tab-contents{
     display: none;
 }
