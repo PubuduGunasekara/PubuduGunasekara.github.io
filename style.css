@@ -149,7 +149,7 @@ margin: 10px 0;
     font-size: 14px;
 }
 
-.tab-contents a{
+.tab-contents ul li a{
     color: #ababad;
     font-size: 14px;
 }
