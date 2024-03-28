@@ -261,6 +261,27 @@ transition: transform 0.5s;
     margin-top: 20px;
     }
 
+    /*linkedin*/
+
+#linkedin{
+    width: 100%;
+    text-align: center;
+    font-size: x-large;
+    padding: 25px 0;
+    font-weight: 300;
+    margin-top: 20px;
+    font-style: normal;
+    text-decoration: none;
+    color: white;
+    
+    list-style: none;
+    }
+
+    #linkedin li a{
+        color: #0077B5;
+        
+        }
+
 
     /*---css for small screens---*/
 
