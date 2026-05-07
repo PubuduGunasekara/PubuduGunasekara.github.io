@@ -1,70 +1,64 @@
-# Getting Started with Create React App
+# Pubudu Gunasekara Portfolio
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A focused React portfolio for GitHub Pages, built to present Pubudu as an active SWE internship candidate for January 2027.
 
-## Available Scripts
+## Run Locally
 
-In the project directory, you can run:
+```bash
+npm install
+npm start
+```
 
-### `npm start`
+Open `http://localhost:3000`.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Build
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm run build
+```
 
-### `npm test`
+## Deploy Options
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Option 1: GitHub Actions
 
-### `npm run build`
+Copy the contents of this folder into the root of your `PubuduGunasekara.github.io` repository, then push to `main`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In GitHub, set:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Repository Settings -> Pages
+- Source: GitHub Actions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The workflow in `.github/workflows/deploy.yml` will install dependencies, build the React app, and deploy the `build` folder to GitHub Pages.
 
-### `npm run eject`
+### Option 2: gh-pages package
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+This project is also configured for the `gh-pages` package:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run deploy
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Update Links
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+All important links are centralized at the top of `src/App.js` in the `LINKS` object:
 
-## Learn More
+- Resume
+- GitHub
+- LinkedIn
+- LeetCode
+- Email
+- Featured project repositories
+- Certification verification/source links
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Update Assets
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Profile image: replace `public/assets/profile.jpg`.
+- Current resume download: `public/assets/Pubudu_Gunasekara_Resume.md`.
+- When your final PDF is ready, add it as `public/assets/Pubudu_Gunasekara_Resume.pdf` and update `resumeDownload` in `src/App.js`.
+- Weekly internship-prep progress is stored in the `prep` array in `src/App.js`.
 
-### Code Splitting
+## Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- GitHub profile metrics and recent repositories update automatically on page load from the GitHub API.
+- LeetCode progress should be updated manually or weekly unless you later add a backend/API workflow.
+- Planned project links intentionally use `#` until the repositories or demos are live.
