@@ -46,3 +46,33 @@ body {
 .text-balance {
   text-wrap: balance;
 }
+
+@keyframes pulse-green {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(2.2);
+  }
+}
+
+@keyframes recording-blink {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(134, 239, 172, 0.7);
+  }
+  50% {
+    opacity: 0.35;
+    box-shadow: 0 0 0 5px rgba(134, 239, 172, 0);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-green 1.35s ease-in-out infinite;
+}
+
+.recording-dot {
+  animation: recording-blink 1.35s ease-in-out infinite;
+}

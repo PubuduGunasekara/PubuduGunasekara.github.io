@@ -13,26 +13,37 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Pubudu Gunasekara · Software Engineer',
+  title: 'Pubudu Gunasekara · Software Engineer · SWE Intern Jan 2027',
   description:
-    'M.S. Computer Science student at Northeastern University Silicon Valley building scalable full-stack, backend, cloud, and machine learning systems. Seeking SWE internships for January 2027.',
+    'M.S. in Computer Science at Northeastern University, Silicon Valley. Focused on Java, distributed systems, full-stack engineering, and AI-powered products. Seeking SWE Internship January 2027.',
   keywords: [
-    'Pubudu Gunasekara',
-    'Software Engineer',
+    'software engineer',
+    'SWE intern',
+    'Java',
+    'distributed systems',
+    'React',
     'Northeastern University',
-    'Full Stack',
-    'Backend',
-    'Cloud',
-    'Machine Learning',
-    'SWE Internship',
+    'Silicon Valley',
+    'full stack',
+    'machine learning',
   ],
   openGraph: {
     title: 'Pubudu Gunasekara · Software Engineer',
     description:
-      'Full-stack, backend, cloud, and ML systems portfolio for a Northeastern M.S. Computer Science student seeking January 2027 internships.',
+      'M.S. CS @ Northeastern University · Java · Distributed Systems · AI/ML · Available Jan 2027',
     url: 'https://pubudugunasekara.github.io',
-    siteName: 'Pubudu Gunasekara',
+    siteName: 'Pubudu Gunasekara Portfolio',
+    locale: 'en_US',
     type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Pubudu Gunasekara · Software Engineer · SWE Intern Jan 2027',
+    description: 'M.S. CS @ Northeastern · Java · Distributed Systems · AI/ML · Available Jan 2027',
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
   icons: {
     icon: [

@@ -1,16 +1,16 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 type Theme = 'dark' | 'light';
 
 const links = {
-  resume: '/assets/Pubudu_Gunasekara_Resume.md',
+  resume: '/assets/Pubudu_Gunasekara_Resume.pdf',
   github: 'https://github.com/PubuduGunasekara',
   linkedin: 'https://www.linkedin.com/in/pubudugunasekera/',
   leetcode: 'https://leetcode.com/u/pubuduguna/',
-  email: 'mailto:hello@pubudugunasekara.com',
+  email: 'mailto:pubudupguna@gmail.com',
 };
 
 const nav = [
@@ -19,6 +19,7 @@ const nav = [
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'prep', label: 'Prep' },
+  { id: 'leadership', label: 'Leadership' },
   { id: 'education', label: 'Education' },
   { id: 'certifications', label: 'Certs' },
   { id: 'contact', label: 'Contact' },
@@ -58,83 +59,127 @@ const storyPoints = [
 
 const experience = [
   {
-    role: 'Web Developer',
-    company: 'Gunasekara Transport',
-    period: 'Current · Remote',
-    body: 'Building and maintaining web systems with WordPress, web design, web development, internal tools, reporting workflows, automation, and architecture planning for operational software.',
-    focus: ['WordPress', 'web design', 'web development', 'internal tools', 'reporting systems', 'automation'],
-    logo: brandAssets.gunasekaraTransport,
-    mark: 'GT',
-  },
-  {
-    role: 'Associate Engineer — QA Automation',
+    role: 'Associate Engineer - QA Automation',
     company: 'Virtusa',
-    period: '2021 — 2022',
-    body: 'Built Java and Selenium automation for a British Telecom production platform serving 1M+ users. Reduced regression test cycles from 4 hours to 45 minutes and supported CI/CD quality workflows with Jenkins.',
-    focus: ['Java', 'Selenium', 'Jenkins', 'CI/CD', 'software quality'],
+    period: '2021 - 2022',
+    body: 'Built Java and Selenium automation for a British Telecom production platform serving 1M+ users. Reduced regression test cycles from 4 hours to 45 minutes (80% reduction). Led QA sub-team across international sprint cycles spanning Sri Lanka, UK, and Australia. Delivered client demos that secured continued project investment. Integrated automation into Jenkins CI/CD pipelines for nightly quality gates.',
+    focus: ['Java', 'Selenium', 'Jenkins', 'CI/CD', 'TestNG', 'JIRA', 'BDD', 'team leadership', 'client presentation'],
     logo: brandAssets.virtusa,
     mark: 'VU',
+    highlight: '1M+ users · 80% test time reduction',
+  },
+  {
+    role: 'Web Developer',
+    company: 'Gunasekara Transport',
+    period: '2025 - Present · Remote',
+    body: 'Building and maintaining web infrastructure across ecommerce platforms, WordPress, React.js interfaces, internal tooling, reporting automation, and architecture planning for operational software systems.',
+    focus: ['ecommerce platforms', 'React.js', 'WordPress', 'web development', 'internal tools', 'automation', 'reporting systems'],
+    logo: brandAssets.gunasekaraTransport,
+    mark: 'GT',
+    highlight: null,
   },
 ];
 
 const skills: Array<[string, string[]]> = [
-  ['Languages', ['JavaScript', 'TypeScript', 'Python', 'Java', 'C++', 'Kotlin']],
-  ['Frontend', ['React', 'Next.js', 'Redux', 'Tailwind CSS']],
-  ['Backend', ['Node.js', 'Express', 'Spring Boot']],
-  ['Cloud & DevOps', ['Azure', 'Docker', 'Kubernetes', 'CI/CD']],
-  ['AI/ML', ['NLP', 'Responsible AI', 'Python ML ecosystem']],
-  ['Databases', ['MongoDB', 'MySQL', 'Firebase']],
+  ['Languages', ['Java', 'JavaScript', 'TypeScript', 'Python', 'Kotlin', 'C++']],
+  ['Frontend', ['React', 'Next.js', 'React Native', 'Redux', 'Tailwind CSS', 'HTML5', 'CSS3']],
+  ['Backend', ['Node.js', 'Express', 'Spring Boot', 'FastAPI', 'REST APIs', 'GraphQL']],
+  ['Distributed Systems', ['Apache Kafka', 'Redis', 'Docker', 'Kubernetes', 'Microservices', 'CI/CD']],
+  ['Cloud & Infra', ['AWS (EC2, S3)', 'Azure', 'IBM Cloud', 'Prometheus', 'Grafana', 'GitHub Actions', 'Jenkins']],
+  ['AI / ML', ['scikit-learn', 'TensorFlow/Keras', 'OpenAI API', 'Pandas', 'NumPy', 'NLP', 'Responsible AI']],
+  ['Databases', ['PostgreSQL', 'MongoDB', 'MySQL', 'Firebase', 'Redis']],
 ];
 
 const projects = [
   {
-    title: 'IoT Smart Farm System',
-    eyebrow: 'Identity project',
-    status: 'Complete / evolving',
-    href: 'https://github.com/PubuduGunasekara?tab=repositories&q=smart+farm',
-    body: 'Led a team building a Smart Farm system around NodeMCU, sensors, Firebase real-time data, and React Native monitoring. The project connected embedded systems, cloud-backed state, and mobile UX into a working agricultural automation prototype.',
-    challenge: 'Coordinate hardware, mobile software, real-time data, and team execution into one reliable system.',
-    impact: 'Established my strongest early engineering identity: practical systems, leadership, and product-minded innovation.',
-    stack: ['NodeMCU', 'IoT', 'React Native', 'Firebase', 'real-time monitoring', 'team leadership'],
+    title: 'AI Code Review Assistant',
+    eyebrow: 'Active build · AI tooling',
+    status: 'Building · Week 1 of 6',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/ai-code-reviewer',
+    demo: null,
+    body: 'GPT-4o powered GitHub PR reviewer. OAuth login connects repositories, reviews pull request diffs, and returns inline comments with severity scores and CWE references. Redis handles rate limiting and repeated diff chunks, with GitHub Actions deploying the app to AWS EC2.',
+    challenge: 'Build an AI tool that handles real GitHub diffs with sub-2s review latency, caching identical chunks in Redis to cut API costs.',
+    impact: 'This is my main January 2027 portfolio build: LLM integration, full-stack engineering, and DevOps in one practical tool.',
+    stack: ['Node.js', 'Express', 'GPT-4o API', 'React', 'Redis', 'GitHub OAuth', 'PostgreSQL', 'Docker', 'GitHub Actions', 'AWS EC2'],
     featured: true,
+    embed: null,
+  },
+  {
+    title: 'Distributed Task Scheduler',
+    eyebrow: 'Planned build · Distributed systems',
+    status: 'Planned · July 2026',
+    statusColor: 'text-signal-cyan',
+    href: 'https://github.com/PubuduGunasekara',
+    demo: null,
+    body: 'Production-scale task scheduler built on Kafka. Processes 10,000 tasks/min at p99 <50ms across 3 worker nodes. Redis distributed locking prevents duplicate execution across workers. Full Prometheus + Grafana monitoring dashboard.',
+    challenge: 'Design fault-tolerant distributed execution with exponential backoff retry, dead-letter queues, and horizontal scaling without duplicate task runs.',
+    impact: 'A focused systems project for practicing Kafka, distributed locks, retries, monitoring, and failure handling in a realistic backend setting.',
+    stack: ['Java 21', 'Spring Boot 3', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker Compose', 'Prometheus', 'Grafana', 'JUnit 5', 'Testcontainers'],
+    featured: false,
+    embed: null,
+  },
+  {
+    title: 'IoT Smart Farm System',
+    eyebrow: 'Identity project · v2 coming August',
+    status: 'Complete / evolving',
+    statusColor: 'text-signal-amber',
+    href: 'https://github.com/PubuduGunasekara/smart-farm-1.1.0',
+    demo: 'https://www.linkedin.com/posts/pubudugunasekera_informationtechnology-project-teamleadership-ugcPost-6794005940980072448-amQm',
+    body: 'Led a team building a Smart Farm system around NodeMCU sensors, Firebase real-time data, and React Native monitoring. Connected embedded hardware, cloud-backed state, and mobile UX into a working agricultural automation prototype. v2 adds ML anomaly detection.',
+    challenge: 'Coordinate hardware, mobile software, real-time data pipelines, and team execution into one reliable system with sub-second sensor response.',
+    impact: 'My first major team leadership project, connecting hardware, software, and cloud layers. It now sets up the ML Anomaly Detection platform planned for August 2026.',
+    stack: ['NodeMCU', 'IoT', 'React Native', 'Firebase', 'Android', 'iOS', 'real-time monitoring', 'team leadership'],
+    featured: false,
     embed: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6794005940980072448?compact=1',
-    demo: 'https://www.linkedin.com/posts/pubudugunasekera_informationtechnology-project-teamleadership-ugcPost-6794005940980072448-amQm?utm_source=share&utm_medium=member_desktop&rcm=ACoAACZ5RCcBBHOLZrBRIgaRx5zaK-ifTGun0rQ',
+  },
+  {
+    title: 'ML Anomaly Detection Platform',
+    eyebrow: 'Planned build · Smart Farm v2',
+    status: 'Planned · August 2026',
+    statusColor: 'text-signal-cyan',
+    href: links.github,
+    demo: null,
+    body: 'Extension of Smart Farm v1 that adds production ML. Isolation Forest and LSTM time-series models detect sensor anomalies in real time. A FastAPI inference service streams updates over WebSockets, while the React Native dashboard sends Firebase Cloud Messaging alerts.',
+    challenge: 'Translate ML model outputs into reliable real-time software with <50ms inference latency, observable pipelines, and mobile-first alerting.',
+    impact: 'A practical bridge between software engineering and ML: real-time inference, mobile alerts, IoT data, and an automated retraining workflow.',
+    stack: ['Python', 'FastAPI', 'scikit-learn', 'TensorFlow/Keras', 'React Native', 'Firebase', 'WebSockets', 'Docker', 'GitHub Actions', 'AWS S3'],
+    featured: false,
+    embed: null,
   },
   {
     title: 'Cloud Dealership Platform',
     eyebrow: 'Infrastructure and delivery',
     status: 'Complete',
-    href: 'https://github.com/PubuduGunasekara?tab=repositories&q=car',
-    body: 'Full-stack dealership review platform with containerized services, CI/CD automation, Kubernetes orchestration, and IBM Cloud Code Engine deployment.',
-    challenge: 'Move beyond application code into deployment, infrastructure, and production-style delivery.',
-    impact: 'Demonstrates cloud engineering, scalability thinking, and release automation.',
-    stack: ['React', 'Node.js', 'Django', 'MongoDB', 'Docker', 'Kubernetes', 'Jenkins', 'IBM Cloud'],
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/xrwvm-fullstack_developer_capstone',
+    demo: null,
+    body: 'Full-stack dealership review platform with containerised services, CI/CD automation, Kubernetes orchestration, and IBM Cloud Code Engine deployment. React frontend, Django + Node.js backend, MongoDB persistence.',
+    challenge: 'Move beyond application code into deployment, infrastructure, and production-style delivery with full CI/CD automation.',
+    impact: 'Shows cloud engineering, Kubernetes orchestration, and release automation across a multi-service architecture on IBM Cloud.',
+    stack: ['React', 'Node.js', 'Django', 'MongoDB', 'Docker', 'Kubernetes', 'Jenkins', 'GitHub Actions', 'IBM Cloud'],
+    featured: false,
+    embed: null,
   },
   {
     title: 'Multi-User MERN Application',
     eyebrow: 'Full-stack product engineering',
     status: 'Complete',
+    statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/Multi-User-Blog',
-    body: 'A multi-user blogging system focused on authentication, API design, frontend/backend integration, and user-centered application structure.',
-    challenge: 'Design a coherent full-stack architecture with clear user flows and maintainable boundaries.',
-    impact: 'Shows practical MERN delivery across UI, APIs, data persistence, and application behavior.',
-    stack: ['React', 'Node.js', 'Express', 'MongoDB', 'authentication', 'REST APIs'],
-  },
-  {
-    title: 'ML Anomaly Detection Platform',
-    eyebrow: 'Planned AI/ML system',
-    status: 'Planned · August',
-    href: links.github,
-    body: 'Planned extension of the Smart Farm direction: FastAPI services, React Native monitoring, TensorFlow models, and real-time anomaly detection for sensor streams.',
-    challenge: 'Translate ML concepts into reliable software systems with low-latency inference and observable workflows.',
-    impact: 'Clarifies my next step: software engineering with a trajectory toward ML and AI systems.',
-    stack: ['Python', 'FastAPI', 'React Native', 'TensorFlow', 'NLP/ML foundations'],
+    demo: null,
+    body: 'Multi-user blogging platform with JWT authentication, role-based access, REST API design, and Next.js server-side rendering for SEO. Redux state management, MongoDB Atlas for scalable data persistence.',
+    challenge: 'Design a coherent full-stack architecture with clear user flows, secure auth, and maintainable service boundaries.',
+    impact: 'Full MERN delivery across UI, APIs, auth, and data persistence with SSR. GPA project demonstrating software engineering principles.',
+    stack: ['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Redux', 'JWT', 'REST APIs', 'SEO'],
+    featured: false,
+    embed: null,
   },
 ];
 
 const prep: Array<[string, string, string]> = [
   ['LeetCode', '90 / 800+ target', 'Java-first DSA practice with NeetCode 150, company-tagged problems, and weekly review.'],
-  ['Daily rhythm', '3–6 hrs/day', 'Roadmap cadence: DSA every day, focused project work, alternating system design and behavioral preparation.'],
+  ['Daily rhythm', '3-6 hrs/day', 'Roadmap cadence: DSA every day, focused project work, alternating system design and behavioral preparation.'],
   ['Applications', '100+ thoughtful targets', 'Organizing referrals, alumni outreach, targeted applications, and interview follow-ups without making the portfolio feel numbers-only.'],
 ];
 
@@ -160,34 +205,65 @@ const plannedBuilds = [
 ];
 
 const leadership = [
-  'Graduate Leadership Institute (GLI) at Northeastern University',
-  'CliftonStrengths-based leadership development',
-  'Constructive feedback, collaboration, teamwork, and social impact awareness',
-  'Leadership through Smart Farm, hackathons, and collaborative engineering projects',
+  'Graduate Leadership Institute (GLI), Northeastern University, Silicon Valley',
+  'CliftonStrengths assessment, understanding personal strengths in team contexts',
+  'Led Smart Farm IoT project team: coordinated hardware, software, and cloud execution',
+  '1st Place, NSBM Green University overnight hackathon',
+  'Led QA sub-team at Virtusa across AU / UK / LK sprint cycles',
+  'Delivered client-facing demos at Virtusa that secured continued BT project investment',
 ];
 
 const certifications: Array<[string, string, string]> = [
-  ['Foundations of Responsible AI Learning', 'Northeastern University', 'https://www.northeastern.edu/'],
-  ['Microsoft Certified: Azure Fundamentals', 'Microsoft', 'https://learn.microsoft.com/en-us/credentials/certifications/azure-fundamentals/'],
-  ['IBM Full Stack Software Developer', 'IBM / Coursera', 'https://www.coursera.org/professional-certificates/ibm-full-stack-cloud-developer'],
-  ['Meta Android Developer', 'Meta / Coursera', 'https://www.coursera.org/professional-certificates/meta-android-developer'],
-  ['Python for Everybody', 'University of Michigan', 'https://www.coursera.org/specializations/python'],
-  ['Kotlin, Git, SQL, React Native, MERN', 'Additional credentials', 'https://github.com/PubuduGunasekara'],
+  [
+    'Foundations of Responsible AI Learning',
+    'Northeastern University',
+    'https://northeastern.badges.parchment.com/public/credentials/30jlIDuTS6GsL5WAC0pM5g?identity__email=gunasekaraarachchi.p@northeastern.edu&utm_source=linkedin_credentials',
+  ],
+  [
+    'Microsoft Certified: Azure Fundamentals (AZ-900)',
+    'Microsoft',
+    'https://learn.microsoft.com/en-us/users/pubudupraneeth-0557/credentials/f2522fcd3042b6a5?ref=https%3A%2F%2Fwww.linkedin.com%2F',
+  ],
+  [
+    'IBM Full Stack Software Developer Professional Certificate',
+    'IBM / Coursera',
+    'https://www.coursera.org/account/accomplishments/specialization/certificate/MF27EJXFYCC3',
+  ],
+  [
+    'Meta Android Developer Professional Certificate',
+    'Meta / Coursera',
+    'https://www.coursera.org/account/accomplishments/professional-cert/PPXS7HE57Y8Y?utm_source=link&utm_medium=certificate&utm_content=cert_image&utm_campaign=sharing_cta&utm_product=prof',
+  ],
+  [
+    'Python for Everybody Specialization',
+    'University of Michigan / Coursera',
+    'https://www.coursera.org/account/accomplishments/specialization/certificate/H4W6EJV3D255',
+  ],
+  [
+    'Kotlin Core + SQL + React Native Credentials',
+    'JetBrains Academy + Additional',
+    'https://www.linkedin.com/in/pubudugunasekera/details/certifications/',
+  ],
+  [
+    'People & Soft Skills: Essential for Professional Success',
+    'IBM / Coursera',
+    'https://www.coursera.org/account/accomplishments/specialization/certificate/BF5BGR9ZE9YT',
+  ],
 ];
 
 const education = [
   {
     school: 'Northeastern University',
     program: 'M.S. Computer Science',
-    meta: 'Silicon Valley, CA · Jan 2026 — Dec 2027',
+    meta: 'Silicon Valley, CA · Jan 2026 - Dec 2027',
     detail: 'Completed: Algorithms, Programming Design Paradigm (Java). Planned: Machine Learning, NLP.',
     logo: brandAssets.northeastern,
     mark: 'NU',
   },
   {
     school: 'Conestoga College',
-    program: 'Ontario Graduate Certificate — Mobile Solutions Development',
-    meta: 'Kitchener, Canada · 2022 — 2023',
+    program: 'Ontario Graduate Certificate - Mobile Solutions Development',
+    meta: 'Kitchener, Canada · 2022 - 2023',
     detail: 'GPA: 3.74 / 4.0.',
     logo: brandAssets.conestoga,
     mark: 'CC',
@@ -195,27 +271,19 @@ const education = [
   {
     school: 'Victoria University Melbourne',
     program: 'Bachelor of Information Technology',
-    meta: 'Melbourne, Australia · 2018 — 2021',
-    detail: 'Web and Mobile Application Development.',
+    meta: 'Melbourne, Australia · 2018 - 2021',
+    detail: 'Web and Mobile Application Development. GPA: 6.25 / 7.0.',
     logo: brandAssets.victoria,
     mark: 'VU',
   },
   {
     school: 'NIBM Colombo',
-    program: 'Higher National Diploma — Software Development',
-    meta: 'Colombo, Sri Lanka · 2016 — 2017',
-    detail: 'Software development foundation.',
+    program: 'Higher National Diploma - Software Development',
+    meta: 'Colombo, Sri Lanka · 2016 - 2017',
+    detail: 'Software development foundation. GPA: 3.81 / 4.0.',
     logo: brandAssets.nibm,
     mark: 'NB',
   },
-];
-
-const thoughts = [
-  'What production QA taught me about software engineering',
-  'How I am approaching Java-first DSA preparation',
-  'Design notes from building a Smart Farm IoT system',
-  'Moving from full-stack apps toward ML and NLP systems',
-  'Cloud deployment lessons from containerized applications',
 ];
 
 export default function Page() {
@@ -265,7 +333,7 @@ export default function Page() {
       <nav className="sticky top-0 z-50 mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-5 backdrop-blur-xl sm:px-8">
         <a href="#top" className="flex items-center gap-3 font-mono text-sm tracking-tight">
           <img src="/assets/pg-mark.svg" alt="" className="h-8 w-8" />
-          <span className="hidden sm:inline">pubudu.engineering</span>
+          <span className="hidden sm:inline">pubudugunasekara.dev</span>
         </a>
         <div className={`hidden rounded-full border px-3 py-2 text-xs ${surface} md:flex md:gap-4`}>
           {nav.map((item) => (
@@ -329,24 +397,49 @@ export default function Page() {
               Pubudu Gunasekara
             </h1>
             <p className={`mt-7 max-w-3xl text-balance text-xl leading-8 ${muted}`}>
-              MS in Computer Science @ Northeastern University. Building scalable full-stack and machine learning systems with experience in cloud infrastructure, automation, and production-ready applications.
+              M.S. in Computer Science at Northeastern University, Silicon Valley. I&apos;m focused on
+              building distributed systems and AI-powered products. Previously worked as an SDET at
+              Virtusa on a British Telecom platform with over{' '}
+              <span className="text-signal-green font-medium">1M users</span>
+              {', '}where I helped reduce regression testing by{' '}
+              <span className="text-signal-green font-medium">80%</span>.
             </p>
             <HeroActions />
           </div>
 
           <aside className={`rounded-3xl border p-5 shadow-premium ${surface}`}>
             <div className="flex items-center gap-4">
-              <img src="/assets/profile.jpg" alt="Pubudu Gunasekara" className="h-20 w-20 rounded-2xl border border-slate-500/15 object-cover object-[center_28%]" />
+              <img src="/assets/profile.png" alt="Pubudu Gunasekara" className="h-20 w-20 rounded-2xl border border-slate-500/15 object-cover object-[center_28%]" />
               <div>
-                <p className="font-mono text-xs text-signal-green">Open to SWE internships · Jan 2027</p>
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2.5 w-2.5">
+                    <span className="pulse-dot absolute inline-flex h-full w-full rounded-full bg-signal-green opacity-75" />
+                    <span className="recording-dot relative inline-flex h-2.5 w-2.5 rounded-full bg-signal-green" />
+                  </span>
+                  <p className="font-mono text-xs text-signal-green font-medium">
+                    Open to SWE Internship · Jan 2027
+                  </p>
+                </div>
                 <p className={`mt-2 text-sm ${muted}`}>San Jose, CA · Northeastern Silicon Valley</p>
               </div>
             </div>
             <div className="mt-6 grid grid-cols-2 gap-3">
-              <Metric value={`${github.public_repos}`} label="GitHub repos" />
-              <Metric value="1M+" label="BT users" />
-              <Metric value="80%" label="test time reduced" />
-              <Metric value="90/800+" label="LeetCode progress" />
+              <Metric
+                value={<AnimatedCounter target={github.public_repos} suffix="" />}
+                label="GitHub repos"
+              />
+              <Metric
+                value={<><AnimatedCounter target={1} suffix="M+" /></>}
+                label="BT users served"
+              />
+              <Metric
+                value={<><AnimatedCounter target={80} suffix="%" /></>}
+                label="test time reduced"
+              />
+              <Metric
+                value={<><AnimatedCounter target={90} suffix="/800+" /></>}
+                label="LeetCode progress"
+              />
             </div>
           </aside>
         </motion.header>
@@ -376,6 +469,9 @@ export default function Page() {
                     <p className="mt-1 text-signal-blue">{item.company}</p>
                     <p className={`mt-4 leading-7 ${muted}`}>{item.body}</p>
                     <TagList items={item.focus} />
+                    {item.highlight && (
+                      <p className="mt-4 font-mono text-xs text-signal-green">{item.highlight}</p>
+                    )}
                   </div>
                 </div>
               </EditorialCard>
@@ -434,7 +530,7 @@ export default function Page() {
         <Section id="leadership" eyebrow="06" title="Leadership & Growth">
           <EditorialCard surface={surface}>
             <p className={`max-w-3xl leading-8 ${muted}`}>
-              Leadership has been a practical thread through my work: leading Smart Farm collaboration, participating in hackathons, working in startup environments, and developing structured leadership habits through Northeastern&apos;s Graduate Leadership Institute.
+              Leadership has been a constant thread: from winning a hackathon overnight to leading cross-country QA teams at Virtusa on a 1M+ user production platform, to coordinating hardware, software, and cloud teams on the Smart Farm project. Now developing structured leadership frameworks through Northeastern&apos;s Graduate Leadership Institute.
             </p>
             <div className="mt-6 grid gap-3 md:grid-cols-2">
               {leadership.map((item) => (
@@ -477,17 +573,7 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="writing" eyebrow="09" title="Thoughts">
-          <div className="grid gap-3">
-            {thoughts.map((thought) => (
-              <EditorialCard key={thought} surface={surface}>
-                <p className="font-mono text-sm text-signal-cyan">draft / {thought}</p>
-              </EditorialCard>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="contact" eyebrow="10" title="Contact">
+        <Section id="contact" eyebrow="09" title="Contact">
           <EditorialCard surface={surface}>
             <h2 className="text-4xl font-semibold tracking-[-0.045em]">Let&apos;s build useful systems.</h2>
             <p className={`mt-5 max-w-2xl leading-8 ${muted}`}>
@@ -660,14 +746,15 @@ function ProjectCard({
     title: string;
     eyebrow: string;
     status: string;
+    statusColor?: string;
     href: string;
     body: string;
     challenge: string;
     impact: string;
     stack: string[];
     featured?: boolean;
-    embed?: string;
-    demo?: string;
+    embed?: string | null;
+    demo?: string | null;
   };
   index: number;
   surface: string;
@@ -697,7 +784,7 @@ function ProjectCard({
           )}
         </div>
         <div className="flex flex-col justify-between gap-6">
-          <p className="font-mono text-xs text-signal-amber">{project.status}</p>
+          <p className={`font-mono text-xs ${project.statusColor || 'text-signal-amber'}`}>{project.status}</p>
           <div className="flex flex-col gap-3">
             <SecondaryLink href={project.href}>GitHub</SecondaryLink>
             {project.demo && <SecondaryLink href={project.demo}>Demo post</SecondaryLink>}
@@ -708,12 +795,56 @@ function ProjectCard({
   );
 }
 
-function Metric({ value, label }: { value: string; label: string }) {
+function Metric({ value, label }: { value: React.ReactNode; label: string }) {
   return (
     <div className="rounded-2xl border border-slate-500/15 bg-slate-500/10 p-4">
       <p className="font-mono text-2xl">{value}</p>
       <p className="mt-1 text-xs opacity-70">{label}</p>
     </div>
+  );
+}
+
+function AnimatedCounter({
+  target,
+  duration = 1800,
+  suffix = '',
+  prefix = '',
+}: {
+  target: number;
+  duration?: number;
+  suffix?: string;
+  prefix?: string;
+}) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLSpanElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const startTime = performance.now();
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setCount(Math.floor(eased * target));
+            if (progress < 1) requestAnimationFrame(animate);
+          };
+          requestAnimationFrame(animate);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}{count}{suffix}
+    </span>
   );
 }
 
