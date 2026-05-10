@@ -170,7 +170,7 @@ const projects = [
     demo: null,
     body: 'Multi-user blogging platform with JWT authentication, role-based access, REST API design, and Next.js server-side rendering for SEO. Redux state management, MongoDB Atlas for scalable data persistence.',
     challenge: 'Design a coherent full-stack architecture with clear user flows, secure auth, and maintainable service boundaries.',
-    impact: 'Full MERN delivery across UI, APIs, auth, and data persistence with SSR. GPA project demonstrating software engineering principles.',
+    impact: 'Full MERN delivery across UI, APIs, auth, and data persistence with SSR. Demonstrates clean full-stack architecture with JWT authentication, role-based access, and production patterns applied to a real multi-user product.',
     stack: ['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Redux', 'JWT', 'REST APIs', 'SEO'],
     featured: false,
     embed: null,
