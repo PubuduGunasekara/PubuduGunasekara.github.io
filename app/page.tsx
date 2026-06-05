@@ -58,24 +58,24 @@ const storyPoints = [
 
 const experience = [
   {
-    role: 'Associate Engineer - QA Automation',
-    company: 'Virtusa',
-    period: '2021 - 2022',
-    body: 'Built Java and Selenium automation for a British Telecom production platform serving 1M+ users, cutting regression test cycles from hours to minutes. Led a QA sub-team across international sprint cycles spanning Sri Lanka, the UK, and Australia, and delivered client-facing demos. Integrated automation into Jenkins CI/CD pipelines for nightly quality gates.',
-    focus: ['Java', 'Selenium', 'Jenkins', 'CI/CD', 'TestNG', 'JIRA', 'BDD', 'team leadership', 'client presentation'],
-    logo: brandAssets.virtusa,
-    mark: 'VU',
-    highlight: '1M+ user production platform',
-  },
-  {
     role: 'Web Developer',
     company: 'Gunasekara Transport',
     period: '2025 - Present · Remote',
-    body: 'Building and maintaining web infrastructure across ecommerce platforms, WordPress, React.js interfaces, internal tooling, reporting automation, and architecture planning for operational software systems.',
-    focus: ['ecommerce platforms', 'React.js', 'WordPress', 'web development', 'internal tools', 'automation', 'reporting systems'],
+    body: 'Building the company’s web presence and internal software as it expands into online construction-material-supply services. I build and maintain the corporate website and web app interfaces, and an internal business management system that replaces manual processes with modules for HR, operational workflows, data management, and business reporting.',
+    focus: ['React.js', 'JavaScript', 'WordPress', 'PHP', 'Docker', 'internal business systems', 'cloud hosting', 'web development'],
     logo: brandAssets.gunasekaraTransport,
     mark: 'GT',
-    highlight: null,
+    highlight: 'Corporate site + internal business system',
+  },
+  {
+    role: 'Associate Engineer – QA',
+    company: 'Virtusa',
+    period: '2021 - 2022',
+    body: 'QA engineer on a British Telecommunications platform, deployed through Virtusa. Built Java and Selenium WebDriver test automation, led test planning, and ran client demos and stand-ups for the module while collaborating with developers to validate bug fixes and tracking defect densities and open defect counts.',
+    focus: ['Java', 'Selenium', 'test automation', 'test planning', 'QA methodologies', 'defect tracking', 'agile', 'client demos'],
+    logo: brandAssets.virtusa,
+    mark: 'VU',
+    highlight: 'British Telecommunications platform',
   },
 ];
 
