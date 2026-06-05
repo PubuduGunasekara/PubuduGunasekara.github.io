@@ -615,9 +615,9 @@ function StoryVisual({ surface, muted }: { surface: string; muted: string }) {
       detail: 'Building practical AI-assisted engineering workflows with structured output and service boundaries.',
     },
     {
-      label: 'Interviewing',
-      value: 'Java-first DSA',
-      detail: 'Java-first DSA, weekly review, company-tagged practice, and project-based preparation.',
+      label: 'Distributed Systems',
+      value: 'Kafka + Redis',
+      detail: 'Designing for at-least-once delivery, safe concurrency, retries, and observability.',
     },
   ];
   const [active, setActive] = useState(0);
