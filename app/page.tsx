@@ -18,7 +18,6 @@ const nav = [
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
-  { id: 'prep', label: 'Prep' },
   { id: 'leadership', label: 'Leadership' },
   { id: 'education', label: 'Education' },
   { id: 'certifications', label: 'Certs' },
@@ -53,7 +52,7 @@ const storyPoints = [
   {
     label: '04 / Direction',
     title: 'Now I am moving toward scalable software and AI systems.',
-    body: 'At Northeastern University Silicon Valley, my focus is backend systems, cloud infrastructure, machine learning, NLP, and AI-assisted engineering workflows.',
+    body: 'At Northeastern University Silicon Valley, my focus is backend systems, distributed systems, cloud infrastructure, and AI-assisted engineering workflows.',
   },
 ];
 
@@ -62,11 +61,11 @@ const experience = [
     role: 'Associate Engineer - QA Automation',
     company: 'Virtusa',
     period: '2021 - 2022',
-    body: 'Built Java and Selenium automation for a British Telecom production platform serving 1M+ users. Reduced regression test cycles from 4 hours to 45 minutes (80% reduction). Led QA sub-team across international sprint cycles spanning Sri Lanka, UK, and Australia. Delivered client demos that secured continued project investment. Integrated automation into Jenkins CI/CD pipelines for nightly quality gates.',
+    body: 'Built Java and Selenium automation for a British Telecom production platform serving 1M+ users, cutting regression test cycles from hours to minutes. Led a QA sub-team across international sprint cycles spanning Sri Lanka, the UK, and Australia, and delivered client-facing demos. Integrated automation into Jenkins CI/CD pipelines for nightly quality gates.',
     focus: ['Java', 'Selenium', 'Jenkins', 'CI/CD', 'TestNG', 'JIRA', 'BDD', 'team leadership', 'client presentation'],
     logo: brandAssets.virtusa,
     mark: 'VU',
-    highlight: '1M+ users · 80% test time reduction',
+    highlight: '1M+ user production platform',
   },
   {
     role: 'Web Developer',
@@ -81,126 +80,87 @@ const experience = [
 ];
 
 const skills: Array<[string, string[]]> = [
-  ['Languages', ['Java', 'JavaScript', 'TypeScript', 'Python', 'Kotlin', 'C++']],
+  ['Languages', ['Java', 'JavaScript', 'TypeScript', 'Python', 'C++']],
   ['Frontend', ['React', 'Next.js', 'React Native', 'Redux', 'Tailwind CSS', 'HTML5', 'CSS3']],
   ['Backend', ['Node.js', 'Express', 'Spring Boot', 'FastAPI', 'REST APIs', 'GraphQL']],
-  ['Distributed Systems', ['Apache Kafka', 'Redis', 'Docker', 'Kubernetes', 'Microservices', 'CI/CD']],
-  ['Cloud & Infra', ['AWS (EC2, S3)', 'Azure', 'IBM Cloud', 'Prometheus', 'Grafana', 'GitHub Actions', 'Jenkins']],
-  ['AI / ML', ['scikit-learn', 'TensorFlow/Keras', 'OpenAI API', 'Pandas', 'NumPy', 'NLP', 'Responsible AI']],
+  ['Distributed Systems', ['Apache Kafka', 'Redis', 'Docker', 'Microservices', 'CI/CD']],
+  ['Cloud & Infra', ['AWS (EC2, S3)', 'Prometheus', 'Grafana', 'GitHub Actions', 'Jenkins']],
+  ['Applied AI', ['OpenAI / LLM APIs', 'LLM integration', 'structured output']],
   ['Databases', ['PostgreSQL', 'MongoDB', 'MySQL', 'Firebase', 'Redis']],
 ];
 
 const projects = [
   {
-    title: 'AI Code Review Assistant',
-    eyebrow: 'Active build · AI tooling',
-    status: 'Building · Week 1 of 6',
+    title: 'Distributed Task Scheduler',
+    eyebrow: 'Backend · Distributed systems',
+    status: 'Built',
     statusColor: 'text-signal-green',
-    href: 'https://github.com/PubuduGunasekara/ai-code-reviewer',
+    href: 'https://github.com/PubuduGunasekara/distributed-task-scheduler',
     demo: null,
-    body: 'GPT-4o powered GitHub PR reviewer. OAuth login connects repositories, reviews pull request diffs, and returns inline comments with severity scores and CWE references. Redis handles rate limiting and repeated diff chunks, with GitHub Actions deploying the app to AWS EC2.',
-    challenge: 'Build an AI tool that handles real GitHub diffs with sub-2s review latency, caching identical chunks in Redis to cut API costs.',
-    impact: 'This is my main January 2027 portfolio build: LLM integration, full-stack engineering, and DevOps in one practical tool.',
-    stack: ['Node.js', 'Express', 'GPT-4o API', 'React', 'Redis', 'GitHub OAuth', 'PostgreSQL', 'Docker', 'GitHub Actions', 'AWS EC2'],
+    body: 'A distributed task scheduler in Java 21 and Spring Boot. Tasks are delivered at least once over Kafka, a Redis distributed lock prevents duplicate execution, failures retry with exponential backoff, and exhausted tasks move to a dead-letter queue. Prometheus and Grafana provide observability, and CI publishes a container image to GitHub Container Registry.',
+    stack: ['Java 21', 'Spring Boot', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker', 'Prometheus', 'Grafana', 'JUnit', 'GitHub Actions'],
     featured: true,
     embed: null,
   },
   {
-    title: 'Distributed Task Scheduler',
-    eyebrow: 'Planned build · Distributed systems',
-    status: 'Planned · July 2026',
-    statusColor: 'text-signal-cyan',
-    href: 'https://github.com/PubuduGunasekara',
+    title: 'AI Code Review Assistant',
+    eyebrow: 'Full-stack · Applied AI',
+    status: 'Live',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/ai-code-reviewer',
+    demo: 'https://main.d3dm91k4g9mtr9.amplifyapp.com/',
+    body: 'Sign in with GitHub, pick an open pull request, and get an instant review with severity-tagged findings from gpt-4o-mini. Sessions persist in PostgreSQL, the expensive review endpoint is rate limited with Redis, and large diffs are trimmed to fit the model context. The backend runs on AWS EC2 and the frontend on AWS Amplify.',
+    stack: ['Node.js', 'Express', 'React', 'gpt-4o-mini', 'Redis', 'PostgreSQL', 'GitHub OAuth', 'Docker', 'AWS EC2', 'AWS Amplify'],
+    featured: true,
+    embed: null,
+  },
+  {
+    title: 'Travel Day Scheduler',
+    eyebrow: 'Algorithms · Weighted A*',
+    status: 'Built',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/SmartTravelPlanner',
     demo: null,
-    body: 'Production-scale task scheduler built on Kafka. Processes 10,000 tasks/min at p99 <50ms across 3 worker nodes. Redis distributed locking prevents duplicate execution across workers. Full Prometheus + Grafana monitoring dashboard.',
-    challenge: 'Design fault-tolerant distributed execution with exponential backoff retry, dead-letter queues, and horizontal scaling without duplicate task runs.',
-    impact: 'A focused systems project for practicing Kafka, distributed locks, retries, monitoring, and failure handling in a realistic backend setting.',
-    stack: ['Java 21', 'Spring Boot 3', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker Compose', 'Prometheus', 'Grafana', 'JUnit 5', 'Testcontainers'],
+    body: 'Given a set of places to visit in a day, this finds the itinerary that maximizes enjoyment within a time budget using Weighted A* search. Each node is a (time, location, places-visited) state, and the search escalates its weight and prunes the open set to stay fast and bounded over real travel-time matrices. Served through a Flask API with a web frontend. A graduate algorithms team project, my part was the Weighted A* search and the frontend.',
+    stack: ['Python', 'Weighted A*', 'Flask', 'JavaScript'],
+    featured: false,
+    embed: null,
+  },
+  {
+    title: 'Bird Conservatory Management System',
+    eyebrow: 'Object-oriented design · CS5010',
+    status: 'Built',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/Bird-Conservatory-Management-System',
+    demo: null,
+    body: 'A Java application modeling a bird conservatory: seven bird types in a multi-level class hierarchy, aviary housing rules that reject extinct species, food tracking across all housed birds, and a guest directory. Built with abstract classes, enums, and a JUnit test suite.',
+    stack: ['Java', 'OOP', 'JUnit'],
+    featured: false,
+    embed: null,
+  },
+  {
+    title: 'Role Playing Games',
+    eyebrow: 'Design patterns · CS5010',
+    status: 'Built',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/RolePlayingGames',
+    demo: null,
+    body: 'A turn-based RPG battle simulator in Java. Characters equip gear, items auto-combine when a slot is full, and a greedy rule drives each turn. Built around a Template Method pattern, immutable items, and a seeded random source so battles are deterministic in tests.',
+    stack: ['Java', 'Design patterns', 'JUnit'],
     featured: false,
     embed: null,
   },
   {
     title: 'IoT Smart Farm System',
-    eyebrow: 'Identity project · v2 coming August',
-    status: 'Complete / evolving',
+    eyebrow: 'Mobile · IoT · Team project',
+    status: 'Complete · Award winner',
     statusColor: 'text-signal-amber',
     href: 'https://github.com/PubuduGunasekara/smart-farm-1.1.0',
-    demo: 'https://www.linkedin.com/posts/pubudugunasekera_informationtechnology-project-teamleadership-ugcPost-6794005940980072448-amQm',
-    body: 'Led a team building a Smart Farm system around NodeMCU sensors, Firebase real-time data, and React Native monitoring. Connected embedded hardware, cloud-backed state, and mobile UX into a working agricultural automation prototype. v2 adds ML anomaly detection.',
-    challenge: 'Coordinate hardware, mobile software, real-time data pipelines, and team execution into one reliable system with sub-second sensor response.',
-    impact: 'My first major team leadership project, connecting hardware, software, and cloud layers. It now sets up the ML Anomaly Detection platform planned for August 2026.',
-    stack: ['NodeMCU', 'IoT', 'React Native', 'Firebase', 'Android', 'iOS', 'real-time monitoring', 'team leadership'],
+    demo: 'https://www.linkedin.com/posts/pubudugunasekera_softwareengineering-iot-fullstackdevelopment-ugcPost-6794005940980072448-jYhD/',
+    body: 'A cross-platform mobile app (Android and iOS) that connects to an IoT-enabled farm model for real-time monitoring and control of water, food, gate, and cleaning, plus staff shift management and role-based access. Built with React Native, Redux, and Firebase. Selected as one of the Top 10 Most Innovative Projects at the NSBM Green EXE v1.0 Software Competition.',
+    stack: ['React Native', 'Redux', 'Firebase', 'IoT', 'Android', 'iOS'],
     featured: false,
     embed: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6794005940980072448?compact=1',
-  },
-  {
-    title: 'ML Anomaly Detection Platform',
-    eyebrow: 'Planned build · Smart Farm v2',
-    status: 'Planned · August 2026',
-    statusColor: 'text-signal-cyan',
-    href: links.github,
-    demo: null,
-    body: 'Extension of Smart Farm v1 that adds production ML. Isolation Forest and LSTM time-series models detect sensor anomalies in real time. A FastAPI inference service streams updates over WebSockets, while the React Native dashboard sends Firebase Cloud Messaging alerts.',
-    challenge: 'Translate ML model outputs into reliable real-time software with <50ms inference latency, observable pipelines, and mobile-first alerting.',
-    impact: 'A practical bridge between software engineering and ML: real-time inference, mobile alerts, IoT data, and an automated retraining workflow.',
-    stack: ['Python', 'FastAPI', 'scikit-learn', 'TensorFlow/Keras', 'React Native', 'Firebase', 'WebSockets', 'Docker', 'GitHub Actions', 'AWS S3'],
-    featured: false,
-    embed: null,
-  },
-  {
-    title: 'Cloud Dealership Platform',
-    eyebrow: 'Infrastructure and delivery',
-    status: 'Complete',
-    statusColor: 'text-signal-green',
-    href: 'https://github.com/PubuduGunasekara/xrwvm-fullstack_developer_capstone',
-    demo: null,
-    body: 'Full-stack dealership review platform with containerised services, CI/CD automation, Kubernetes orchestration, and IBM Cloud Code Engine deployment. React frontend, Django + Node.js backend, MongoDB persistence.',
-    challenge: 'Move beyond application code into deployment, infrastructure, and production-style delivery with full CI/CD automation.',
-    impact: 'Shows cloud engineering, Kubernetes orchestration, and release automation across a multi-service architecture on IBM Cloud.',
-    stack: ['React', 'Node.js', 'Django', 'MongoDB', 'Docker', 'Kubernetes', 'Jenkins', 'GitHub Actions', 'IBM Cloud'],
-    featured: false,
-    embed: null,
-  },
-  {
-    title: 'Multi-User MERN Application',
-    eyebrow: 'Full-stack product engineering',
-    status: 'Complete',
-    statusColor: 'text-signal-green',
-    href: 'https://github.com/PubuduGunasekara/Multi-User-Blog',
-    demo: null,
-    body: 'Multi-user blogging platform with JWT authentication, role-based access, REST API design, and Next.js server-side rendering for SEO. Redux state management, MongoDB Atlas for scalable data persistence.',
-    challenge: 'Design a coherent full-stack architecture with clear user flows, secure auth, and maintainable service boundaries.',
-    impact: 'Full MERN delivery across UI, APIs, auth, and data persistence with SSR. Demonstrates clean full-stack architecture with JWT authentication, role-based access, and production patterns applied to a real multi-user product.',
-    stack: ['React', 'Next.js', 'Node.js', 'Express', 'MongoDB', 'Redux', 'JWT', 'REST APIs', 'SEO'],
-    featured: false,
-    embed: null,
-  },
-];
-
-const prep: Array<[string, string, string]> = [
-  ['LeetCode', '90 / 800+ target', 'Java-first DSA practice with NeetCode 150, company-tagged problems, and weekly review.'],
-  ['Daily rhythm', '3-6 hrs/day', 'Roadmap cadence: DSA every day, focused project work, alternating system design and behavioral preparation.'],
-  ['Applications', '100+ thoughtful targets', 'Organizing referrals, alumni outreach, targeted applications, and interview follow-ups without making the portfolio feel numbers-only.'],
-];
-
-const plannedBuilds = [
-  {
-    name: 'AI Code Review Assistant',
-    stack: 'Node.js · GPT-4o · React · Redis',
-    timing: 'Week 1',
-    status: 'Currently building',
-  },
-  {
-    name: 'Distributed Task Scheduler',
-    stack: 'Java · Kafka · Redis · Grafana',
-    timing: 'July',
-    status: 'Next build',
-  },
-  {
-    name: 'ML Anomaly Detection',
-    stack: 'Python · FastAPI · React Native · TensorFlow',
-    timing: 'August',
-    status: 'Next build',
   },
 ];
 
@@ -210,7 +170,7 @@ const leadership = [
   'Led Smart Farm IoT project team: coordinated hardware, software, and cloud execution',
   '1st Place, NSBM Green University overnight hackathon',
   'Led QA sub-team at Virtusa across AU / UK / LK sprint cycles',
-  'Delivered client-facing demos at Virtusa that secured continued BT project investment',
+  'Delivered client-facing demos at Virtusa',
 ];
 
 const certifications: Array<[string, string, string]> = [
@@ -401,8 +361,7 @@ export default function Page() {
               building distributed systems and AI-powered products. Previously worked as an SDET at
               Virtusa on a British Telecom platform with over{' '}
               <span className="text-signal-green font-medium">1M users</span>
-              {', '}where I helped reduce regression testing by{' '}
-              <span className="text-signal-green font-medium">80%</span>.
+              {', '}where I helped build Java and Selenium automation for regression testing.
             </p>
             <HeroActions />
           </div>
@@ -432,14 +391,8 @@ export default function Page() {
                 value={<><AnimatedCounter target={1} suffix="M+" /></>}
                 label="BT users served"
               />
-              <Metric
-                value={<><AnimatedCounter target={80} suffix="%" /></>}
-                label="test time reduced"
-              />
-              <Metric
-                value={<><AnimatedCounter target={90} suffix="/800+" /></>}
-                label="LeetCode progress"
-              />
+              <Metric value="CI/CD" label="quality gates" />
+              <Metric value="Java" label="DSA practice" />
             </div>
           </aside>
         </motion.header>
@@ -500,34 +453,7 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="prep" eyebrow="05" title="Internship Preparation">
-          <div className="grid gap-4 md:grid-cols-3">
-            {prep.map(([title, metric, body]) => (
-              <EditorialCard key={title} surface={surface}>
-                <p className="font-mono text-xs text-signal-amber">{metric}</p>
-                <h3 className="mt-4 text-xl font-semibold tracking-tight">{title}</h3>
-                <p className={`mt-3 leading-7 ${muted}`}>{body}</p>
-              </EditorialCard>
-            ))}
-          </div>
-          <div className="mt-5 grid gap-3">
-            <p className={`font-mono text-xs ${muted}`}>active build pipeline</p>
-            {plannedBuilds.map((build) => (
-              <EditorialCard key={build.name} surface={surface}>
-                <div className="grid gap-3 md:grid-cols-[1fr_1.1fr_9rem_9rem] md:items-center">
-                  <p className="text-lg font-semibold tracking-tight">{build.name}</p>
-                  <p className={`font-mono text-xs ${muted}`}>{build.stack}</p>
-                  <p className="font-mono text-xs text-signal-amber">{build.timing}</p>
-                  <p className={`font-mono text-xs ${build.status === 'Currently building' ? 'text-signal-green' : 'text-signal-cyan'}`}>
-                    {build.status}
-                  </p>
-                </div>
-              </EditorialCard>
-            ))}
-          </div>
-        </Section>
-
-        <Section id="leadership" eyebrow="06" title="Leadership & Growth">
+        <Section id="leadership" eyebrow="05" title="Leadership & Growth">
           <EditorialCard surface={surface}>
             <p className={`max-w-3xl leading-8 ${muted}`}>
               Leadership has been a constant thread: from winning a hackathon overnight to leading cross-country QA teams at Virtusa on a 1M+ user production platform, to coordinating hardware, software, and cloud teams on the Smart Farm project. Now developing structured leadership frameworks through Northeastern&apos;s Graduate Leadership Institute.
@@ -540,7 +466,7 @@ export default function Page() {
           </EditorialCard>
         </Section>
 
-        <Section id="education" eyebrow="07" title="Education">
+        <Section id="education" eyebrow="06" title="Education">
           <div className="grid gap-4">
             {education.map((item) => (
               <EditorialCard key={item.school} surface={surface}>
@@ -560,7 +486,7 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="certifications" eyebrow="08" title="Certifications">
+        <Section id="certifications" eyebrow="07" title="Certifications">
           <div className="grid gap-3 md:grid-cols-2">
             {certifications.map(([name, issuer, href], index) => (
               <a key={name} href={href} target="_blank" rel="noreferrer">
@@ -573,7 +499,7 @@ export default function Page() {
           </div>
         </Section>
 
-        <Section id="contact" eyebrow="09" title="Contact">
+        <Section id="contact" eyebrow="08" title="Contact">
           <EditorialCard surface={surface}>
             <h2 className="text-4xl font-semibold tracking-[-0.045em]">Let&apos;s build useful systems.</h2>
             <p className={`mt-5 max-w-2xl leading-8 ${muted}`}>
@@ -680,17 +606,17 @@ function StoryVisual({ surface, muted }: { surface: string; muted: string }) {
     },
     {
       label: 'Cloud',
-      value: 'Docker + Kubernetes',
+      value: 'Docker + CI/CD',
       detail: 'Turning full-stack projects into deployable systems with CI/CD and observable infrastructure.',
     },
     {
-      label: 'ML/NLP',
-      value: 'Fall 2026 focus',
-      detail: 'Preparing for Machine Learning and NLP coursework through practical AI-assisted systems.',
+      label: 'Applied AI',
+      value: 'LLM integration',
+      detail: 'Building practical AI-assisted engineering workflows with structured output and service boundaries.',
     },
     {
       label: 'Interviewing',
-      value: '90 / 800+ LeetCode',
+      value: 'Java-first DSA',
       detail: 'Java-first DSA, weekly review, company-tagged practice, and project-based preparation.',
     },
   ];
@@ -711,7 +637,7 @@ function StoryVisual({ surface, muted }: { surface: string; muted: string }) {
         ))}
       </div>
       <div className={`mt-8 rounded-2xl border border-slate-500/15 p-4 text-sm leading-6 ${muted}`}>
-        Full-stack systems, cloud delivery, automation, and a current turn toward ML/NLP systems.
+        Full-stack systems, distributed systems, cloud delivery, automation, and AI-assisted engineering workflows.
       </div>
       <div className="mt-5">
         <p className="font-mono text-xs text-signal-cyan">current focus</p>
@@ -749,8 +675,8 @@ function ProjectCard({
     statusColor?: string;
     href: string;
     body: string;
-    challenge: string;
-    impact: string;
+    challenge?: string;
+    impact?: string;
     stack: string[];
     featured?: boolean;
     embed?: string | null;
@@ -767,10 +693,16 @@ function ProjectCard({
           <p className="font-mono text-xs text-signal-cyan">0{index + 1} / {project.eyebrow}</p>
           <h3 className="mt-4 text-3xl font-semibold tracking-[-0.045em]">{project.title}</h3>
           <p className={`mt-4 leading-7 ${muted}`}>{project.body}</p>
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <p className={`text-sm leading-6 ${muted}`}><span className="font-semibold text-current">Challenge: </span>{project.challenge}</p>
-            <p className={`text-sm leading-6 ${muted}`}><span className="font-semibold text-current">Impact: </span>{project.impact}</p>
-          </div>
+          {(project.challenge || project.impact) && (
+            <div className="mt-6 grid gap-4 md:grid-cols-2">
+              {project.challenge && (
+                <p className={`text-sm leading-6 ${muted}`}><span className="font-semibold text-current">Challenge: </span>{project.challenge}</p>
+              )}
+              {project.impact && (
+                <p className={`text-sm leading-6 ${muted}`}><span className="font-semibold text-current">Impact: </span>{project.impact}</p>
+              )}
+            </div>
+          )}
           <TagList items={project.stack} />
           {project.embed && (
             <div className="mt-7 overflow-hidden rounded-3xl border border-slate-500/15 bg-slate-500/10">
@@ -787,7 +719,7 @@ function ProjectCard({
           <p className={`font-mono text-xs ${project.statusColor || 'text-signal-amber'}`}>{project.status}</p>
           <div className="flex flex-col gap-3">
             <SecondaryLink href={project.href}>GitHub</SecondaryLink>
-            {project.demo && <SecondaryLink href={project.demo}>Demo post</SecondaryLink>}
+            {project.demo && <SecondaryLink href={project.demo}>Demo</SecondaryLink>}
           </div>
         </div>
       </div>
