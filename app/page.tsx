@@ -60,7 +60,7 @@ const experience = [
   {
     role: 'Web Developer',
     company: 'Gunasekara Transport',
-    period: '2025 - Present · Remote',
+    period: '2025 - 2026 · Remote',
     body: 'Building the company’s web presence and internal software as it expands into online construction-material-supply services. I build and maintain the corporate website and web app interfaces, and an internal business management system that replaces manual processes with modules for HR, operational workflows, data management, and business reporting.',
     focus: ['React.js', 'JavaScript', 'WordPress', 'PHP', 'Docker', 'internal business systems', 'cloud hosting', 'web development'],
     logo: brandAssets.gunasekaraTransport,
