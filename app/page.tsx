@@ -71,7 +71,7 @@ const experience = [
     role: 'Associate Engineer – QA',
     company: 'Virtusa',
     period: '2021 - 2022',
-    body: 'QA engineer on a British Telecommunications platform, deployed through Virtusa. Built Java and Selenium WebDriver test automation, led test planning, and ran client demos and stand-ups for the module while collaborating with developers to validate bug fixes and tracking defect densities and open defect counts.',
+    body: 'Associate Engineer, QA at Virtusa, deployed as an SDET on a British Telecommunications platform serving over 1M users. Built Java and Selenium WebDriver test automation, led test planning, and ran client demos and stand-ups for the module while collaborating with developers to validate bug fixes and tracking defect densities and open defect counts.',
     focus: ['Java', 'Selenium', 'test automation', 'test planning', 'QA methodologies', 'defect tracking', 'agile', 'client demos'],
     logo: brandAssets.virtusa,
     mark: 'VU',
