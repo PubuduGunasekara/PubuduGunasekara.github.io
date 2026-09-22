@@ -1,0 +1,90 @@
+'use client';
+
+import { useMemo, useState } from 'react';
+import { motion } from 'framer-motion';
+import { links, nav } from '@/lib/content';
+import { useTheme } from '@/lib/theme';
+import { useActiveSection } from '@/lib/useActiveSection';
+import { MenuIcon } from './ui/icons';
+import { ThemeToggle } from './ui/ThemeToggle';
+import { PrimaryLink } from './ui/Links';
+
+export function Nav() {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { surface, mobileMenuSurface, mobileMenuItem, muted } = useTheme();
+  const navIds = useMemo(() => nav.map((item) => item.id), []);
+  const activeId = useActiveSection(navIds);
+
+  return (
+    <nav className="sticky top-0 z-50 mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-5 py-4 backdrop-blur-xl sm:px-8">
+      <a href="#top" className="flex shrink-0 items-center gap-3 font-mono text-sm tracking-tight">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/assets/pg-mark.svg" alt="" className="h-8 w-8" />
+        <span className="hidden sm:inline">pubudugunasekara.dev</span>
+      </a>
+
+      <div className={`hidden items-center gap-1 rounded-full border px-2 py-1.5 text-xs xl:flex ${surface}`}>
+        {nav.map((item) => (
+          <a
+            key={item.id}
+            href={`#${item.id}`}
+            className={`rounded-full px-2.5 py-1 transition ${
+              activeId === item.id ? 'text-signal-cyan' : `${muted} hover:text-current`
+            }`}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <div className="flex shrink-0 items-center gap-2">
+        <div className="hidden sm:block">
+          <PrimaryLink href={links.resume}>Resume</PrimaryLink>
+        </div>
+        <ThemeToggle />
+        <button
+          type="button"
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
+          onClick={() => setMenuOpen((open) => !open)}
+          className={`inline-flex h-9 w-9 items-center justify-center rounded-full border transition hover:border-signal-cyan xl:hidden ${surface}`}
+        >
+          <MenuIcon open={menuOpen} />
+        </button>
+      </div>
+
+      {menuOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
+          className={`absolute left-5 right-5 top-[4.5rem] rounded-3xl border p-2 backdrop-blur-xl xl:hidden ${mobileMenuSurface}`}
+        >
+          <div className="grid grid-cols-2 gap-1">
+            {nav.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                onClick={() => setMenuOpen(false)}
+                className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
+                  activeId === item.id ? 'text-signal-cyan' : mobileMenuItem
+                }`}
+              >
+                {item.label}
+              </a>
+            ))}
+            <a
+              href={links.resume}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className={`col-span-2 rounded-2xl px-4 py-3 text-center text-sm font-semibold sm:hidden ${mobileMenuItem}`}
+            >
+              Resume
+            </a>
+          </div>
+        </motion.div>
+      )}
+    </nav>
+  );
+}

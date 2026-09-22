@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist_Mono, Inter } from 'next/font/google';
+import { Geist_Mono, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 
-const inter = Inter({
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-space-grotesk',
 });
 
 const geistMono = Geist_Mono({
@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'Pubudu Gunasekara · Software Engineer · SWE Intern Jan 2027',
+  title: 'Pubudu Gunasekara · Software Engineer · Open to SWE Internships Summer 2027',
   description:
-    'M.S. in Computer Science at Northeastern University, Silicon Valley. Focused on Java, distributed systems, full-stack engineering, and AI-powered products. Seeking SWE Internship January 2027.',
+    'M.S. in Computer Science at Northeastern University, Silicon Valley. Focused on Java, distributed systems, full-stack engineering, and AI-powered products. Open to SWE Internships for Summer 2027.',
   keywords: [
     'software engineer',
     'SWE intern',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pubudu Gunasekara · Software Engineer',
     description:
-      'M.S. CS @ Northeastern University · Java · Distributed Systems · AI/ML · Available Jan 2027',
+      'M.S. CS @ Northeastern University · Java · Distributed Systems · AI/ML · Open to SWE Internships Summer 2027',
     url: 'https://pubudugunasekara.github.io',
     siteName: 'Pubudu Gunasekara Portfolio',
     locale: 'en_US',
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary',
-    title: 'Pubudu Gunasekara · Software Engineer · SWE Intern Jan 2027',
-    description: 'M.S. CS @ Northeastern · Java · Distributed Systems · AI/ML · Available Jan 2027',
+    title: 'Pubudu Gunasekara · Software Engineer · Open to SWE Internships Summer 2027',
+    description: 'M.S. CS @ Northeastern · Java · Distributed Systems · AI/ML · Open to SWE Internships Summer 2027',
   },
   robots: {
     index: true,
@@ -63,7 +63,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${geistMono.variable}`}>
+    <html lang="en" className={`${spaceGrotesk.variable} ${geistMono.variable}`}>
       <body>{children}</body>
     </html>
   );

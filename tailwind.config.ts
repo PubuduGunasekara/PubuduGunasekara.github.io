@@ -1,33 +1,34 @@
 import type { Config } from 'tailwindcss';
 
 const config: Config = {
-  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './lib/**/*.{ts,tsx}'],
   theme: {
     extend: {
       fontFamily: {
-        sans: ['var(--font-inter)', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-space-grotesk)', 'Space Grotesk', 'system-ui', 'sans-serif'],
         mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       colors: {
         ink: {
-          950: '#05070d',
-          900: '#0a0d14',
-          850: '#10141d',
-          800: '#171c27',
-          700: '#242b38',
-          500: '#687386',
-          300: '#a8b0bf',
-          100: '#eef2f7',
+          950: '#121c21',
+          900: '#17232a',
+          850: '#1d2c33',
+          800: '#283a42',
+          700: '#3f5760',
+          500: '#7c8e92',
+          300: '#a9b6b5',
+          100: '#f6f2ea',
         },
         signal: {
-          blue: '#9db8ff',
-          cyan: '#7dd3fc',
-          green: '#86efac',
-          amber: '#f6d58c',
+          blue: 'rgb(var(--signal-blue) / <alpha-value>)',
+          cyan: 'rgb(var(--signal-cyan) / <alpha-value>)',
+          green: 'rgb(var(--signal-green) / <alpha-value>)',
+          amber: 'rgb(var(--signal-amber) / <alpha-value>)',
+          red: 'rgb(var(--signal-red) / <alpha-value>)',
         },
       },
       boxShadow: {
-        premium: '0 24px 80px rgba(0,0,0,0.28)',
+        premium: 'var(--shadow-premium)',
       },
     },
   },
