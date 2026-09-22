@@ -18,7 +18,7 @@ type ThemeStyles = {
 const ThemeContext = createContext<ThemeStyles | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>('dark');
+  const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
     const saved = window.localStorage.getItem('theme') as Theme | null;

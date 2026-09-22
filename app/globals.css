@@ -32,8 +32,8 @@ html {
 
 body {
   margin: 0;
-  background: #121c21;
-  color: #f6f2ea;
+  background: #f8f6f2;
+  color: #121c21;
   font-family: var(--font-space-grotesk), system-ui, sans-serif;
 }
 
