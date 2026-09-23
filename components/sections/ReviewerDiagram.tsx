@@ -38,7 +38,8 @@ const edges: Array<[NodeId, NodeId]> = [
 ];
 
 export function ReviewerDiagram() {
-  const { muted } = useTheme();
+  const { muted, theme } = useTheme();
+  const inactiveTextClass = theme === 'dark' ? 'text-ink-300' : 'text-ink-700';
   const isDesktop = useMediaQuery('(min-width: 640px)');
   const [selected, setSelected] = useState<NodeId>('api');
 
@@ -85,7 +86,7 @@ export function ReviewerDiagram() {
               aria-label={`${n.label}: ${n.info}`}
               aria-pressed={isActive}
               className={`cursor-pointer outline-none transition ${
-                isActive ? 'text-signal-cyan' : 'text-slate-500'
+                isActive ? 'text-signal-cyan' : inactiveTextClass
               } focus-visible:opacity-100`}
               onClick={() => setSelected(id)}
               onKeyDown={(event) => {
@@ -110,10 +111,10 @@ export function ReviewerDiagram() {
               {isActive && (
                 <rect x={-49} y={-25} width={98} height={50} rx={14} fill="none" stroke="currentColor" strokeOpacity={0.9} strokeWidth={1.5} strokeDasharray="3 3" />
               )}
-              <text textAnchor="middle" y={-2} fill="currentColor" className="font-mono text-[13px] font-semibold opacity-95">
+              <text textAnchor="middle" y={-2} fill="currentColor" className="font-mono text-[13px] font-semibold">
                 {n.label}
               </text>
-              <text textAnchor="middle" y={14} fill="currentColor" className="font-mono text-[10px] opacity-70">
+              <text textAnchor="middle" y={14} fill="currentColor" className="font-mono text-[10px] opacity-85">
                 {n.sub}
               </text>
             </g>
