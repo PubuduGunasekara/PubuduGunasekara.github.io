@@ -25,11 +25,10 @@ export const nav = [
 
 export const brandAssets = {
   northeastern: '/assets/northeastern-logo.png',
-  conestoga: 'https://upload.wikimedia.org/wikipedia/commons/4/46/Conestoga_College_logo.svg',
-  victoria: 'https://upload.wikimedia.org/wikipedia/en/c/c6/Victoria_University_%28Australia%29_logo.svg',
-  nibm: 'https://upload.wikimedia.org/wikipedia/en/3/3a/National_Institute_of_Business_Management_Logo.png',
-  virtusa: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Virtusa_Logo.svg',
-  gunasekaraTransport: 'https://gunasekaratransport.com/logo.JPG',
+  conestoga: '/assets/logos/conestoga.svg',
+  victoria: '/assets/logos/victoria.svg',
+  virtusa: '/assets/logos/virtusa.svg',
+  gunasekaraTransport: '/assets/logos/gunasekara-transport.jpg',
 };
 
 export const storyPoints = [
@@ -87,12 +86,13 @@ export const experience = [
   {
     role: 'Web Developer',
     company: 'Gunasekara Transport',
-    period: '2025 - 2026 · Remote',
+    period: 'Dec 2025 - Jun 2026 · Remote',
     bullets: [
       'Build and maintain the corporate website and web app interfaces as the company expands into online construction-material supply.',
-      'Built an internal business management system replacing manual processes — modules for HR, operational workflows, data management, and reporting.',
+      'Built an internal business management system replacing manual processes — modules for HR, operational workflows, and reporting.',
+      'Handle domain configuration and email gateway administration for the company’s web presence.',
     ],
-    focus: ['React.js', 'JavaScript', 'WordPress', 'PHP', 'Docker', 'internal business systems', 'cloud hosting', 'web development'],
+    focus: ['React.js', 'JavaScript', 'PHP', 'WordPress', 'Docker'],
     logo: brandAssets.gunasekaraTransport,
     mark: 'GT',
     highlight: 'Corporate site + internal business system',
@@ -100,13 +100,13 @@ export const experience = [
   {
     role: 'Associate Engineer – QA',
     company: 'Virtusa',
-    period: '2021 - 2022',
+    period: 'Jun 2021 - Mar 2022 · Colombo',
     bullets: [
-      'Built Java and Selenium WebDriver test automation for a British Telecommunications platform serving over 1M users.',
-      'Led test planning, client demos, and daily stand-ups for the module, collaborating with developers to validate bug fixes.',
-      'Tracked defect densities and open defect counts across agile sprints.',
+      'Built Java and Selenium WebDriver test automation for a British Telecommunications platform serving 1M+ users.',
+      'Designed and planned tests across agile sprints, working directly with developers to validate bug fixes.',
+      'Ran client demos and daily stand-ups under the QA lead’s delegation, and tracked defect metrics for the module.',
     ],
-    focus: ['Java', 'Selenium', 'test automation', 'test planning', 'QA methodologies', 'defect tracking', 'agile', 'client demos'],
+    focus: ['Java', 'Selenium WebDriver', 'RabbitMQ', 'Swagger UI', 'Camunda Cockpit', 'agile', 'defect tracking'],
     logo: brandAssets.virtusa,
     mark: 'VU',
     highlight: 'British Telecommunications platform',
@@ -117,45 +117,39 @@ export type SkillCategory = {
   category: string;
   items: string[];
   context: string;
+  secondary?: boolean;
 };
 
 export const skills: SkillCategory[] = [
   {
     category: 'Languages',
-    items: ['Java', 'JavaScript', 'TypeScript', 'Python', 'C++'],
-    context: 'Java anchors the Task Scheduler and Virtusa automation; Python and TypeScript span the rest of the projects below.',
+    items: ['Java', 'JavaScript', 'Python', 'SQL'],
+    context: 'Java anchors the Task Scheduler and the Virtusa automation; Python and SQL span the rest of the work below.',
   },
   {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'React Native', 'Redux', 'Tailwind CSS', 'HTML5', 'CSS3'],
-    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI.',
-  },
-  {
-    category: 'Backend',
-    items: ['Node.js', 'Express', 'Spring Boot', 'FastAPI', 'REST APIs', 'GraphQL'],
-    context: 'Spring Boot and Node.js / Express are the backbone of the Task Scheduler and AI Code Review Assistant.',
-  },
-  {
-    category: 'Distributed Systems',
-    items: ['Apache Kafka', 'Redis', 'Docker', 'Microservices', 'CI/CD'],
-    context: 'Kafka, Redis, and a hexagonal service boundary are the core of the Distributed Task Scheduler.',
+    category: 'Backend & Distributed',
+    items: ['Spring Boot', 'Node.js / Express', 'Apache Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'hexagonal architecture'],
+    context: 'Spring Boot, Kafka, Redis, and a hexagonal service boundary are the core of the Distributed Task Scheduler.',
   },
   {
     category: 'Cloud & Infra',
-    items: ['AWS (EC2, S3)', 'Prometheus', 'Grafana', 'GitHub Actions', 'Jenkins'],
-    context: 'Prometheus and Grafana instrument the Task Scheduler; GitHub Actions runs CI across every repo.',
+    items: ['Docker', 'Docker Compose', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'AWS'],
+    context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production.',
+  },
+  {
+    category: 'Frontend',
+    items: ['React', 'Next.js', 'React Native', 'Vite', 'Redux'],
+    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI.',
   },
   {
     category: 'Applied AI',
-    items: ['OpenAI / LLM APIs', 'LLM integration', 'structured output'],
-    context: 'Structured, schema-constrained LLM output drives the AI Code Review Assistant’s severity-tagged findings.',
-  },
-  {
-    category: 'Databases',
-    items: ['PostgreSQL', 'MongoDB', 'MySQL', 'Firebase', 'Redis'],
-    context: 'PostgreSQL and Redis handle persistence, session storage, and rate limiting in the AI Code Review Assistant.',
+    items: ['OpenAI API', 'LLM integration', 'structured outputs'],
+    context: 'The AI Code Review Assistant sends a prompt-specified JSON contract to gpt-4o-mini and defensively validates the response server-side before trusting it.',
+    secondary: true,
   },
 ];
+
+export const familiarSkills = ['C++', 'Jenkins'];
 
 export type Project = {
   title: string;
@@ -273,31 +267,23 @@ export type LeadershipEntry = {
 export const leadership: LeadershipEntry[] = [
   {
     title: 'Graduate Student Career Advisory Board Member',
-    meta: 'Northeastern University · Aug 2026 - Present · founding student rep, Khoury College',
+    meta: 'Northeastern University · Aug 2026 - Present · founding student representative, Khoury College',
   },
   {
     title: 'Graduate Leadership Institute (GLI)',
-    meta: 'Northeastern University, Silicon Valley',
-  },
-  {
-    title: 'CliftonStrengths Assessment',
-    meta: 'Understanding personal strengths in team contexts',
+    meta: 'Northeastern University, Silicon Valley · included a CliftonStrengths assessment',
   },
   {
     title: 'Smart Farm IoT Project — Team Lead',
     meta: 'Coordinated hardware, software, and cloud execution',
   },
   {
-    title: '1st Place — NSBM Green University Hackathon',
-    meta: 'Overnight hackathon win',
-  },
-  {
-    title: 'QA Sub-team Lead',
+    title: 'QA Sub-team Lead & Client-facing Demos',
     meta: 'Virtusa · AU / UK / LK sprint cycles',
   },
   {
-    title: 'Client-facing Demos',
-    meta: 'Virtusa',
+    title: '1st Place — NSBM Green University Hackathon',
+    meta: 'Overnight hackathon win',
   },
 ];
 
@@ -332,11 +318,6 @@ export const certifications: Array<[string, string, string]> = [
     'JetBrains Academy + Additional',
     'https://www.linkedin.com/in/pubudugunasekera/details/certifications/',
   ],
-  [
-    'People & Soft Skills: Essential for Professional Success',
-    'IBM / Coursera',
-    'https://www.coursera.org/account/accomplishments/specialization/certificate/BF5BGR9ZE9YT',
-  ],
 ];
 
 export const education = [
@@ -344,13 +325,13 @@ export const education = [
     school: 'Northeastern University',
     program: 'M.S. Computer Science',
     meta: 'Silicon Valley, CA · Jan 2026 - Expected May 2028',
-    detail: 'GPA: 4.0 / 4.0. Completed: Algorithms, Programming Design Paradigm (Java). Planned: Machine Learning, NLP.',
+    detail: 'GPA: 4.0 / 4.0. Completed: Algorithms, Programming Design Paradigms (Java). In progress (Fall 2026): Machine Learning, Natural Language Processing.',
     logo: brandAssets.northeastern,
     mark: 'NU',
   },
   {
     school: 'Conestoga College',
-    program: 'Ontario Graduate Certificate - Mobile Solutions Development',
+    program: 'Postgraduate Certificate - Mobile Solutions Development',
     meta: 'Waterloo, ON, Canada · 2022 - 2023',
     detail: 'GPA: 3.74 / 4.0.',
     logo: brandAssets.conestoga,
@@ -360,17 +341,9 @@ export const education = [
     school: 'Victoria University Melbourne',
     program: 'Bachelor of Information Technology',
     meta: 'Offshore program, Colombo, Sri Lanka · 2018 - 2021',
-    detail: 'Web and Mobile Application Development, studied offshore in Sri Lanka. GPA: 6.25 / 7.0.',
+    detail: 'GPA: 6.25 / 7.0.',
     logo: brandAssets.victoria,
     mark: 'VU',
-  },
-  {
-    school: 'NIBM Colombo',
-    program: 'Higher National Diploma - Software Development',
-    meta: 'Colombo, Sri Lanka · 2016 - 2017',
-    detail: 'Software development foundation. GPA: 3.81 / 4.0.',
-    logo: brandAssets.nibm,
-    mark: 'NB',
   },
 ];
 
