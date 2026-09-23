@@ -33,13 +33,13 @@ function PageBody() {
       <Nav />
       <div id="top" className="relative mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <Hero />
-        <StorySection />
+        <ProjectsSection />
         <ExperienceSection />
         <SkillsSection />
-        <ProjectsSection />
-        <LeadershipSection />
         <EducationSection />
         <CertificationsSection />
+        <LeadershipSection />
+        <StorySection />
         <ContactSection />
         <Footer />
       </div>

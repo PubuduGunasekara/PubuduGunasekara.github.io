@@ -1,100 +1,104 @@
 'use client';
 
-import { useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { projects } from '@/lib/content';
+import Link from 'next/link';
+import { projects, type Project } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
 import { Section } from '../ui/Section';
-import { ChevronIcon } from '../ui/icons';
 import { EditorialCard } from '../ui/EditorialCard';
 import { BulletList, StackRow } from '../ui/StackRow';
 import { SecondaryLink } from '../ui/Links';
 import { SchedulerDiagram } from './SchedulerDiagram';
 
-function StatusDot({ color }: { color?: string }) {
-  const dotColor = color?.includes('green') ? 'bg-signal-green' : color?.includes('amber') ? 'bg-signal-amber' : 'bg-signal-cyan';
-  return <span className={`inline-block h-1.5 w-1.5 shrink-0 rounded-full ${dotColor}`} />;
+function FeaturedCard({ project, index }: { project: Project; index: number }) {
+  const { muted } = useTheme();
+
+  return (
+    <EditorialCard>
+      <p className="font-mono text-xs text-signal-cyan">
+        0{index + 1} / {project.eyebrow}
+      </p>
+      <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl">{project.title}</h3>
+      <p className={`mt-3 leading-7 ${muted}`}>{project.body}</p>
+
+      {project.highlights && <BulletList items={project.highlights} />}
+
+      <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
+        <p className="shrink-0 font-mono text-[10px] uppercase tracking-widest opacity-50">stack</p>
+        <StackRow items={project.stack} />
+      </div>
+
+      <div className="mt-6 flex flex-wrap items-center gap-3">
+        <SecondaryLink href={project.href}>Code</SecondaryLink>
+        {project.demo && <SecondaryLink href={project.demo}>Live Demo</SecondaryLink>}
+        {project.caseStudySlug && (
+          <Link
+            href={`/projects/${project.caseStudySlug}/`}
+            className="inline-flex items-center gap-1.5 rounded-full px-4 py-3 text-sm font-medium text-signal-cyan transition hover:gap-2.5"
+          >
+            Read the case study
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        )}
+      </div>
+
+      {project.hasDiagram && (
+        <div className="mt-7">
+          <SchedulerDiagram />
+        </div>
+      )}
+    </EditorialCard>
+  );
+}
+
+function EarlierProjectCard({ project }: { project: Project }) {
+  const { muted } = useTheme();
+
+  return (
+    <div className="rounded-2xl border border-slate-500/15 p-4">
+      <h4 className="text-sm font-semibold tracking-tight">{project.title}</h4>
+      <p className={`mt-1 font-mono text-[10px] uppercase tracking-widest ${muted}`}>{project.eyebrow}</p>
+      <p className={`mt-2 line-clamp-4 text-xs leading-5 ${muted}`}>{project.body}</p>
+      <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
+        <a href={project.href} target="_blank" rel="noreferrer" className="text-signal-cyan hover:underline">
+          Code
+        </a>
+        {project.demo && (
+          <>
+            <span className={muted}>&middot;</span>
+            <a href={project.demo} target="_blank" rel="noreferrer" className="text-signal-cyan hover:underline">
+              Details
+            </a>
+          </>
+        )}
+      </div>
+    </div>
+  );
 }
 
 export function ProjectsSection() {
   const { muted } = useTheme();
-  const [openSet, setOpenSet] = useState<Set<number>>(new Set([0]));
-
-  const toggle = (index: number) =>
-    setOpenSet((prev) => {
-      const next = new Set(prev);
-      if (next.has(index)) next.delete(index);
-      else next.add(index);
-      return next;
-    });
+  const featuredProjects = projects.filter((p) => p.featured);
+  const earlierProjects = projects.filter((p) => !p.featured);
 
   return (
-    <Section id="projects" eyebrow="04" title="Featured Projects">
-      <p className={`mb-6 text-sm ${muted}`}>
-        {projects.length} projects &middot; click any card to expand
-      </p>
-      <div className="grid gap-4 sm:grid-cols-2">
-        {projects.map((project, index) => {
-          const isOpen = openSet.has(index);
-          return (
-            <EditorialCard key={project.title} className={isOpen ? 'sm:col-span-2' : ''}>
-              <button type="button" onClick={() => toggle(index)} aria-expanded={isOpen} className="group flex w-full items-start justify-between gap-4 text-left">
-                <div>
-                  <p className="font-mono text-xs text-signal-cyan">
-                    0{index + 1} / {project.eyebrow}
-                  </p>
-                  <h3 className="mt-2 text-lg font-semibold tracking-tight transition group-hover:opacity-80 sm:text-xl">{project.title}</h3>
-                  <p className={`mt-2 flex items-center gap-2 text-xs leading-5 ${muted}`}>
-                    <StatusDot color={project.statusColor} />
-                    {project.status}
-                  </p>
-                </div>
-                <span className="mt-1 shrink-0">
-                  <ChevronIcon open={isOpen} />
-                </span>
-              </button>
+    <Section id="projects" eyebrow="01" title="Featured Work">
+      <p className={`mb-6 text-sm ${muted}`}>The projects I&rsquo;d point a hiring manager to first.</p>
 
-              {!isOpen && <p className={`mt-3 line-clamp-2 text-sm leading-6 ${muted}`}>{project.body}</p>}
+      <div className="grid gap-4">
+        <FeaturedCard project={featuredProjects[0]} index={0} />
+        <div className="grid gap-4 sm:grid-cols-2">
+          <FeaturedCard project={featuredProjects[1]} index={1} />
+          <FeaturedCard project={featuredProjects[2]} index={2} />
+        </div>
+      </div>
 
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: 'easeInOut' }}
-                    className="overflow-hidden"
-                  >
-                    <div className={project.hasDiagram ? 'mt-4 grid grid-cols-1 gap-8 xl:grid-cols-[1.05fr_1fr] xl:items-start' : 'mt-4'}>
-                      <div>
-                        <p className={`leading-7 ${muted}`}>{project.body}</p>
-                        {project.highlights && <BulletList items={project.highlights} />}
-
-                        <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
-                          <p className="shrink-0 font-mono text-[10px] uppercase tracking-widest opacity-40">stack</p>
-                          <StackRow items={project.stack} />
-                        </div>
-
-                        <div className="mt-7 flex flex-wrap gap-3">
-                          <SecondaryLink href={project.href}>GitHub</SecondaryLink>
-                          {project.demo && <SecondaryLink href={project.demo}>Demo</SecondaryLink>}
-                        </div>
-                      </div>
-
-                      {project.hasDiagram && <SchedulerDiagram />}
-                    </div>
-
-                    {project.embed && (
-                      <div className="mt-7 overflow-hidden rounded-3xl border border-slate-500/15 bg-slate-500/10">
-                        <iframe src={project.embed} title={`${project.title} LinkedIn demo`} className="h-[399px] w-full" allowFullScreen />
-                      </div>
-                    )}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </EditorialCard>
-          );
-        })}
+      <div className="mt-10 border-t border-slate-500/10 pt-8">
+        <p className={`font-mono text-[10px] uppercase tracking-widest ${muted}`}>Earlier projects</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {earlierProjects.map((project) => (
+            <EarlierProjectCard key={project.title} project={project} />
+          ))}
+        </div>
       </div>
     </Section>
   );

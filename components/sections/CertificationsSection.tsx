@@ -10,7 +10,7 @@ export function CertificationsSection() {
   const { muted } = useTheme();
 
   return (
-    <Section id="certifications" eyebrow="07" title="Certifications">
+    <Section id="certifications" eyebrow="05" title="Certifications">
       <RevealGroup className="grid gap-3 md:grid-cols-2">
         {certifications.map(([name, issuer, href], index) => (
           <RevealItem key={name}>

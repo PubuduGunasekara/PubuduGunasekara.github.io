@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { usePathname } from 'next/navigation';
 import { links, nav } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
 import { useActiveSection } from '@/lib/useActiveSection';
@@ -14,10 +15,13 @@ export function Nav() {
   const { surface, mobileMenuSurface, mobileMenuItem, muted } = useTheme();
   const navIds = useMemo(() => nav.map((item) => item.id), []);
   const activeId = useActiveSection(navIds);
+  const pathname = usePathname();
+  const isHome = pathname === '/';
+  const anchor = (id: string) => (isHome ? `#${id}` : `/#${id}`);
 
   return (
     <nav className="sticky top-0 z-50 mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-5 py-4 backdrop-blur-xl sm:px-8">
-      <a href="#top" className="flex shrink-0 items-center gap-3 font-mono text-sm tracking-tight">
+      <a href={anchor('top')} className="flex shrink-0 items-center gap-3 font-mono text-sm tracking-tight">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/assets/pg-mark.svg" alt="" className="h-8 w-8" />
         <span className="hidden sm:inline">pubudugunasekara.dev</span>
@@ -27,9 +31,9 @@ export function Nav() {
         {nav.map((item) => (
           <a
             key={item.id}
-            href={`#${item.id}`}
+            href={anchor(item.id)}
             className={`rounded-full px-2.5 py-1 transition ${
-              activeId === item.id ? 'text-signal-cyan' : `${muted} hover:text-current`
+              isHome && activeId === item.id ? 'text-signal-cyan' : `${muted} hover:text-current`
             }`}
           >
             {item.label}
@@ -62,10 +66,10 @@ export function Nav() {
             {nav.map((item) => (
               <a
                 key={item.id}
-                href={`#${item.id}`}
+                href={anchor(item.id)}
                 onClick={() => setMenuOpen(false)}
                 className={`rounded-2xl px-4 py-3 text-sm font-medium transition ${
-                  activeId === item.id ? 'text-signal-cyan' : mobileMenuItem
+                  isHome && activeId === item.id ? 'text-signal-cyan' : mobileMenuItem
                 }`}
               >
                 {item.label}

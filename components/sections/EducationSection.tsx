@@ -11,7 +11,7 @@ export function EducationSection() {
   const { muted } = useTheme();
 
   return (
-    <Section id="education" eyebrow="06" title="Education">
+    <Section id="education" eyebrow="04" title="Education">
       <RevealGroup className="flex flex-col gap-5">
         {education.map((item) => (
           <RevealItem key={item.school}>

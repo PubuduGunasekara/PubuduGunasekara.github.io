@@ -27,7 +27,7 @@ export function StorySection() {
     });
 
   return (
-    <Section id="story" eyebrow="01" title="Story">
+    <Section id="story" eyebrow="07" title="Story">
       <p className={`mb-10 max-w-2xl text-sm leading-6 ${muted}`}>{storySummary}</p>
 
       <div className="grid gap-16 lg:grid-cols-[1fr_15rem]">

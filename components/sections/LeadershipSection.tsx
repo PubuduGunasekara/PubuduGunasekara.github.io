@@ -11,7 +11,7 @@ export function LeadershipSection() {
   const { muted, surface } = useTheme();
 
   return (
-    <Section id="leadership" eyebrow="05" title="Leadership & Growth">
+    <Section id="leadership" eyebrow="06" title="Leadership & Growth">
       <RevealGroup className="grid gap-3 sm:grid-cols-2">
         {leadership.map((item, index) => (
           <RevealItem key={item.title}>

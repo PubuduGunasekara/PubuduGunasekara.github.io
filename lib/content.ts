@@ -13,13 +13,13 @@ export const heroSummary =
 export const heroTechLine = 'Java · Spring Boot · Kafka · Redis · PostgreSQL · AWS';
 
 export const nav = [
-  { id: 'story', label: 'Story' },
+  { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
   { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'leadership', label: 'Leadership' },
   { id: 'education', label: 'Education' },
   { id: 'certifications', label: 'Certs' },
+  { id: 'leadership', label: 'Leadership' },
+  { id: 'story', label: 'Story' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -170,6 +170,7 @@ export type Project = {
   featured?: boolean;
   embed?: string | null;
   hasDiagram?: boolean;
+  caseStudySlug?: string;
 };
 
 export const projects: Project[] = [
@@ -180,16 +181,17 @@ export const projects: Project[] = [
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/distributed-task-scheduler',
     demo: null,
-    body: 'A distributed task scheduler in Java 21 and Spring Boot.',
+    body: 'Background jobs need to run reliably across multiple workers — without duplicating work, losing failures silently, or leaving a job stuck forever if a worker crashes mid-task.',
     highlights: [
-      'At-least-once delivery over Kafka, with a Redis distributed lock preventing duplicate execution.',
-      'Failures retry with exponential backoff; exhausted tasks move to a dead-letter queue.',
-      'Prometheus and Grafana provide observability; CI publishes a container image to GitHub Container Registry.',
+      'Three independent layers — a Redis lock, a database state machine, and optimistic locking — stop the same job from running twice, even with Kafka’s at-least-once delivery.',
+      'Failed jobs retry with backoff (10s, 30s, 90s) before landing in a dead-letter queue instead of vanishing; a recovery sweeper catches jobs stuck behind a crashed worker.',
+      '164 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for live observability.',
     ],
     stack: ['Java 21', 'Spring Boot', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker', 'Prometheus', 'Grafana', 'JUnit', 'GitHub Actions'],
     featured: true,
     embed: null,
     hasDiagram: true,
+    caseStudySlug: 'task-scheduler',
   },
   {
     title: 'AI Code Review Assistant',
@@ -198,15 +200,16 @@ export const projects: Project[] = [
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/ai-code-reviewer',
     demo: 'https://main.d3dm91k4g9mtr9.amplifyapp.com/',
-    body: 'Sign in with GitHub, pick an open pull request, and get an instant review with severity-tagged findings from gpt-4o-mini.',
+    body: 'Pull requests often sit for a day or more before anyone looks at them — this signs in with GitHub, reads the diff, and gives every PR an instant, severity-tagged first-pass review.',
     highlights: [
-      'Sessions persist in PostgreSQL; the review endpoint is rate limited per user with Redis.',
-      'Large diffs are trimmed to fit the model’s context window before review.',
-      'Backend on AWS EC2, frontend on AWS Amplify.',
+      'Large diffs are trimmed to fit the model’s context window instead of failing outright; results are cached in Redis by diff hash so re-opening a PR is instant and free.',
+      'The review endpoint is rate limited per user in Redis and fails open — if Redis is briefly unavailable, reviews still work rather than the whole app going down.',
+      'Review history persists in PostgreSQL, so it survives a server restart even after the Redis cache expires.',
     ],
     stack: ['Node.js', 'Express', 'React', 'gpt-4o-mini', 'Redis', 'PostgreSQL', 'GitHub OAuth', 'Docker', 'AWS EC2', 'AWS Amplify'],
     featured: true,
     embed: null,
+    caseStudySlug: 'ai-code-reviewer',
   },
   {
     title: 'Travel Day Scheduler',
@@ -215,10 +218,26 @@ export const projects: Project[] = [
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/SmartTravelPlanner',
     demo: null,
-    body: 'Given a set of places to visit in a day, this finds the itinerary that maximizes enjoyment within a time budget using Weighted A* search. Each node is a (time, location, places-visited) state, and the search escalates its weight and prunes the open set to stay fast and bounded over real travel-time matrices. Served through a Flask API with a web frontend. A graduate algorithms team project, my part was the Weighted A* search and the frontend.',
+    body: 'Given a set of places to visit in a day, this finds the itinerary that fits in the most enjoyment within a time budget, using Weighted A* search over real travel-time matrices. A 2-person graduate algorithms project — I co-designed the algorithm and built the initial search plus the route-visualization frontend.',
+    highlights: [
+      'Each search state is (time, location, places-visited); the search escalates its weight and prunes the open set to stay fast and bounded.',
+      'Served through a Flask API with a JavaScript frontend that visualizes the resulting route.',
+    ],
     stack: ['Python', 'Weighted A*', 'Flask', 'JavaScript'],
-    featured: false,
+    featured: true,
     embed: null,
+  },
+  {
+    title: 'IoT Smart Farm System',
+    eyebrow: 'Mobile · IoT · Team project',
+    status: 'Complete · Award winner',
+    statusColor: 'text-signal-amber',
+    href: 'https://github.com/PubuduGunasekara/smart-farm-1.1.0',
+    demo: 'https://www.linkedin.com/posts/pubudugunasekera_softwareengineering-iot-fullstackdevelopment-ugcPost-6794005940980072448-jYhD/',
+    body: 'Cross-platform IoT farm-monitoring app (Android/iOS). Top 10 Most Innovative Projects, NSBM Green EXE v1.0.',
+    stack: ['React Native', 'Redux', 'Firebase', 'IoT', 'Android', 'iOS'],
+    featured: false,
+    embed: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6794005940980072448?compact=1',
   },
   {
     title: 'Bird Conservatory Management System',
@@ -243,18 +262,6 @@ export const projects: Project[] = [
     stack: ['Java', 'Design patterns', 'JUnit'],
     featured: false,
     embed: null,
-  },
-  {
-    title: 'IoT Smart Farm System',
-    eyebrow: 'Mobile · IoT · Team project',
-    status: 'Complete · Award winner',
-    statusColor: 'text-signal-amber',
-    href: 'https://github.com/PubuduGunasekara/smart-farm-1.1.0',
-    demo: 'https://www.linkedin.com/posts/pubudugunasekera_softwareengineering-iot-fullstackdevelopment-ugcPost-6794005940980072448-jYhD/',
-    body: 'A cross-platform mobile app (Android and iOS) that connects to an IoT-enabled farm model for real-time monitoring and control of water, food, gate, and cleaning, plus staff shift management and role-based access. Built with React Native, Redux, and Firebase. Selected as one of the Top 10 Most Innovative Projects at the NSBM Green EXE v1.0 Software Competition.',
-    stack: ['React Native', 'Redux', 'Firebase', 'IoT', 'Android', 'iOS'],
-    featured: false,
-    embed: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6794005940980072448?compact=1',
   },
 ];
 
