@@ -16,10 +16,6 @@ export function useMediaQuery(query: string) {
   return matches;
 }
 
-export function useIsFinePointer() {
-  return useMediaQuery('(hover: hover) and (pointer: fine)');
-}
-
 export function usePrefersReducedMotion() {
   return useMediaQuery('(prefers-reduced-motion: reduce)');
 }

@@ -6,12 +6,13 @@ import { ResumeIcon, SocialIcon, type SocialIconName } from './icons';
 export function PrimaryLink({ href, children }: { href: string; children: React.ReactNode }) {
   const { theme } = useTheme();
   const isDark = theme === 'dark';
+  const opensNewTab = href.startsWith('http') || href.endsWith('.pdf');
 
   return (
     <a
       href={href}
-      target={href.startsWith('http') ? '_blank' : undefined}
-      rel={href.startsWith('http') ? 'noreferrer' : undefined}
+      target={opensNewTab ? '_blank' : undefined}
+      rel={opensNewTab ? 'noreferrer' : undefined}
       className={`group inline-flex items-center gap-2 rounded-full bg-signal-cyan px-5 py-3 text-sm font-semibold shadow-[0_12px_35px_rgba(34,211,238,0.22)] transition hover:-translate-y-0.5 ${
         isDark ? 'text-ink-950 hover:bg-ink-100' : 'text-ink-100 hover:bg-ink-900'
       }`}

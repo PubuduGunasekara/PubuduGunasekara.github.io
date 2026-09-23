@@ -38,9 +38,7 @@ export function Nav() {
       </div>
 
       <div className="flex shrink-0 items-center gap-2">
-        <div className="hidden sm:block">
-          <PrimaryLink href={links.resume}>Resume</PrimaryLink>
-        </div>
+        <PrimaryLink href={links.resume}>Resume</PrimaryLink>
         <ThemeToggle />
         <button
           type="button"
@@ -73,15 +71,6 @@ export function Nav() {
                 {item.label}
               </a>
             ))}
-            <a
-              href={links.resume}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className={`col-span-2 rounded-2xl px-4 py-3 text-center text-sm font-semibold sm:hidden ${mobileMenuItem}`}
-            >
-              Resume
-            </a>
           </div>
         </motion.div>
       )}
