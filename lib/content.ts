@@ -46,7 +46,20 @@ export const journeySteps: JourneyStep[] = [
 
 export const journeyClosing = 'I started in test automation and moved steadily toward building backend and distributed systems.';
 
-export const experience = [
+export type Experience = {
+  role: string;
+  company: string;
+  period: string;
+  bullets: string[];
+  focus: string[];
+  logo: string;
+  mark: string;
+  highlights?: string[];
+  reflection?: string;
+  reflectionLink?: { label: string; href: string };
+};
+
+export const experience: Experience[] = [
   {
     role: 'Web Developer',
     company: 'Gunasekara Transport',
@@ -58,7 +71,7 @@ export const experience = [
     focus: ['React.js', 'JavaScript', 'PHP', 'WordPress', 'Docker'],
     logo: brandAssets.gunasekaraTransport,
     mark: 'GT',
-    highlight: 'Corporate site + internal business system',
+    highlights: ['Corporate site + internal business system'],
   },
   {
     role: 'Associate Engineer, QA',
@@ -72,7 +85,9 @@ export const experience = [
     focus: ['Java', 'Selenium WebDriver', 'CST Environment', 'Camunda Cockpit', 'RabbitMQ', 'Swagger UI', 'MQ Console', 'agile'],
     logo: brandAssets.virtusa,
     mark: 'VU',
-    highlight: 'British Telecommunications platform',
+    highlights: ['British Telecommunications platform', 'Production engineering · 1M+ user platform'],
+    reflection: 'Watching a production platform fail in real ways is why my projects are built around failure handling.',
+    reflectionLink: { label: 'See how this shaped the Task Scheduler', href: '/projects/task-scheduler/' },
   },
 ];
 
