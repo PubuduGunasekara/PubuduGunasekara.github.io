@@ -87,6 +87,15 @@ function CaseStudyBody({ caseStudy }: { caseStudy: CaseStudy }) {
           </div>
         </Prose>
 
+        {caseStudy.whyComponents && (
+          <section className="border-t border-slate-500/15 py-12">
+            <h2 className="text-xl font-semibold tracking-tight">Why these components</h2>
+            <div className="mt-4">
+              <DecisionList items={caseStudy.whyComponents} />
+            </div>
+          </section>
+        )}
+
         <section className="border-t border-slate-500/15 py-12">
           <h2 className="text-xl font-semibold tracking-tight">Key engineering decisions</h2>
           <div className="mt-4">

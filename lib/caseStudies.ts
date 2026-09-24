@@ -14,6 +14,7 @@ export type CaseStudy = {
   diagram: 'task-scheduler' | 'ai-code-reviewer';
   problem: string[];
   architectureNote: string[];
+  whyComponents?: { title: string; body: string }[];
   keyDecisions: { title: string; body: string }[];
   failureScenarios: { title: string; body: string }[];
   testing: string[];
@@ -38,10 +39,28 @@ export const caseStudies: Record<string, CaseStudy> = {
       'A request hits the REST API behind a Redis-backed rate limiter, gets saved to PostgreSQL, and an event is published to Kafka. Worker instances (all running the same Spring Boot service, joined to the same Kafka consumer group) consume events, acquire a Redis lock, run the task, and update PostgreSQL. A retry scheduler polls for eligible failures and re-publishes them with backoff; exhausted tasks move to a dead-letter queue. A separate stale-task recovery sweep catches jobs a crashed worker never finished. Prometheus scrapes metrics from every component, and Grafana visualizes them.',
       'This runs as one Spring Boot service, not a set of separate services. It is a modular monolith organized internally with hexagonal (ports-and-adapters) architecture. Worker throughput scales horizontally by running more instances of that same service; there is no separate "worker" deployment.',
     ],
+    whyComponents: [
+      {
+        title: 'Kafka',
+        body: 'Kafka decouples the API from the workers and gives durable, ordered delivery, but its guarantee is at-least-once, not exactly-once. A worker can see the same event twice. That is treated as an expected case, not a bug, which is why duplicate execution is stopped by a Redis lock and a database state machine rather than by trusting the queue to deduplicate for it.',
+      },
+      {
+        title: 'Redis',
+        body: 'Redis holds only short-lived, expendable state: a per-task SETNX lock (30s TTL) that lets just one worker execute a task at a time, and the API rate limiter’s counters. Neither needs to survive a restart or be queried later, which is why Redis is never the source of truth for a task’s actual status.',
+      },
+      {
+        title: 'PostgreSQL',
+        body: 'PostgreSQL is the source of truth. A task’s full lifecycle (PENDING, RUNNING, COMPLETED, FAILED, DEAD_LETTER) and its history live there as durable rows, not in the queue or the cache. A state machine restricts which transitions are legal, and JPA’s @Version optimistic locking makes two concurrent writes to the same task row fail safely instead of one silently overwriting the other.',
+      },
+      {
+        title: 'Modular monolith',
+        body: 'The scheduler ships as one Spring Boot service organized internally with hexagonal architecture, not a set of separate microservices. Worker throughput scales horizontally by running more instances of that same service, joined to the same Kafka consumer group; there is no separate "worker" deployment to build, version, or operate.',
+      },
+    ],
     keyDecisions: [
       {
         title: 'Duplicate execution, stopped three different ways',
-        body: 'Kafka guarantees at-least-once delivery, so a redelivered or duplicate event is an expected case, not an edge case. A Redis lock (SETNX with a 30s TTL) lets only one worker touch a task at a time, and is released with a small Lua script that does an atomic compare-and-delete, so a worker can never release a lock it does not own, which a plain GET-then-DEL would risk. Underneath that, a database state machine only allows a task to start once. And underneath that, JPA optimistic locking (@Version) makes two simultaneous writes to the same task row fail safely instead of silently overwriting each other. No single layer is trusted alone.',
+        body: 'Kafka guarantees at-least-once delivery, so a redelivered or duplicate event is an expected case, not an edge case. A Redis lock (SETNX with a 30s TTL) lets only one worker touch a task at a time, and is released with a small Lua script that does an atomic compare-and-delete, so a worker can never release a lock it does not own, which a plain GET-then-DEL would risk. Underneath that, a database state machine only allows a task to transition into RUNNING once at a time, so two concurrent attempts can’t both start it. And underneath that, JPA optimistic locking (@Version) makes two simultaneous writes to the same task row fail safely instead of silently overwriting each other. No single layer is trusted alone.',
       },
       {
         title: 'Backoff instead of hammering, and a real dead-letter path',
