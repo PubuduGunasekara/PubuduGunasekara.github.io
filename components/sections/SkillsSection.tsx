@@ -33,14 +33,12 @@ export function SkillsSection() {
                 type="button"
                 onClick={() => toggle(index)}
                 aria-expanded={isOpen}
-                className={`group grid w-full gap-2 border-t border-slate-500/15 py-5 text-left transition first:border-t-0 hover:bg-slate-500/[0.03] sm:grid-cols-[11rem_1fr_1.5rem] sm:items-baseline sm:gap-6 sm:px-2 ${
-                  group.secondary ? 'opacity-70' : ''
-                }`}
+                className="group grid w-full gap-2 border-t border-slate-500/15 py-5 text-left transition first:border-t-0 hover:bg-slate-500/[0.03] sm:grid-cols-[11rem_1fr_1.5rem] sm:items-baseline sm:gap-6 sm:px-2"
               >
                 <div className="flex items-center gap-2.5">
                   <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${accentDot[index % accentDot.length]}`} aria-hidden="true" />
                   <p className={`font-mono text-xs ${group.secondary ? muted : 'text-signal-cyan'}`}>{group.category}</p>
-                  <span className={`font-mono text-xs ${muted} opacity-70`}>{String(group.items.length).padStart(2, '0')}</span>
+                  <span className={`font-mono text-xs ${muted}`}>{String(group.items.length).padStart(2, '0')}</span>
                 </div>
                 <p className={`${group.secondary ? 'text-sm' : ''} leading-7 ${muted}`}>
                   {group.items.map((skill, i) => (
@@ -64,7 +62,7 @@ export function SkillsSection() {
                     className="overflow-hidden"
                   >
                     <p className={`pb-5 text-sm leading-6 sm:px-2 ${muted}`}>
-                      <span className="font-medium opacity-80">in practice: </span>
+                      <span className="font-medium">in practice: </span>
                       {group.context}
                     </p>
                   </motion.div>
@@ -75,7 +73,7 @@ export function SkillsSection() {
         })}
       </RevealGroup>
       <p className={`mt-5 border-t border-slate-500/15 pt-5 text-xs ${muted} sm:px-2`}>
-        <span className="opacity-60">Familiar: </span>
+        <span className="font-medium">Familiar: </span>
         {familiarSkills.join(' · ')}
       </p>
     </Section>

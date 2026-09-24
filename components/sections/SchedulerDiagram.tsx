@@ -51,7 +51,7 @@ export function SchedulerDiagram() {
   const [selected, setSelected] = useState<NodeId>('postgres');
 
   const nodes = isDesktop ? desktopNodes : mobileNodes;
-  const viewBox = isDesktop ? '0 0 1140 400' : '0 0 300 730';
+  const viewBox = isDesktop ? '0 30 1140 330' : '0 0 300 730';
   const nodeIds = useMemo(() => Object.keys(nodes) as NodeId[], [nodes]);
 
   function edgePath(a: NodeId, b: NodeId, curved: boolean) {
