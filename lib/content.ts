@@ -333,6 +333,7 @@ export const heroAvailability = 'Seeking Software Engineering internships · Sum
 export const contactBody =
   'I’m looking for a Summer 2027 Software Engineering internship focused on backend and distributed systems. Reach out if that’s a fit.';
 export const contactAvailability = 'Available Summer 2027 · open to relocation';
+export const contactLookingFor = ['Backend & distributed systems internships', 'Summer 2027 (May–Aug)', 'Open to relocation'];
 
 export const githubUsername = 'PubuduGunasekara';
 export const githubFallbackRepos = 64;
