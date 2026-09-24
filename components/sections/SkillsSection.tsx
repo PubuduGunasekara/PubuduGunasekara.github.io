@@ -64,7 +64,7 @@ export function SkillsSection() {
                     className="overflow-hidden"
                   >
                     <p className={`pb-5 text-sm leading-6 sm:px-2 ${muted}`}>
-                      <span className="font-medium opacity-80">in practice — </span>
+                      <span className="font-medium opacity-80">in practice: </span>
                       {group.context}
                     </p>
                   </motion.div>
@@ -75,7 +75,7 @@ export function SkillsSection() {
         })}
       </RevealGroup>
       <p className={`mt-5 border-t border-slate-500/15 pt-5 text-xs ${muted} sm:px-2`}>
-        <span className="opacity-60">Familiar — </span>
+        <span className="opacity-60">Familiar: </span>
         {familiarSkills.join(' · ')}
       </p>
     </Section>

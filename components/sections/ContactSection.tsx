@@ -17,7 +17,7 @@ export function ContactSection() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard API unavailable — the email text is still visible and selectable.
+      // Clipboard API unavailable; the email text is still visible and selectable.
     }
   }
 

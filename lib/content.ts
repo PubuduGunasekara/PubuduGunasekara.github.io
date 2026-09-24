@@ -53,9 +53,8 @@ export const experience = [
     company: 'Gunasekara Transport',
     period: 'Dec 2025 - Jun 2026 · Remote',
     bullets: [
-      'Build and maintain the corporate website and web app interfaces as the company expands into online construction-material supply.',
-      'Built an internal business management system replacing manual processes — modules for HR, operational workflows, and reporting.',
-      'Handle domain configuration and email gateway administration for the company’s web presence.',
+      'Built the corporate website and web app interfaces, plus an internal business management system for HR, operational workflows, and reporting that replaced manual processes.',
+      'Managed web infrastructure, including domain configuration and email gateway administration.',
     ],
     focus: ['React.js', 'JavaScript', 'PHP', 'WordPress', 'Docker'],
     logo: brandAssets.gunasekaraTransport,
@@ -63,15 +62,15 @@ export const experience = [
     highlight: 'Corporate site + internal business system',
   },
   {
-    role: 'Associate Engineer – QA',
+    role: 'Associate Engineer, QA',
     company: 'Virtusa',
     period: 'Jun 2021 - Mar 2022 · Colombo',
     bullets: [
-      'Built Java and Selenium WebDriver test automation for a British Telecommunications platform serving 1M+ users.',
-      'Designed and planned tests across agile sprints, working directly with developers to validate bug fixes.',
-      'Ran client demos and daily stand-ups under the QA lead’s delegation, and tracked defect metrics for the module.',
+      'Built Java and Selenium WebDriver test automation for a British Telecommunications platform serving 1M+ users, designing and executing test cases and test plans across agile sprints.',
+      'Led test planning and ran client demos and daily stand-ups for the module under the QA lead’s delegation, working with developers to validate bug fixes.',
+      'Tracked defect densities and open defect counts across CST Environment, Camunda Cockpit, RabbitMQ, Swagger UI, and MQ Console.',
     ],
-    focus: ['Java', 'Selenium WebDriver', 'RabbitMQ', 'Swagger UI', 'Camunda Cockpit', 'agile', 'defect tracking'],
+    focus: ['Java', 'Selenium WebDriver', 'CST Environment', 'Camunda Cockpit', 'RabbitMQ', 'Swagger UI', 'MQ Console', 'agile'],
     logo: brandAssets.virtusa,
     mark: 'VU',
     highlight: 'British Telecommunications platform',
@@ -97,7 +96,7 @@ export const skills: SkillCategory[] = [
     context: 'Spring Boot, Kafka, Redis, and a hexagonal service boundary are the core of the Distributed Task Scheduler.',
   },
   {
-    category: 'Cloud & Infra',
+    category: 'Infra & DevOps',
     items: ['Docker', 'Docker Compose', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'AWS'],
     context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production.',
   },
@@ -140,9 +139,9 @@ export const projects: Project[] = [
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/distributed-task-scheduler',
     demo: null,
-    body: 'Background jobs need to run reliably across multiple workers — without duplicating work, losing failures silently, or leaving a job stuck forever if a worker crashes mid-task.',
+    body: 'Background jobs need to run reliably across multiple workers, without duplicating work, losing failures silently, or leaving a job stuck forever if a worker crashes mid-task.',
     highlights: [
-      'Three independent layers — a Redis lock, a database state machine, and optimistic locking — stop the same job from running twice, even with Kafka’s at-least-once delivery.',
+      'Three independent layers (a Redis lock, a database state machine, and optimistic locking) stop the same job from running twice, even with Kafka’s at-least-once delivery.',
       'Failed jobs retry with backoff (10s, 30s, 90s) before landing in a dead-letter queue instead of vanishing; a recovery sweeper catches jobs stuck behind a crashed worker.',
       '164 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for live observability.',
     ],
@@ -159,10 +158,10 @@ export const projects: Project[] = [
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/ai-code-reviewer',
     demo: 'https://main.d3dm91k4g9mtr9.amplifyapp.com/',
-    body: 'Pull requests often sit for a day or more before anyone looks at them — this signs in with GitHub, reads the diff, and gives every PR an instant, severity-tagged first-pass review.',
+    body: 'Pull requests often sit for a day or more before anyone looks at them. This signs in with GitHub, reads the diff, and gives every PR an instant, severity-tagged first-pass review.',
     highlights: [
       'Large diffs are trimmed to fit the model’s context window instead of failing outright; results are cached in Redis by diff hash so re-opening a PR is instant and free.',
-      'The review endpoint is rate limited per user in Redis and fails open — if Redis is briefly unavailable, reviews still work rather than the whole app going down.',
+      'The review endpoint is rate limited per user in Redis and fails open, so if Redis is briefly unavailable, reviews still work rather than the whole app going down.',
       'Review history persists in PostgreSQL, so it survives a server restart even after the Redis cache expires.',
     ],
     stack: ['Node.js', 'Express', 'React', 'gpt-4o-mini', 'Redis', 'PostgreSQL', 'GitHub OAuth', 'Docker', 'AWS EC2', 'AWS Amplify'],
@@ -177,7 +176,7 @@ export const projects: Project[] = [
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/SmartTravelPlanner',
     demo: null,
-    body: 'Given a set of places to visit in a day, this finds the itinerary that fits in the most enjoyment within a time budget, using Weighted A* search over real travel-time matrices. A 2-person graduate algorithms project — I co-designed the algorithm and built the initial search plus the route-visualization frontend.',
+    body: 'Given a set of places to visit in a day, this finds the itinerary that fits in the most enjoyment within a time budget, using Weighted A* search over real travel-time matrices. A 2-person graduate algorithms project. I co-designed the algorithm and built the initial search plus the route-visualization frontend.',
     highlights: [
       'Each search state is (time, location, places-visited); the search escalates its weight and prunes the open set to stay fast and bounded.',
       'Served through a Flask API with a JavaScript frontend that visualizes the resulting route.',
@@ -231,15 +230,19 @@ export type LeadershipEntry = {
 
 export const leadership: LeadershipEntry[] = [
   {
-    title: 'Graduate Student Career Advisory Board Member',
-    meta: 'Northeastern University · Aug 2026 - Present · founding student representative, Khoury College',
+    title: 'Graduate Student Career Advisory Board',
+    meta: 'Northeastern University · Founding Cohort Member',
+  },
+  {
+    title: 'Husky Code Club',
+    meta: 'Northeastern University · Member',
   },
   {
     title: 'Graduate Leadership Institute (GLI)',
     meta: 'Northeastern University, Silicon Valley · included a CliftonStrengths assessment',
   },
   {
-    title: 'Smart Farm IoT Project — Team Lead',
+    title: 'Smart Farm IoT Project, Team Lead',
     meta: 'Coordinated hardware, software, and cloud execution',
   },
   {
@@ -247,7 +250,7 @@ export const leadership: LeadershipEntry[] = [
     meta: 'Virtusa · AU / UK / LK sprint cycles',
   },
   {
-    title: '1st Place — NSBM Green University Hackathon',
+    title: '1st Place, NSBM Green University Hackathon',
     meta: 'Overnight hackathon win',
   },
 ];
@@ -287,9 +290,9 @@ export const certifications: Array<[string, string, string]> = [
 
 export const education = [
   {
-    school: 'Northeastern University',
+    school: 'Northeastern University, Khoury College of Computer Sciences',
     program: 'M.S. Computer Science',
-    meta: 'Silicon Valley, CA · Jan 2026 - Expected May 2028',
+    meta: 'San Jose, CA · Jan 2026 - Expected May 2028',
     detail: 'GPA: 4.0 / 4.0. Completed: Algorithms, Programming Design Paradigms (Java). In progress (Fall 2026): Machine Learning, Natural Language Processing.',
     logo: brandAssets.northeastern,
     mark: 'NU',
@@ -303,9 +306,9 @@ export const education = [
     mark: 'CC',
   },
   {
-    school: 'Victoria University Melbourne',
+    school: 'Victoria University',
     program: 'Bachelor of Information Technology',
-    meta: 'Offshore program, Colombo, Sri Lanka · 2018 - 2021',
+    meta: 'Melbourne, Australia · 2018 - 2021',
     detail: 'GPA: 6.25 / 7.0.',
     logo: brandAssets.victoria,
     mark: 'VU',

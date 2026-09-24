@@ -11,7 +11,7 @@ type NodeDef = { x: number; y: number; label: string; sub: string; info: string 
 const desktopNodes: Record<NodeId, NodeDef> = {
   oauth: { x: 100, y: 40, label: 'GitHub OAuth', sub: 'sign in', info: 'Login goes through GitHub OAuth (Passport) with repo scope, so the app can read PR diffs on the user’s behalf.' },
   frontend: { x: 100, y: 150, label: 'Frontend', sub: 'React · Amplify', info: 'React + Vite, hosted on AWS Amplify. Signs the user in and calls the Express API.' },
-  api: { x: 340, y: 150, label: 'Express API', sub: 'AWS EC2', info: 'Express on EC2. Coordinates GitHub, OpenAI, the cache, and the database — no business logic lives in the frontend.' },
+  api: { x: 340, y: 150, label: 'Express API', sub: 'AWS EC2', info: 'Express on EC2. Coordinates GitHub, OpenAI, the cache, and the database. No business logic lives in the frontend.' },
   postgres: { x: 610, y: 40, label: 'PostgreSQL', sub: 'sessions + reviews', info: 'Durable store: sessions (via connect-pg-simple), and the reviews / review_comments tables backing review history.' },
   redis: { x: 610, y: 115, label: 'Redis', sub: 'cache + rate limit', info: 'Caches review results by diff hash for 1 hour, and rate-limits the review endpoint per user (fails open if Redis errors).' },
   github: { x: 610, y: 190, label: 'GitHub API', sub: 'Octokit', info: 'Fetches the user’s repositories, pull requests, and PR diffs via Octokit.' },

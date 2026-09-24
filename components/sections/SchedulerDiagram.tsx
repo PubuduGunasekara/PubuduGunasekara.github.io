@@ -10,13 +10,13 @@ type NodeDef = { x: number; y: number; label: string; sub: string; info: string 
 
 const desktopNodes: Record<NodeId, NodeDef> = {
   producer: { x: 60, y: 190, label: 'Producer', sub: 'submits task', info: 'A client call saves the task to PostgreSQL and publishes a creation event to Kafka.' },
-  kafka: { x: 210, y: 190, label: 'Kafka topic', sub: 'at-least-once', info: 'Kafka guarantees at-least-once delivery — a worker may see the same event more than once, so that’s treated as normal, not an edge case.' },
+  kafka: { x: 210, y: 190, label: 'Kafka topic', sub: 'at-least-once', info: 'Kafka guarantees at-least-once delivery. A worker may see the same event more than once, so that is treated as normal, not an edge case.' },
   worker: { x: 360, y: 190, label: 'Worker', sub: 'Spring Boot', info: 'Any instance of the same Spring Boot service, joined to the same Kafka consumer group, can pick up the event.' },
   redis: { x: 510, y: 190, label: 'Redis lock', sub: 'SETNX · 30s TTL', info: 'SETNX acquires a per-task lock before work starts. Released with a Lua compare-and-delete script, so a worker can never release a lock it doesn’t own.' },
   postgres: { x: 660, y: 190, label: 'PostgreSQL', sub: 'state machine', info: 'The source of truth. A state machine plus JPA @Version optimistic locking means a task can only start once and can’t be corrupted by a concurrent write.' },
-  retry: { x: 660, y: 300, label: 'Retry scheduler', sub: '10s / 30s / 90s', info: 'Polls for FAILED tasks whose backoff has elapsed and re-publishes them to Kafka — exponential backoff, not instant retry.' },
+  retry: { x: 660, y: 300, label: 'Retry scheduler', sub: '10s / 30s / 90s', info: 'Polls for FAILED tasks whose backoff has elapsed and re-publishes them to Kafka with exponential backoff, not instant retry.' },
   dlq: { x: 800, y: 300, label: 'Dead-letter queue', sub: 'task-dlq topic', info: 'After the 4th failure (initial attempt + 3 retries), the task is marked DEAD_LETTER and published here for manual inspection instead of vanishing.' },
-  recovery: { x: 800, y: 80, label: 'Recovery sweep', sub: 'polls every 60s', info: 'Separately finds tasks stuck RUNNING past a 5-minute timeout (a worker likely crashed) and fails them through the same retry path — and re-publishes PENDING tasks whose creation event was lost.' },
+  recovery: { x: 800, y: 80, label: 'Recovery sweep', sub: 'polls every 60s', info: 'Separately finds tasks stuck RUNNING past a 5-minute timeout (a worker likely crashed) and fails them through the same retry path, and re-publishes PENDING tasks whose creation event was lost.' },
 };
 
 const mobileNodes: Record<NodeId, NodeDef> = {

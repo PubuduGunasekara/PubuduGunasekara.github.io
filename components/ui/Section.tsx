@@ -16,7 +16,7 @@ export function Section({
   title: string;
   children: React.ReactNode;
 }) {
-  const { muted } = useTheme();
+  const { muted, theme } = useTheme();
 
   return (
     <motion.section
@@ -27,7 +27,16 @@ export function Section({
       variants={staggerContainer}
       className="grid gap-8 border-t border-slate-500/15 py-20 md:grid-cols-[12rem_1fr]"
     >
-      <RevealItem>
+      <RevealItem className="relative">
+        {theme === 'light' && (
+          <span
+            aria-hidden="true"
+            className="pointer-events-none absolute -left-1 -top-28 -z-10 select-none whitespace-nowrap font-mono text-[6rem] font-bold leading-none sm:-top-32 sm:text-[7.5rem]"
+            style={{ color: 'transparent', WebkitTextStroke: '1px rgba(15, 23, 42, 0.07)' }}
+          >
+            {eyebrow}
+          </span>
+        )}
         <p className={`font-mono text-xs ${muted}`}>{eyebrow}</p>
         <h2 className="mt-2 text-xl font-semibold tracking-tight">{title}</h2>
       </RevealItem>
