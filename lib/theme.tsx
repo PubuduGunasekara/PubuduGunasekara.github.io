@@ -19,22 +19,29 @@ type ThemeStyles = {
 const ThemeContext = createContext<ThemeStyles | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Always start at the static export's default (light) so the first client
+  // render matches the pre-rendered HTML exactly, then correct from
+  // localStorage right after mount. This trades a one-frame flash for zero
+  // hydration mismatches (the previous synchronous-read approach caused a
+  // real mismatch on every themed element, since the static HTML has no way
+  // to know a given visitor's saved preference).
   const [theme, setTheme] = useState<Theme>('light');
 
   useEffect(() => {
-    const saved = window.localStorage.getItem('theme') as Theme | null;
-    if (saved) setTheme(saved);
+    const saved = window.localStorage.getItem('theme');
+    if (saved === 'dark' || saved === 'light') setTheme(saved);
   }, []);
-
-  useEffect(() => {
-    window.localStorage.setItem('theme', theme);
-  }, [theme]);
 
   const value = useMemo<ThemeStyles>(() => {
     const isDark = theme === 'dark';
     return {
       theme,
-      toggle: () => setTheme((current) => (current === 'dark' ? 'light' : 'dark')),
+      toggle: () =>
+        setTheme((current) => {
+          const next = current === 'dark' ? 'light' : 'dark';
+          window.localStorage.setItem('theme', next);
+          return next;
+        }),
       pageTone: isDark ? 'bg-ink-950 text-ink-100' : 'light bg-[#f8f6f2] text-ink-950',
       navSurface: isDark ? 'bg-ink-950/90 border-b border-white/10' : 'bg-[#f8f6f2]/90 border-b border-black/[0.06]',
       surface: isDark
