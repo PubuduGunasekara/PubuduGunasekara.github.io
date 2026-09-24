@@ -42,10 +42,10 @@ export function ContactSection() {
 
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <PrimaryLink href={links.resume}>Resume</PrimaryLink>
-          <SecondaryLink href={links.linkedin}>LinkedIn</SecondaryLink>
-          <SecondaryLink href={links.github}>GitHub</SecondaryLink>
-          <SocialIconLink href={links.leetcode} label="LeetCode" icon="leetcode" />
           {links.calendly && <SecondaryLink href={links.calendly}>Book a 15-minute chat</SecondaryLink>}
+          <SocialIconLink href={links.github} label="GitHub" icon="github" />
+          <SocialIconLink href={links.linkedin} label="LinkedIn" icon="linkedin" />
+          <SocialIconLink href={links.leetcode} label="LeetCode" icon="leetcode" />
         </div>
       </EditorialCard>
     </Section>

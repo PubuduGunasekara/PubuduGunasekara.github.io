@@ -14,7 +14,7 @@ export function Hero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className={`grid items-center gap-10 rounded-[2rem] border p-8 shadow-premium sm:p-12 md:grid-cols-[1fr_auto] ${surface}`}
+        className={`premium-grid grid items-center gap-10 rounded-[2rem] border p-8 shadow-premium sm:p-12 md:grid-cols-[1fr_auto] ${surface}`}
       >
         <div className="order-1 mx-auto shrink-0 md:order-2 md:mx-0">
           <div className="relative">
