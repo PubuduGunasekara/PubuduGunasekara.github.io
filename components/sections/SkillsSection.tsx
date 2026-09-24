@@ -40,13 +40,13 @@ export function SkillsSection() {
                 <div className="flex items-center gap-2.5">
                   <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${accentDot[index % accentDot.length]}`} aria-hidden="true" />
                   <p className={`font-mono text-xs ${group.secondary ? muted : 'text-signal-cyan'}`}>{group.category}</p>
-                  <span className="font-mono text-[10px] opacity-35">{String(group.items.length).padStart(2, '0')}</span>
+                  <span className={`font-mono text-xs ${muted} opacity-70`}>{String(group.items.length).padStart(2, '0')}</span>
                 </div>
                 <p className={`${group.secondary ? 'text-sm' : ''} leading-7 ${muted}`}>
                   {group.items.map((skill, i) => (
                     <span key={skill}>
                       <span className="transition hover:text-signal-cyan">{skill}</span>
-                      {i < group.items.length - 1 && <span className="opacity-25"> &middot; </span>}
+                      {i < group.items.length - 1 && <span className="opacity-50"> &middot; </span>}
                     </span>
                   ))}
                 </p>
@@ -64,7 +64,7 @@ export function SkillsSection() {
                     className="overflow-hidden"
                   >
                     <p className={`pb-5 text-sm leading-6 sm:px-2 ${muted}`}>
-                      <span className="text-signal-green">in practice — </span>
+                      <span className="font-medium opacity-80">in practice — </span>
                       {group.context}
                     </p>
                   </motion.div>

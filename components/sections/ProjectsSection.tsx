@@ -14,7 +14,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
 
   return (
     <EditorialCard>
-      <p className="font-mono text-xs text-signal-cyan">
+      <p className={`font-mono text-xs ${muted}`}>
         0{index + 1} / {project.eyebrow}
       </p>
       <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl">{project.title}</h3>
@@ -23,7 +23,7 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
       {project.highlights && <BulletList items={project.highlights} />}
 
       <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
-        <p className="shrink-0 font-mono text-[10px] uppercase tracking-widest opacity-50">stack</p>
+        <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>
         <StackRow items={project.stack} />
       </div>
 
@@ -56,7 +56,7 @@ function EarlierProjectCard({ project }: { project: Project }) {
   return (
     <div className="rounded-2xl border border-slate-500/15 p-4">
       <h4 className="text-sm font-semibold tracking-tight">{project.title}</h4>
-      <p className={`mt-1 font-mono text-[10px] uppercase tracking-widest ${muted}`}>{project.eyebrow}</p>
+      <p className={`mt-1 font-mono text-xs uppercase tracking-widest ${muted}`}>{project.eyebrow}</p>
       <p className={`mt-2 line-clamp-4 text-xs leading-5 ${muted}`}>{project.body}</p>
       <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
         <a href={project.href} target="_blank" rel="noreferrer" className="text-signal-cyan hover:underline">
@@ -93,7 +93,7 @@ export function ProjectsSection() {
       </div>
 
       <div className="mt-10 border-t border-slate-500/10 pt-8">
-        <p className={`font-mono text-[10px] uppercase tracking-widest ${muted}`}>Earlier projects</p>
+        <p className={`font-mono text-xs uppercase tracking-widest ${muted}`}>Earlier projects</p>
         <div className="mt-4 grid gap-3 sm:grid-cols-3">
           {earlierProjects.map((project) => (
             <EarlierProjectCard key={project.title} project={project} />

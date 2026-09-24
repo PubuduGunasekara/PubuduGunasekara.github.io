@@ -127,7 +127,7 @@ export function SchedulerDiagram() {
               <text textAnchor="middle" y={-3} fill="currentColor" className="font-mono text-[13px] font-semibold">
                 {n.label}
               </text>
-              <text textAnchor="middle" y={14} fill="currentColor" className="font-mono text-[10px] opacity-85">
+              <text textAnchor="middle" y={15} fill="currentColor" className="font-mono text-[12px] opacity-85">
                 {n.sub}
               </text>
             </g>
@@ -136,10 +136,10 @@ export function SchedulerDiagram() {
       </svg>
 
       <p className={`mt-3 min-h-[2.5rem] text-sm leading-6 ${muted}`}>
-        <span className="mr-2 font-mono text-[10px] text-signal-cyan">{nodes[selected].label}</span>
+        <span className="mr-2 font-mono text-xs text-signal-cyan">{nodes[selected].label}</span>
         {nodes[selected].info}
       </p>
-      <p className="mt-2 font-mono text-[10px] opacity-50">Click or tab to a node to read what it does.</p>
+      <p className={`mt-2 font-mono text-xs ${muted}`}>Click or tab to a node to read what it does.</p>
     </div>
   );
 }

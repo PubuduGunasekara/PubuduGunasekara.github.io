@@ -12,34 +12,41 @@ const geistMono = Geist_Mono({
   variable: '--font-geist-mono',
 });
 
+const siteUrl = 'https://pubudugunasekara.github.io';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: 'Pubudu Gunasekara · Software Engineer · Open to SWE Internships Summer 2027',
   description:
-    'M.S. in Computer Science at Northeastern University, Silicon Valley. Focused on Java, distributed systems, full-stack engineering, and AI-powered products. Open to SWE Internships for Summer 2027.',
+    'Software engineer focused on backend and distributed systems. M.S. Computer Science at Northeastern (4.0 GPA); I build reliable backend systems and AI-powered developer tools. Open to Software Engineering internships for Summer 2027.',
   keywords: [
     'software engineer',
     'SWE intern',
-    'Java',
+    'backend engineer',
     'distributed systems',
-    'React',
+    'Java',
+    'Spring Boot',
+    'Apache Kafka',
+    'AI-powered developer tools',
     'Northeastern University',
     'Silicon Valley',
-    'full stack',
-    'machine learning',
   ],
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     title: 'Pubudu Gunasekara · Software Engineer',
     description:
-      'M.S. CS @ Northeastern University · Java · Distributed Systems · AI/ML · Open to SWE Internships Summer 2027',
-    url: 'https://pubudugunasekara.github.io',
+      'Software engineer focused on backend and distributed systems. M.S. CS at Northeastern (4.0 GPA). Open to SWE Internships, Summer 2027.',
+    url: siteUrl,
     siteName: 'Pubudu Gunasekara Portfolio',
     locale: 'en_US',
     type: 'website',
   },
   twitter: {
-    card: 'summary',
+    card: 'summary_large_image',
     title: 'Pubudu Gunasekara · Software Engineer · Open to SWE Internships Summer 2027',
-    description: 'M.S. CS @ Northeastern · Java · Distributed Systems · AI/ML · Open to SWE Internships Summer 2027',
+    description: 'Software engineer focused on backend and distributed systems. M.S. CS at Northeastern (4.0 GPA). Open to SWE Internships, Summer 2027.',
   },
   robots: {
     index: true,
@@ -57,6 +64,19 @@ export const metadata: Metadata = {
   },
 };
 
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Pubudu Gunasekara',
+  jobTitle: 'Software Engineer',
+  affiliation: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Northeastern University',
+  },
+  url: siteUrl,
+  sameAs: ['https://github.com/PubuduGunasekara', 'https://www.linkedin.com/in/pubudugunasekera/', 'https://leetcode.com/u/pubuduguna/'],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -64,7 +84,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${geistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }} />
+        {children}
+      </body>
     </html>
   );
 }

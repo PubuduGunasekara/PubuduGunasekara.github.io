@@ -24,7 +24,7 @@ export function EducationSection() {
                     <p className="text-signal-blue">{item.program}</p>
                   </div>
                 </div>
-                <p className="shrink-0 font-mono text-xs text-signal-cyan">{item.meta}</p>
+                <p className={`shrink-0 font-mono text-xs ${muted}`}>{item.meta}</p>
               </div>
               <p className={`mt-5 border-t border-slate-500/10 pt-4 leading-7 ${muted}`}>{item.detail}</p>
             </EditorialCard>

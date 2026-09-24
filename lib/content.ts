@@ -3,7 +3,9 @@ export const links = {
   github: 'https://github.com/PubuduGunasekara',
   linkedin: 'https://www.linkedin.com/in/pubudugunasekera/',
   leetcode: 'https://leetcode.com/u/pubuduguna/',
-  email: 'mailto:pubudupguna@gmail.com',
+  email: 'pubudupguna@gmail.com',
+  // TODO(pubudu): add a Calendly URL here to show the "Book a 15-minute chat" button on Contact.
+  calendly: '',
 };
 
 export const heroName = 'Pubudu Gunasekara';
@@ -312,7 +314,8 @@ export const education = [
 
 export const heroAvailability = 'Seeking Software Engineering internships · Summer 2027';
 export const contactBody =
-  'I’m seeking Software Engineering, Full-Stack, Backend, Cloud, and Machine Learning internships for Summer 2027.';
+  'I’m looking for a Summer 2027 Software Engineering internship focused on backend and distributed systems. Reach out if that’s a fit.';
+export const contactAvailability = 'Available Summer 2027 · open to relocation';
 
 export const githubUsername = 'PubuduGunasekara';
 export const githubFallbackRepos = 64;
