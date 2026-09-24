@@ -31,56 +31,19 @@ export const brandAssets = {
   gunasekaraTransport: '/assets/logos/gunasekara-transport.jpg',
 };
 
-export const storyPoints = [
-  {
-    label: '01 / Foundation',
-    title: 'Curiosity became engineering practice.',
-    body: 'My early work grew through hackathons, university projects, and leading a Smart Farm IoT system that connected embedded hardware, real-time data, and mobile software.',
-  },
-  {
-    label: '02 / Production',
-    title: 'Quality became a systems habit.',
-    body: 'At Virtusa, I worked on a British Telecom production platform serving 1M+ users, building automation that reduced regression testing from hours to minutes.',
-  },
-  {
-    label: '03 / Adaptability',
-    title: 'Sri Lanka, Canada, and the U.S. shaped how I work.',
-    body: 'Studying and building across international environments made me more adaptable, collaborative, and precise about how software supports real users and teams.',
-  },
-  {
-    label: '04 / Direction',
-    title: 'Now I am moving toward scalable software and AI systems.',
-    body: 'At Northeastern University Silicon Valley, my focus is backend systems, distributed systems, cloud infrastructure, and AI-assisted engineering workflows.',
-  },
+export type JourneyStep = {
+  place: string;
+  detail: string;
+};
+
+export const journeySteps: JourneyStep[] = [
+  { place: 'Sri Lanka', detail: 'Foundations, hackathons, and an IoT system I led as a student.' },
+  { place: 'Virtusa', detail: 'Production Java and Selenium test automation on a British Telecommunications platform.' },
+  { place: 'Canada', detail: 'A postgraduate certificate in mobile solutions development.' },
+  { place: 'Northeastern, Silicon Valley', detail: 'Backend and distributed systems.' },
 ];
 
-export const engineeringPath = ['Sri Lanka', 'Canada', 'San Jose'];
-
-export const storySummary =
-  'Hackathons and IoT in Sri Lanka → QA on a 1M-user Virtusa production platform → grad school and distributed systems in Silicon Valley.';
-
-export const currentFocus = [
-  {
-    label: 'Backend',
-    value: 'Java + Node.js services',
-    detail: 'Strengthening API design, service boundaries, and production-style backend thinking.',
-  },
-  {
-    label: 'Cloud',
-    value: 'Docker + CI/CD',
-    detail: 'Turning full-stack projects into deployable systems with CI/CD and observable infrastructure.',
-  },
-  {
-    label: 'Applied AI',
-    value: 'LLM integration',
-    detail: 'Building practical AI-assisted engineering workflows with structured output and service boundaries.',
-  },
-  {
-    label: 'Distributed Systems',
-    value: 'Kafka + Redis',
-    detail: 'Designing for at-least-once delivery, safe concurrency, retries, and observability.',
-  },
-];
+export const journeyClosing = 'I started in test automation and moved steadily toward building backend and distributed systems.';
 
 export const experience = [
   {
