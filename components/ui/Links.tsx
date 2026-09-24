@@ -45,14 +45,17 @@ export function SocialIconLink({
   label: string;
   icon: SocialIconName;
 }) {
+  const { surface } = useTheme();
+  const opensNewTab = href.startsWith('http') || href.startsWith('mailto:');
+
   return (
     <a
       href={href}
       aria-label={label}
       title={label}
-      target={href.startsWith('http') ? '_blank' : undefined}
-      rel={href.startsWith('http') ? 'noreferrer' : undefined}
-      className="inline-flex h-10 w-10 items-center justify-center rounded-full text-current/70 transition hover:bg-signal-cyan/10 hover:text-signal-cyan"
+      target={opensNewTab ? '_blank' : undefined}
+      rel={opensNewTab ? 'noreferrer' : undefined}
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-full border text-current/70 transition hover:-translate-y-0.5 hover:border-signal-cyan/40 hover:text-signal-cyan ${surface}`}
     >
       <SocialIcon icon={icon} />
     </a>

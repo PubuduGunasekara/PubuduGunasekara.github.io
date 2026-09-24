@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { heroAvailability, heroName, heroSummary, heroTagline, heroTechLine, links } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
-import { PrimaryLink, SecondaryLink } from './ui/Links';
+import { SocialIconLink } from './ui/Links';
 
 export function Hero() {
   const { muted, surface } = useTheme();
@@ -34,15 +34,15 @@ export function Hero() {
           <p className={`mx-auto mt-4 max-w-2xl text-balance leading-7 md:mx-0 ${muted}`}>{heroSummary}</p>
           <p className="mt-4 font-mono text-sm text-signal-cyan">{heroTechLine}</p>
           <p className={`mt-2 text-sm ${muted}`}>{heroAvailability}</p>
-
-          <div className="mt-7 flex flex-wrap justify-center gap-3 md:justify-start">
-            <PrimaryLink href={links.resume}>Resume</PrimaryLink>
-            <SecondaryLink href={links.github}>GitHub</SecondaryLink>
-            <SecondaryLink href={links.linkedin}>LinkedIn</SecondaryLink>
-            <SecondaryLink href="#contact">Contact</SecondaryLink>
-          </div>
         </div>
       </motion.header>
+
+      <div className="mt-6 flex flex-wrap justify-center gap-3">
+        <SocialIconLink href={links.github} label="GitHub" icon="github" />
+        <SocialIconLink href={links.linkedin} label="LinkedIn" icon="linkedin" />
+        <SocialIconLink href={links.leetcode} label="LeetCode" icon="leetcode" />
+        <SocialIconLink href={`mailto:${links.email}`} label="Email" icon="email" />
+      </div>
     </div>
   );
 }
