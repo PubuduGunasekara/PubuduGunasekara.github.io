@@ -61,3 +61,28 @@ export function SocialIconLink({
     </a>
   );
 }
+
+export function LabeledIconLink({
+  href,
+  label,
+  icon,
+}: {
+  href: string;
+  label: string;
+  icon: SocialIconName;
+}) {
+  const opensNewTab = href.startsWith('http') || href.startsWith('mailto:');
+
+  return (
+    <a
+      href={href}
+      aria-label={label}
+      target={opensNewTab ? '_blank' : undefined}
+      rel={opensNewTab ? 'noreferrer' : undefined}
+      className="inline-flex items-center gap-2 rounded-full border border-slate-500/15 bg-slate-500/10 px-4 py-2.5 text-sm transition hover:border-signal-cyan/40 hover:text-signal-cyan"
+    >
+      <SocialIcon icon={icon} />
+      {label}
+    </a>
+  );
+}

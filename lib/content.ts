@@ -10,8 +10,7 @@ export const links = {
 
 export const heroName = 'Pubudu Gunasekara';
 export const heroTagline = 'Software engineer focused on backend and distributed systems.';
-export const heroSummary =
-  'M.S. Computer Science at Northeastern (4.0 GPA). I build reliable backend systems and AI-powered developer tools, and previously built Java test automation for a British Telecommunications platform serving 1M+ users.';
+export const heroCredential = 'M.S. Computer Science · Northeastern · 4.0 GPA';
 export const heroTechLine = 'Java · Spring Boot · Kafka · Redis · PostgreSQL · AWS';
 
 export const nav = [
