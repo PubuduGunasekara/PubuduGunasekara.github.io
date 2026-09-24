@@ -44,8 +44,15 @@ export function Hero() {
             masks an element's whole painted box, children included). */}
         <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0 -z-10" />
 
-        {/* Mobile-only: small avatar beside the name, instead of a large photo stacked on top */}
-        <div className="flex items-center gap-4 md:hidden">
+        {/* True mobile only (<640px): photo on top, name/tagline centered below it */}
+        <div className="flex flex-col items-center text-center sm:hidden">
+          <Photo sizeClasses="h-28 w-28" />
+          <h1 className="mt-4 text-3xl font-semibold tracking-[-0.02em]">{heroName}</h1>
+          <p className="mt-2 text-base font-medium">{heroTagline}</p>
+        </div>
+
+        {/* sm to md (tablet): small avatar beside the name, left-aligned - unchanged */}
+        <div className="hidden items-center gap-4 sm:flex md:hidden">
           <Photo sizeClasses="h-16 w-16" />
           <div className="text-left">
             <h1 className="text-2xl font-semibold tracking-[-0.02em]">{heroName}</h1>
@@ -58,7 +65,7 @@ export function Hero() {
           <Photo sizeClasses="h-40 w-40 sm:h-48 sm:w-48" />
         </div>
 
-        <div className="order-1 text-left">
+        <div className="order-1 text-center sm:text-left">
           <div className="hidden md:block">
             <h1 className="text-balance text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">{heroName}</h1>
             <p className="mt-3 text-balance text-lg font-medium sm:text-xl">{heroTagline}</p>
@@ -74,7 +81,19 @@ export function Hero() {
         </div>
       </motion.header>
 
-      <div className="mt-6 flex flex-wrap justify-center gap-3">
+      {/* True mobile (<640px): single wrapping row, item order chosen so the
+          natural wrap lands as a balanced 3-then-2 (measured button widths at
+          390px: Resume+GitHub+Email fits one line, LinkedIn+LeetCode fits the next) */}
+      <div className="mt-6 flex flex-wrap justify-center gap-3 sm:hidden">
+        <PrimaryLink href={links.resume}>Resume</PrimaryLink>
+        <LabeledIconLink href={links.github} label="GitHub" icon="github" />
+        <LabeledIconLink href={`mailto:${links.email}`} label="Email" icon="email" />
+        <LabeledIconLink href={links.linkedin} label="LinkedIn" icon="linkedin" />
+        <LabeledIconLink href={links.leetcode} label="LeetCode" icon="leetcode" />
+      </div>
+
+      {/* sm and up: unchanged single-row wrap */}
+      <div className="mt-6 hidden flex-wrap justify-center gap-3 sm:flex">
         <PrimaryLink href={links.resume}>Resume</PrimaryLink>
         <LabeledIconLink href={links.github} label="GitHub" icon="github" />
         <LabeledIconLink href={links.linkedin} label="LinkedIn" icon="linkedin" />
