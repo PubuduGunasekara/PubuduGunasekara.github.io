@@ -25,7 +25,7 @@ export function Nav() {
         <a href={anchor('top')} className="flex shrink-0 items-center gap-3 font-mono text-sm tracking-tight">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/pg-mark.svg" alt="" className="h-8 w-8" />
-          <span className="hidden sm:inline">pubudugunasekara.dev</span>
+          <span className="hidden sm:inline">Pubudu Gunasekara</span>
         </a>
 
         <div className={`hidden items-center gap-1 rounded-full border px-2 py-1.5 text-xs xl:flex ${surface}`}>
