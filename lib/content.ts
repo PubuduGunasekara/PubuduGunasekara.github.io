@@ -87,12 +87,12 @@ export const skills: SkillCategory[] = [
   {
     category: 'Languages',
     items: ['Java', 'JavaScript', 'Python', 'SQL'],
-    context: 'Java anchors the Task Scheduler and the Virtusa automation; Python and SQL span the rest of the work below.',
+    context: 'Java anchors the Task Scheduler and the Virtusa automation; Python and SQL span the rest of the work on this page.',
   },
   {
     category: 'Backend & Distributed',
-    items: ['Spring Boot', 'Node.js / Express', 'Apache Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'hexagonal architecture'],
-    context: 'Spring Boot, Kafka, Redis, and a hexagonal service boundary are the core of the Distributed Task Scheduler.',
+    items: ['Spring Boot', 'Node.js / Express', 'Apache Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'Hexagonal Architecture'],
+    context: 'Spring Boot, Kafka, Redis, and PostgreSQL are the core of the Distributed Task Scheduler, built with Hexagonal Architecture: domain logic stays isolated from infrastructure adapters, enforced at build time by an ArchUnit test.',
   },
   {
     category: 'Infra & DevOps',
