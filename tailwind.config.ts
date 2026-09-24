@@ -29,6 +29,7 @@ const config: Config = {
       },
       boxShadow: {
         premium: 'var(--shadow-premium)',
+        hero: 'var(--shadow-hero)',
       },
     },
   },

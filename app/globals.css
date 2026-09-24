@@ -5,6 +5,7 @@
 :root {
   color-scheme: dark;
   --shadow-premium: 0 24px 60px -20px rgba(18, 28, 33, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  --shadow-hero: 0 32px 80px -24px rgba(18, 28, 33, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.06);
   --signal-cyan: 110 231 240;
   --signal-green: 127 217 154;
   --signal-blue: 157 184 255;
@@ -15,6 +16,7 @@
 .light {
   color-scheme: light;
   --shadow-premium: 0 20px 50px -25px rgba(18, 28, 33, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --shadow-hero: 0 28px 70px -28px rgba(18, 28, 33, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.75);
   --signal-cyan: 14 116 144;
   --signal-green: 21 128 61;
   --signal-blue: 37 99 235;
@@ -64,6 +66,31 @@ body {
   background-image: radial-gradient(rgba(15, 23, 42, 0.16) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: -1px -1px;
+}
+
+/* Hero-card-only texture: a fine graph-paper grid, distinct from the
+   page's dot-grid so BackgroundGrid stays untouched. Fades out near the
+   photo via a mask instead of a hard edge. */
+.hero-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 60% 80% at 78% 50%, transparent 15%, black 55%);
+  mask-image: radial-gradient(ellipse 60% 80% at 78% 50%, transparent 15%, black 55%);
+}
+
+.light .hero-grid {
+  background-image:
+    linear-gradient(rgba(18, 28, 33, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(18, 28, 33, 0.05) 1px, transparent 1px);
+}
+
+@media (max-width: 767px) {
+  .hero-grid {
+    -webkit-mask-image: radial-gradient(ellipse 55% 40% at 18% 14%, transparent 8%, black 55%);
+    mask-image: radial-gradient(ellipse 55% 40% at 18% 14%, transparent 8%, black 55%);
+  }
 }
 
 .no-scrollbar {

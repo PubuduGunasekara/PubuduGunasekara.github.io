@@ -6,15 +6,24 @@ import { useTheme } from '@/lib/theme';
 import { LabeledIconLink, PrimaryLink } from './ui/Links';
 
 function Photo({ sizeClasses }: { sizeClasses: string }) {
+  const { theme } = useTheme();
+  const ringColor = theme === 'dark' ? 'bg-ink-950' : 'bg-[#f8f6f2]';
+
   return (
     <div className="relative shrink-0">
-      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-125 rounded-full bg-signal-cyan/20 blur-2xl" />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/assets/profile.png"
-        alt="Pubudu Gunasekara"
-        className={`${sizeClasses} rounded-full border border-slate-500/15 object-cover object-[center_28%]`}
-      />
+      {/* outer halo: diffuse teal glow, static */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-[1.4] rounded-full bg-signal-cyan/10 blur-[20px]" />
+      {/* hairline ring between the halo and the photo */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 rounded-full border border-signal-cyan/[0.08]" />
+      {/* inner solid ring, in the card's own surface tone, so the photo lifts off the card */}
+      <div className={`rounded-full p-1.5 ${ringColor}`}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/assets/profile.png"
+          alt="Pubudu Gunasekara"
+          className={`${sizeClasses} rounded-full object-cover object-[center_28%]`}
+        />
+      </div>
     </div>
   );
 }
@@ -28,8 +37,13 @@ export function Hero() {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className={`premium-grid grid items-center gap-8 rounded-[2rem] border p-8 shadow-premium sm:p-12 md:grid-cols-[1fr_auto] md:gap-10 ${surface}`}
+        className={`relative grid items-center gap-8 overflow-hidden rounded-[2rem] border p-8 shadow-hero sm:p-12 md:grid-cols-[1fr_auto] md:gap-10 lg:p-14 ${surface}`}
       >
+        {/* Texture lives on its own layer so its fade mask only affects the
+            grid, not the real content stacked on top of it (mask-image
+            masks an element's whole painted box, children included). */}
+        <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0 -z-10" />
+
         {/* Mobile-only: small avatar beside the name, instead of a large photo stacked on top */}
         <div className="flex items-center gap-4 md:hidden">
           <Photo sizeClasses="h-16 w-16" />
