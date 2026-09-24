@@ -31,7 +31,7 @@ export function Section({
         {theme === 'light' && (
           <span
             aria-hidden="true"
-            className="pointer-events-none absolute -left-1 -top-28 -z-10 select-none whitespace-nowrap font-mono text-[6rem] font-bold leading-none sm:-top-32 sm:text-[7.5rem]"
+            className="pointer-events-none absolute -left-1 -top-32 -z-10 hidden select-none whitespace-nowrap font-mono text-[7.5rem] font-bold leading-none sm:block"
             style={{ color: 'transparent', WebkitTextStroke: '1px rgba(15, 23, 42, 0.07)' }}
           >
             {eyebrow}

@@ -9,14 +9,14 @@ type NodeId = 'producer' | 'kafka' | 'worker' | 'redis' | 'postgres' | 'retry' |
 type NodeDef = { x: number; y: number; label: string; sub: string; info: string };
 
 const desktopNodes: Record<NodeId, NodeDef> = {
-  producer: { x: 60, y: 190, label: 'Producer', sub: 'submits task', info: 'A client call saves the task to PostgreSQL and publishes a creation event to Kafka.' },
-  kafka: { x: 210, y: 190, label: 'Kafka topic', sub: 'at-least-once', info: 'Kafka guarantees at-least-once delivery. A worker may see the same event more than once, so that is treated as normal, not an edge case.' },
-  worker: { x: 360, y: 190, label: 'Worker', sub: 'Spring Boot', info: 'Any instance of the same Spring Boot service, joined to the same Kafka consumer group, can pick up the event.' },
-  redis: { x: 510, y: 190, label: 'Redis lock', sub: 'SETNX · 30s TTL', info: 'SETNX acquires a per-task lock before work starts. Released with a Lua compare-and-delete script, so a worker can never release a lock it doesn’t own.' },
-  postgres: { x: 660, y: 190, label: 'PostgreSQL', sub: 'state machine', info: 'The source of truth. A state machine plus JPA @Version optimistic locking means a task can only start once and can’t be corrupted by a concurrent write.' },
-  retry: { x: 660, y: 300, label: 'Retry scheduler', sub: '10s / 30s / 90s', info: 'Polls for FAILED tasks whose backoff has elapsed and re-publishes them to Kafka with exponential backoff, not instant retry.' },
-  dlq: { x: 800, y: 300, label: 'Dead-letter queue', sub: 'task-dlq topic', info: 'After the 4th failure (initial attempt + 3 retries), the task is marked DEAD_LETTER and published here for manual inspection instead of vanishing.' },
-  recovery: { x: 800, y: 80, label: 'Recovery sweep', sub: 'polls every 60s', info: 'Separately finds tasks stuck RUNNING past a 5-minute timeout (a worker likely crashed) and fails them through the same retry path, and re-publishes PENDING tasks whose creation event was lost.' },
+  producer: { x: 90, y: 190, label: 'Producer', sub: 'submits task', info: 'A client call saves the task to PostgreSQL and publishes a creation event to Kafka.' },
+  kafka: { x: 280, y: 190, label: 'Kafka topic', sub: 'at-least-once', info: 'Kafka guarantees at-least-once delivery. A worker may see the same event more than once, so that is treated as normal, not an edge case.' },
+  worker: { x: 470, y: 190, label: 'Worker', sub: 'Spring Boot', info: 'Any instance of the same Spring Boot service, joined to the same Kafka consumer group, can pick up the event.' },
+  redis: { x: 660, y: 190, label: 'Redis lock', sub: 'SETNX · 30s TTL', info: 'SETNX acquires a per-task lock before work starts. Released with a Lua compare-and-delete script, so a worker can never release a lock it doesn’t own.' },
+  postgres: { x: 850, y: 190, label: 'PostgreSQL', sub: 'state machine', info: 'The source of truth. A state machine plus JPA @Version optimistic locking means a task can only start once and can’t be corrupted by a concurrent write.' },
+  retry: { x: 850, y: 320, label: 'Retry scheduler', sub: '10s / 30s / 90s', info: 'Polls for FAILED tasks whose backoff has elapsed and re-publishes them to Kafka with exponential backoff, not instant retry.' },
+  dlq: { x: 1050, y: 320, label: 'Dead-letter queue', sub: 'task-dlq topic', info: 'After the 4th failure (initial attempt + 3 retries), the task is marked DEAD_LETTER and published here for manual inspection instead of vanishing.' },
+  recovery: { x: 1050, y: 70, label: 'Recovery sweep', sub: 'polls every 60s', info: 'Separately finds tasks stuck RUNNING past a 5-minute timeout (a worker likely crashed) and fails them through the same retry path, and re-publishes PENDING tasks whose creation event was lost.' },
 };
 
 const mobileNodes: Record<NodeId, NodeDef> = {
@@ -51,7 +51,7 @@ export function SchedulerDiagram() {
   const [selected, setSelected] = useState<NodeId>('postgres');
 
   const nodes = isDesktop ? desktopNodes : mobileNodes;
-  const viewBox = isDesktop ? '0 0 880 360' : '0 0 300 730';
+  const viewBox = isDesktop ? '0 0 1140 400' : '0 0 300 730';
   const nodeIds = useMemo(() => Object.keys(nodes) as NodeId[], [nodes]);
 
   function edgePath(a: NodeId, b: NodeId, curved: boolean) {
@@ -64,9 +64,9 @@ export function SchedulerDiagram() {
       return `M ${na.x} ${na.y + 24} L ${nb.x} ${nb.y - 24}`;
     }
     if (curved) {
-      return `M ${na.x + 8} ${na.y + 20} C ${na.x + 40} ${na.y + 70}, ${nb.x - 40} ${nb.y - 70}, ${nb.x - 8} ${nb.y - 20}`;
+      return `M ${na.x + 8} ${na.y + 22} C ${na.x + 50} ${na.y + 90}, ${nb.x - 50} ${nb.y - 90}, ${nb.x - 8} ${nb.y - 22}`;
     }
-    return `M ${na.x + 50} ${na.y} L ${nb.x - 50} ${nb.y}`;
+    return `M ${na.x + 80} ${na.y} L ${nb.x - 80} ${nb.y}`;
   }
 
   return (
@@ -110,9 +110,9 @@ export function SchedulerDiagram() {
               }}
             >
               <rect
-                x={-50}
+                x={-80}
                 y={-24}
-                width={100}
+                width={160}
                 height={48}
                 rx={12}
                 fill="currentColor"
@@ -122,7 +122,7 @@ export function SchedulerDiagram() {
                 strokeWidth={isActive ? 2 : 1}
               />
               {isActive && (
-                <rect x={-53} y={-27} width={106} height={54} rx={14} fill="none" stroke="currentColor" strokeOpacity={0.9} strokeWidth={1.5} strokeDasharray="3 3" />
+                <rect x={-83} y={-27} width={166} height={54} rx={14} fill="none" stroke="currentColor" strokeOpacity={0.9} strokeWidth={1.5} strokeDasharray="3 3" />
               )}
               <text textAnchor="middle" y={-3} fill="currentColor" className="font-mono text-[13px] font-semibold">
                 {n.label}

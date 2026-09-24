@@ -57,11 +57,11 @@ export function ReviewerDiagram() {
           const nb = nodes[b];
           const isVertical = !isDesktop || na.x === nb.x;
           const path = isVertical
-            ? `M ${na.x} ${na.y + 22} L ${nb.x} ${nb.y - 22}`
-            : `M ${na.x + 46} ${na.y} L ${nb.x - 46} ${nb.y}`;
+            ? `M ${na.x} ${na.y + 24} L ${nb.x} ${nb.y - 24}`
+            : `M ${na.x + 80} ${na.y} L ${nb.x - 80} ${nb.y}`;
           const isBranch = a === 'api' && b !== 'oauth';
           const branchPath =
-            isDesktop && isBranch ? `M ${na.x + 46} ${na.y} C ${na.x + 100} ${na.y}, ${nb.x - 60} ${nb.y}, ${nb.x - 46} ${nb.y}` : path;
+            isDesktop && isBranch ? `M ${na.x + 80} ${na.y} C ${na.x + 130} ${na.y}, ${nb.x - 100} ${nb.y}, ${nb.x - 80} ${nb.y}` : path;
           return (
             <path
               key={`${a}-${b}`}
@@ -97,10 +97,10 @@ export function ReviewerDiagram() {
               }}
             >
               <rect
-                x={-46}
-                y={-22}
-                width={92}
-                height={44}
+                x={-80}
+                y={-24}
+                width={160}
+                height={48}
                 rx={12}
                 fill="currentColor"
                 fillOpacity={isActive ? 0.16 : 0.07}
@@ -109,9 +109,9 @@ export function ReviewerDiagram() {
                 strokeWidth={isActive ? 2 : 1}
               />
               {isActive && (
-                <rect x={-49} y={-25} width={98} height={50} rx={14} fill="none" stroke="currentColor" strokeOpacity={0.9} strokeWidth={1.5} strokeDasharray="3 3" />
+                <rect x={-83} y={-27} width={166} height={54} rx={14} fill="none" stroke="currentColor" strokeOpacity={0.9} strokeWidth={1.5} strokeDasharray="3 3" />
               )}
-              <text textAnchor="middle" y={-2} fill="currentColor" className="font-mono text-[13px] font-semibold">
+              <text textAnchor="middle" y={-3} fill="currentColor" className="font-mono text-[13px] font-semibold">
                 {n.label}
               </text>
               <text textAnchor="middle" y={15} fill="currentColor" className="font-mono text-[12px] opacity-85">
