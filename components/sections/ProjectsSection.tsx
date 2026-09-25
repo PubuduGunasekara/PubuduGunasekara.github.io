@@ -7,6 +7,7 @@ import { Section } from '../ui/Section';
 import { EditorialCard } from '../ui/EditorialCard';
 import { BulletList, StackRow } from '../ui/StackRow';
 import { SecondaryLink } from '../ui/Links';
+import { DetailsChevronIcon } from '../ui/icons';
 import { SchedulerDiagram } from './SchedulerDiagram';
 
 function FeaturedCard({ project, index }: { project: Project; index: number }) {
@@ -20,7 +21,15 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
       <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl">{project.title}</h3>
       <p className={`mt-3 leading-7 ${muted}`}>{project.body}</p>
 
-      {project.highlights && <BulletList items={project.highlights} />}
+      {project.highlights && (
+        <details className="group mt-5">
+          <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-signal-cyan [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+            Key details
+            <DetailsChevronIcon />
+          </summary>
+          <BulletList items={project.highlights} />
+        </details>
+      )}
 
       <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
         <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>

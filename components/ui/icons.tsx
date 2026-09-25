@@ -13,6 +13,18 @@ export function ChevronIcon({ open, className = 'h-3.5 w-3.5' }: { open: boolean
   );
 }
 
+export function DetailsChevronIcon({ className = 'h-3.5 w-3.5' }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      aria-hidden="true"
+      className={`shrink-0 opacity-50 transition-transform duration-200 group-open:rotate-180 group-hover:opacity-90 motion-reduce:transition-none ${className}`}
+    >
+      <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m3 6 5 5 5-5" />
+    </svg>
+  );
+}
+
 export function MenuIcon({ open }: { open: boolean }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">

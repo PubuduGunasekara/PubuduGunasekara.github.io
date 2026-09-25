@@ -8,6 +8,7 @@ import { RevealGroup, RevealItem } from '../ui/Reveal';
 import { EditorialCard } from '../ui/EditorialCard';
 import { BrandLogo } from '../ui/BrandLogo';
 import { BulletList, StackRow } from '../ui/StackRow';
+import { DetailsChevronIcon } from '../ui/icons';
 
 const accentBorder = ['border-l-signal-cyan', 'border-l-signal-green'];
 
@@ -41,23 +42,39 @@ export function ExperienceSection() {
                 <p className={`shrink-0 font-mono text-xs ${muted}`}>{item.period}</p>
               </div>
 
-              <BulletList items={item.bullets} />
+              {item.company === 'Gunasekara Transport' ? (
+                <details className="group mt-5">
+                  <summary className="flex cursor-pointer list-none items-center gap-1.5 text-sm font-medium text-signal-cyan [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+                    Key details
+                    <DetailsChevronIcon />
+                  </summary>
+                  <BulletList items={item.bullets} />
+                  <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
+                    <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>
+                    <StackRow items={item.focus} />
+                  </div>
+                </details>
+              ) : (
+                <>
+                  <BulletList items={item.bullets} />
 
-              {item.reflection && <p className={`mt-4 text-sm italic leading-6 ${muted}`}>{item.reflection}</p>}
-              {item.reflectionLink && (
-                <Link
-                  href={item.reflectionLink.href}
-                  className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-signal-cyan transition hover:gap-2.5"
-                >
-                  {item.reflectionLink.label}
-                  <span aria-hidden="true">&rarr;</span>
-                </Link>
+                  {item.reflection && <p className={`mt-4 text-sm italic leading-6 ${muted}`}>{item.reflection}</p>}
+                  {item.reflectionLink && (
+                    <Link
+                      href={item.reflectionLink.href}
+                      className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-signal-cyan transition hover:gap-2.5"
+                    >
+                      {item.reflectionLink.label}
+                      <span aria-hidden="true">&rarr;</span>
+                    </Link>
+                  )}
+
+                  <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
+                    <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>
+                    <StackRow items={item.focus} />
+                  </div>
+                </>
               )}
-
-              <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
-                <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>
-                <StackRow items={item.focus} />
-              </div>
             </EditorialCard>
           </RevealItem>
         ))}
