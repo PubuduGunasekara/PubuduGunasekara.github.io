@@ -295,11 +295,6 @@ export const certifications: Array<[string, string, string]> = [
     'University of Michigan / Coursera',
     'https://www.coursera.org/account/accomplishments/specialization/certificate/H4W6EJV3D255',
   ],
-  [
-    'Kotlin Core + SQL + React Native Credentials',
-    'JetBrains Academy + Additional',
-    'https://www.linkedin.com/in/pubudugunasekera/details/certifications/',
-  ],
 ];
 
 export const education = [
