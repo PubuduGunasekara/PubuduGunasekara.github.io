@@ -8,7 +8,6 @@ import { EditorialCard } from '../ui/EditorialCard';
 import { BulletList, StackRow } from '../ui/StackRow';
 import { SecondaryLink } from '../ui/Links';
 import { DetailsChevronIcon } from '../ui/icons';
-import { SchedulerDiagram } from './SchedulerDiagram';
 
 function FeaturedCard({ project, index }: { project: Project; index: number }) {
   const { muted } = useTheme();
@@ -49,12 +48,6 @@ function FeaturedCard({ project, index }: { project: Project; index: number }) {
           </Link>
         )}
       </div>
-
-      {project.hasDiagram && (
-        <div className="mt-7">
-          <SchedulerDiagram />
-        </div>
-      )}
     </EditorialCard>
   );
 }
