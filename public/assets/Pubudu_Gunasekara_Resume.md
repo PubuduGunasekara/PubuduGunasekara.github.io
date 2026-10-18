@@ -36,12 +36,6 @@ Jun 2021 - Mar 2022 · Colombo, Sri Lanka
 - Led test planning and ran client demos and daily stand-ups for the module under the QA lead's delegation, and collaborated with developers to validate bug fixes.
 - Tracked QA metrics including defect densities and open defect counts, working across CST Environment, Camunda Cockpit, RabbitMQ, Swagger UI, and MQ Console.
 
-### Gunasekara Transport - Web Developer
-
-Dec 2025 - Jun 2026 · Remote
-
-- Built the corporate website and web app interfaces, plus an internal business management system (HR, operational workflows, and reporting) that replaced manual processes, using React.js, JavaScript, PHP, WordPress, and Docker.
-
 ## Projects
 
 ### Distributed Task Scheduler

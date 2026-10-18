@@ -29,7 +29,6 @@ export const brandAssets = {
   conestoga: '/assets/logos/conestoga.svg',
   victoria: '/assets/logos/victoria.svg',
   virtusa: '/assets/logos/virtusa.svg',
-  gunasekaraTransport: '/assets/logos/gunasekara-transport.jpg',
 };
 
 export type JourneyStep = {
@@ -60,19 +59,6 @@ export type Experience = {
 };
 
 export const experience: Experience[] = [
-  {
-    role: 'Web Developer',
-    company: 'Gunasekara Transport',
-    period: 'Dec 2025 - Jun 2026 · Remote',
-    bullets: [
-      'Built the corporate website and web app interfaces, plus an internal business management system for HR, operational workflows, and reporting that replaced manual processes.',
-      'Managed web infrastructure, including domain configuration and email gateway administration.',
-    ],
-    focus: ['React.js', 'JavaScript', 'PHP', 'WordPress', 'Docker'],
-    logo: brandAssets.gunasekaraTransport,
-    mark: 'GT',
-    highlights: ['Corporate site + internal business system'],
-  },
   {
     role: 'Associate Engineer, QA',
     company: 'Virtusa',
