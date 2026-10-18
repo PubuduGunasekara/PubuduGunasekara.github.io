@@ -64,9 +64,10 @@ export const experience: Experience[] = [
     company: 'Virtusa',
     period: 'Jun 2021 - Mar 2022 · Colombo',
     bullets: [
-      'Built Java and Selenium WebDriver test automation for a British Telecommunications platform serving 1M+ users, designing and executing test cases and test plans across agile sprints.',
-      'Led test planning and ran client demos and daily stand-ups for the module under the QA lead’s delegation, working with developers to validate bug fixes.',
-      'Tracked defect densities and open defect counts across CST Environment, Camunda Cockpit, RabbitMQ, Swagger UI, and MQ Console.',
+      'Wrote Java and Selenium WebDriver automated tests inside the team’s framework for a British Telecommunications (BT) platform serving 1M+ users.',
+      'Designed and ran test plans across agile sprints.',
+      'Finished assigned sprint tickets ahead of the sprint end, leaving room for peer review and ad hoc requests.',
+      'Ran client demos and daily stand-ups when the QA lead delegated them, and tracked defect density and open defect counts.',
     ],
     focus: ['Java', 'Selenium WebDriver', 'CST Environment', 'Camunda Cockpit', 'RabbitMQ', 'Swagger UI', 'MQ Console', 'agile'],
     logo: brandAssets.virtusa,
@@ -87,17 +88,17 @@ export type SkillCategory = {
 export const skills: SkillCategory[] = [
   {
     category: 'Languages',
-    items: ['Java', 'JavaScript', 'Python', 'SQL'],
-    context: 'Java anchors the Task Scheduler and the Virtusa automation; Python and SQL span the rest of the work on this page.',
+    items: ['Java', 'JavaScript', 'Python', 'SQL', 'C++ (Arduino)'],
+    context: 'Java anchors the Task Scheduler and the Virtusa automation; C++ runs the Arduino controllers in the Smart Farm project; Python and SQL span the rest of the work on this page.',
   },
   {
     category: 'Backend & Distributed',
-    items: ['Spring Boot', 'Node.js / Express', 'Apache Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'Hexagonal Architecture'],
+    items: ['Spring Boot', 'Node.js / Express', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Firebase', 'REST APIs'],
     context: 'Spring Boot, Kafka, Redis, and PostgreSQL are the core of the Distributed Task Scheduler, built with Hexagonal Architecture: domain logic stays isolated from infrastructure adapters, enforced at build time by an ArchUnit test.',
   },
   {
     category: 'Infra & DevOps',
-    items: ['Docker', 'Docker Compose', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'AWS'],
+    items: ['Docker', 'Docker Compose', 'GitHub Actions', 'CI/CD', 'Jenkins', 'Prometheus', 'Grafana', 'AWS'],
     context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production.',
   },
   {
@@ -112,8 +113,6 @@ export const skills: SkillCategory[] = [
     secondary: true,
   },
 ];
-
-export const familiarSkills = ['C++', 'Jenkins'];
 
 export type Project = {
   title: string;
@@ -143,7 +142,7 @@ export const projects: Project[] = [
     highlights: [
       'Three independent layers (a Redis lock, a database state machine, and optimistic locking) stop the same job from running twice, even with Kafka’s at-least-once delivery.',
       'Failed jobs retry with backoff (10s, 30s, 90s) before landing in a dead-letter queue instead of vanishing; a recovery sweeper catches jobs stuck behind a crashed worker.',
-      '164 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for live observability.',
+      '188 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for live observability.',
     ],
     stack: ['Java 21', 'Spring Boot', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker', 'Prometheus', 'Grafana', 'JUnit', 'GitHub Actions'],
     featured: true,
@@ -170,32 +169,28 @@ export const projects: Project[] = [
     caseStudySlug: 'ai-code-reviewer',
   },
   {
-    title: 'Travel Day Scheduler',
-    eyebrow: 'Algorithms · Weighted A*',
-    status: 'Built',
-    statusColor: 'text-signal-green',
-    href: 'https://github.com/PubuduGunasekara/SmartTravelPlanner',
-    demo: null,
-    body: 'Given a set of places to visit in a day, this finds the itinerary that fits in the most enjoyment within a time budget, using Weighted A* search over real travel-time matrices. A 2-person graduate algorithms project. I co-designed the algorithm and built the initial search plus the route-visualization frontend.',
-    highlights: [
-      'Each search state is (time, location, places-visited); the search escalates its weight and prunes the open set to stay fast and bounded.',
-      'Served through a Flask API with a JavaScript frontend that visualizes the resulting route.',
-    ],
-    stack: ['Python', 'Weighted A*', 'Flask', 'JavaScript'],
-    featured: true,
-    embed: null,
-  },
-  {
     title: 'IoT Smart Farm System',
     eyebrow: 'Mobile · IoT · Team project',
     status: 'Complete · Award winner',
     statusColor: 'text-signal-amber',
     href: 'https://github.com/PubuduGunasekara/smart-farm-1.1.0',
     demo: 'https://www.linkedin.com/posts/pubudugunasekera_softwareengineering-iot-fullstackdevelopment-ugcPost-6794005940980072448-jYhD/',
-    body: 'Cross-platform IoT farm-monitoring app (Android/iOS). Top 10 Most Innovative Projects, NSBM Green EXE v1.0.',
-    stack: ['React Native', 'Redux', 'Firebase', 'IoT', 'Android', 'iOS'],
+    body: 'Built the app’s device-control section and the physical Arduino farm model. The control panel (water, food, gate, cleaning) sends commands through Firebase to WiFi-enabled Arduino/ESP controllers that drive relays and motors. Team project, one of the Top 10 Most Innovative Projects at the NSBM Green EXE v1.0 software competition.',
+    stack: ['React Native (Expo)', 'Redux', 'Firebase', 'Arduino', 'ESP'],
     featured: false,
     embed: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6794005940980072448?compact=1',
+  },
+  {
+    title: 'Travel Day Scheduler',
+    eyebrow: 'Algorithms · Weighted A*',
+    status: 'Built',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/SmartTravelPlanner',
+    demo: null,
+    body: 'Graduate algorithms team project (team of 2): a weighted / anytime A* itinerary planner with heap pruning. I wrote the initial search and the route-visualization frontend.',
+    stack: ['Python', 'Weighted A*', 'Flask', 'JavaScript'],
+    featured: false,
+    embed: null,
   },
   {
     title: 'Bird Conservatory Management System',

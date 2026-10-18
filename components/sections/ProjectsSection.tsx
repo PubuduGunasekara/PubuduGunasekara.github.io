@@ -59,7 +59,7 @@ function EarlierProjectCard({ project }: { project: Project }) {
     <div className="rounded-2xl border border-slate-500/15 p-4">
       <h4 className="text-sm font-semibold tracking-tight">{project.title}</h4>
       <p className={`mt-1 font-mono text-xs uppercase tracking-widest ${muted}`}>{project.eyebrow}</p>
-      <p className={`mt-2 line-clamp-4 text-xs leading-5 ${muted}`}>{project.body}</p>
+      <p className={`mt-2 text-xs leading-5 ${muted}`}>{project.body}</p>
       <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
         <a href={project.href} target="_blank" rel="noreferrer" className="text-signal-cyan hover:underline">
           Code
@@ -86,22 +86,24 @@ export function ProjectsSection() {
     <Section id="projects" eyebrow="01" title="Featured Work">
       <p className={`mb-6 text-sm ${muted}`}>The projects I&rsquo;d point a hiring manager to first.</p>
 
-      <div className="grid gap-4">
-        <FeaturedCard project={featuredProjects[0]} index={0} />
-        <div className="grid gap-4 sm:grid-cols-2">
-          <FeaturedCard project={featuredProjects[1]} index={1} />
-          <FeaturedCard project={featuredProjects[2]} index={2} />
-        </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {featuredProjects.map((project, index) => (
+          <FeaturedCard key={project.title} project={project} index={index} />
+        ))}
       </div>
 
-      <div className="mt-10 border-t border-slate-500/10 pt-8">
-        <p className={`font-mono text-xs uppercase tracking-widest ${muted}`}>Earlier projects</p>
-        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+      <details className="group mt-10 border-t border-slate-500/10 pt-6">
+        <summary className="flex cursor-pointer list-none items-center gap-2 font-mono text-xs uppercase tracking-widest text-signal-cyan [&::-webkit-details-marker]:hidden [&::marker]:hidden">
+          Earlier projects
+          <span className={muted}>{earlierProjects.length}</span>
+          <DetailsChevronIcon />
+        </summary>
+        <div className="mt-4 grid gap-3 sm:grid-cols-2">
           {earlierProjects.map((project) => (
             <EarlierProjectCard key={project.title} project={project} />
           ))}
         </div>
-      </div>
+      </details>
     </Section>
   );
 }

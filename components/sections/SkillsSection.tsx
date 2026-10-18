@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { familiarSkills, skills } from '@/lib/content';
+import { skills } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
 import { Section } from '../ui/Section';
 import { ChevronIcon } from '../ui/icons';
@@ -72,10 +72,6 @@ export function SkillsSection() {
           );
         })}
       </RevealGroup>
-      <p className={`mt-5 border-t border-slate-500/15 pt-5 text-xs ${muted} sm:px-2`}>
-        <span className="font-medium">Familiar: </span>
-        {familiarSkills.join(' · ')}
-      </p>
     </Section>
   );
 }

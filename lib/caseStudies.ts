@@ -90,9 +90,9 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     testing: [
-      '164 @Test methods across unit tests and integration tests that run against real PostgreSQL and Redis via Testcontainers, not mocks, so the Redis lock script and the database state machine are exercised against the real thing.',
+      '188 tests across unit tests and integration tests that run against real PostgreSQL and Redis via Testcontainers, not mocks, so the Redis lock script and the database state machine are exercised against the real thing.',
       'An ArchUnit test enforces the hexagonal boundary at build time.',
-      'CI runs the full suite through Maven’s verify goal with a JaCoCo coverage gate set at 80% line and 80% branch; the project’s own README reports the current run at 94.6% line / 90.0% branch.',
+      'CI runs the full suite through Maven’s verify goal with a JaCoCo coverage gate set at 80% line and 80% branch; the project’s own README reports the current run at 93.4% line / 91.1% branch.',
     ],
     observability: [
       'Every component (the API, the workers, the retry scheduler, the recovery sweep) reports metrics through Micrometer to Prometheus.',
