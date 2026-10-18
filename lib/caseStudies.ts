@@ -116,42 +116,46 @@ export const caseStudies: Record<string, CaseStudy> = {
     tagline: 'Sign in with GitHub, pick an open pull request, and get an instant first-pass review with severity-tagged findings.',
     repo: 'https://github.com/PubuduGunasekara/ai-code-reviewer',
     demo: 'https://main.d3dm91k4g9mtr9.amplifyapp.com/',
-    stack: ['Node.js', 'Express 5', 'React 19', 'Vite', 'OpenAI gpt-4o-mini', 'Redis', 'PostgreSQL', 'Passport (GitHub OAuth)', 'Octokit', 'Docker'],
+    stack: ['Node.js', 'Express 5', 'React 19', 'Vite', 'OpenAI gpt-4o-mini (Structured Outputs)', 'Redis', 'PostgreSQL', 'Passport (GitHub OAuth)', 'Octokit', 'Docker', 'GitHub Actions'],
     diagram: 'ai-code-reviewer',
     problem: [
       'Code review is one of the slowest steps in shipping software. Pull requests often sit for a day or more before a human looks at them.',
       'This app gives a first-pass review in seconds: sign in with GitHub, pick one of your open pull requests, and the app reads the diff and returns a structured review, with each finding tagged by severity and category, an explanation, and where possible a suggested fix, so a human reviewer can spend their time on the harder judgment calls instead of the obvious ones.',
     ],
     architectureNote: [
-      'The React/Vite frontend (hosted on AWS Amplify) signs the user in through GitHub OAuth and talks to an Express API (on AWS EC2). The API pulls the user’s repositories and pull requests through the GitHub API via Octokit, fetches the diff for the chosen PR, and sends it to gpt-4o-mini with a prompt that specifies the exact JSON shape to return. Sessions and review history are stored in PostgreSQL; Redis handles the review-result cache and per-user rate limiting. The reviewed result flows back to the frontend as severity-tagged findings.',
+      'The React/Vite frontend (hosted on AWS Amplify) signs the user in through GitHub OAuth and talks to an Express API (on AWS EC2). The API pulls the user’s repositories and pull requests through the GitHub API via Octokit, fetches the diff for the chosen PR, and sends it to gpt-4o-mini with a prompt and a strict JSON schema for the response. Sessions and review history are stored in PostgreSQL; Redis handles the review-result cache and per-user rate limiting. The validated result flows back to the frontend as severity-tagged findings.',
       'The interesting engineering here is less about the model call itself and more about building a dependable product around it: handling large diffs, protecting an expensive endpoint from abuse, caching to avoid re-paying for identical work, and treating the model’s output as untrusted input to validate rather than a black box to trust.',
     ],
     keyDecisions: [
       {
         title: 'GitHub OAuth and PR selection',
-        body: 'Login goes through GitHub OAuth (Passport), requesting repo scope so the app can read pull request diffs on the user’s behalf. Sessions are stored server-side in PostgreSQL via connect-pg-simple, so a login survives a server restart instead of forcing a re-auth. Picking a PR fetches its metadata and raw diff from GitHub through Octokit, parses the diff into per-file changes, and stores it as a pending review row before any AI call happens.',
+        body: 'Login goes through GitHub OAuth (Passport), requesting repo scope so the app can read pull request diffs on the user’s behalf. Sessions are stored server-side in PostgreSQL via connect-pg-simple, so a login survives a server restart instead of forcing a re-auth. Picking a PR fetches its metadata and raw diff from GitHub through Octokit and stores it as a pending review row before any AI call happens.',
       },
       {
         title: 'Large diffs get trimmed, not rejected',
         body: 'gpt-4o-mini has a real context limit. Diffs are capped at 100,000 characters (roughly a 4-characters-per-token estimate, leaving headroom for the response). A diff over that limit is truncated with an explicit "[DIFF TRUNCATED]" marker appended, so an oversized PR still gets a partial, clearly labeled review instead of a hard failure.',
       },
       {
-        title: 'A JSON contract, enforced defensively rather than assumed',
-        body: 'The system prompt spells out an exact JSON shape: severity levels (critical through info), fixed categories (security, performance, bug, error-handling, style, architecture), and required fields. The request uses OpenAI’s response_format: { type: "json_object" } mode, which guarantees syntactically valid JSON, not a fixed field-by-field shape. That is different from OpenAI’s stricter json_schema structured-output mode with enum-constrained fields; this is a prompt-specified contract instead. So the server never trusts the response blindly. A reply that fails to parse as JSON throws an explicit error instead of corrupting stored data, and a reply that parses but is missing or malformed fields (no issues array, an out-of-range score, no summary) gets defensive defaults applied before anything is persisted.',
+        title: 'A strict schema the model can’t dodge, and validation that fails loudly',
+        body: 'The request uses OpenAI’s Structured Outputs (response_format json_schema with strict: true) and an explicit schema: enums for severity (critical through info) and category (security, performance, bug, error-handling, style, architecture), and every field required, including the comment, the suggested fix, and a CWE reference that the prompt asks the model to fill only for security findings. Strict mode guarantees the shape but not the value ranges, so the server checks the rest itself: the score must be an integer from 1 to 10 and there can be at most 15 issues. If the model refuses, returns unparseable JSON, or fails those checks, the review is marked failed and the real error is returned. It is never patched with a made-up score or an empty issue list.',
       },
       {
-        title: 'Rate limiting that fails open, and a cache that saves real money',
-        body: 'The review endpoint is the expensive one, since it pays for an OpenAI call, so it is rate limited per user with an atomic Redis INCR against a rate:review:<userId> key, with a 1-hour expiry set only on the first request of the window, capped at 10 reviews per hour. Standard X-RateLimit-Limit / -Remaining / -Reset headers are returned either way. If Redis errors, the limiter deliberately fails open (allows the request through) rather than failing closed. That is a deliberate choice: a broken cache should not be able to take the whole product down. Review results are separately cached in Redis for an hour, keyed by a SHA-256 hash of the diff content, so re-opening the same PR is instant and does not re-pay the OpenAI cost. PostgreSQL is the durable store underneath. The reviews and review_comments tables back the paginated review-history UI and outlive the cache.',
+        title: 'Rate limiting that is atomic and fails open, and a cache that can’t go stale',
+        body: 'The review endpoint is the expensive one, since it pays for an OpenAI call, so it is rate limited per user in Redis: a fixed one-hour window capped at 10 reviews, with standard X-RateLimit-Limit / -Remaining / -Reset headers. The increment and the first-time expiry run inside a single Lua script, so a crash between an INCR and an EXPIRE can never leave a key with no TTL and lock a user out forever. If Redis errors, the limiter deliberately fails open (allows the request through) rather than failing closed, because a broken cache should not be able to take the whole product down. Review results are cached in Redis for an hour, keyed by a SHA-256 hash of the model name, the prompt/schema version, and the diff, so re-opening the same PR is instant and free, and shipping a prompt or schema change never serves a review generated under the old rules. PostgreSQL is the durable store underneath: the reviews and review_comments tables back the paginated review-history UI and outlive the cache.',
       },
     ],
     failureScenarios: [
       {
-        title: 'The model returns text that is not valid JSON',
-        body: 'JSON.parse throws, the raw response is logged for debugging, and the request fails with an explicit "AI returned invalid response format" error rather than silently storing garbage.',
+        title: 'The model refuses, or returns output that fails validation',
+        body: 'The review is marked failed rather than left retryable, because the same diff would produce the same problem, and the request returns a 502 with the real error. Nothing is saved as a completed review with defaulted fields.',
       },
       {
-        title: 'The model returns valid JSON in the wrong shape',
-        body: 'json_object mode guarantees syntax, not content. A missing issues array, an out-of-range score, or a missing summary all get replaced with safe defaults (an empty list, a score of 5, a fallback summary string) before the review is saved, so a slightly-off model response degrades gracefully instead of breaking the UI.',
+        title: 'The model returns the right shape with an unacceptable value',
+        body: 'Strict mode cannot enforce numeric ranges or array lengths, so a score outside 1 to 10, or more than 15 issues, is caught by the server-side check and treated like any other validation failure: the review fails with a clear error instead of showing a misleading result.',
+      },
+      {
+        title: 'A transient failure (OpenAI rate limit, auth, or network error)',
+        body: 'The review reverts to pending so the user can retry without re-fetching the diff from GitHub.',
       },
       {
         title: 'Redis is briefly unavailable',
@@ -163,21 +167,24 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
     ],
     testing: [
-      'There is no automated test suite in this repository at the time of writing. No test runner is configured, and no test files exist beyond a deliberately vulnerable sample route used to demo the reviewer catching real issues.',
+      '19 backend tests (node --test with supertest) cover the structured-output handling, diff truncation, the rate limiter middleware, the atomic rate-limit script, and cache-key invalidation.',
+      'OpenAI and Redis are mocked at the module boundary, so the suite runs fast and never calls a real service. That also means the Lua script is tested against a fake Redis, not a real one, unlike the Task Scheduler’s real-database integration tests. The frontend is covered by lint and a production build in CI rather than by tests.',
+      'GitHub Actions runs on every push and pull request to main: the backend tests, and the frontend lint and build as a separate job.',
     ],
     observability: [
       'Observability today is request-level logging (PR fetch and processing timing, cache hit/miss, and OpenAI response timing logged to the console) plus a GET /health endpoint for basic liveness checks. There is no metrics or dashboard layer here the way the Task Scheduler has Prometheus and Grafana. That is a smaller-scale setup, worth naming directly rather than glossing over.',
     ],
     deployment: [
       'Packaged with Docker and Docker Compose (which brings up local PostgreSQL and Redis for development). Per the project README, the frontend is deployed on AWS Amplify and the backend API on AWS EC2.',
-      'There is no CI/CD pipeline configured in this repository, and no GitHub Actions workflow, so build and deploy are currently manual.',
+      'CI runs the tests and builds but does not deploy. Backend deployment to EC2 is a manual Docker rebuild and restart.',
     ],
     limitations: [
-      'Uses OpenAI’s JSON-object response mode plus a prompt-specified shape and defensive server-side coercion, not schema-enforced structured output. A valid-JSON-but-wrong-shape response is caught by defaults, but the contract is not enforced by the model provider itself.',
-      'Rate limiting fails open when Redis is unavailable, trading strict quota enforcement for availability.',
+      'Diff truncation is character-based, not token-based, and cuts at a fixed length rather than prioritizing the most relevant files, so a large diff can lose its last (possibly important) files entirely. Each review is a single model call with no chunking or multi-pass review, so quality can degrade as a diff approaches the limit.',
+      'Rate limiting uses a fixed window, so bursts around a window boundary are possible (close to double the hourly quota split across the boundary). It also fails open when Redis is unavailable, trading strict quota enforcement for availability.',
       'The "already processing" guard reads and writes review status as separate queries rather than one atomic operation, so two near-simultaneous requests for the same review are not provably prevented from both reaching OpenAI.',
-      'No automated test suite or CI pipeline yet.',
-      'No metrics or dashboard observability beyond request logging and a health endpoint.',
+      'No data retention policy. Full diffs and review results are kept in PostgreSQL indefinitely, with no cleanup or archival job yet.',
+      'Tests mock OpenAI and Redis rather than running against real ones, and there are no frontend tests.',
+      'No metrics or dashboard observability beyond request logging and a health endpoint, and deployment to EC2 is manual.',
     ],
   },
 };

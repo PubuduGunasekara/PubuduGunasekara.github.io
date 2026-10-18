@@ -13,9 +13,9 @@ const desktopNodes: Record<NodeId, NodeDef> = {
   frontend: { x: 100, y: 150, label: 'Frontend', sub: 'React · Amplify', info: 'React + Vite, hosted on AWS Amplify. Signs the user in and calls the Express API.' },
   api: { x: 340, y: 150, label: 'Express API', sub: 'AWS EC2', info: 'Express on EC2. Coordinates GitHub, OpenAI, the cache, and the database. No business logic lives in the frontend.' },
   postgres: { x: 610, y: 40, label: 'PostgreSQL', sub: 'sessions + reviews', info: 'Durable store: sessions (via connect-pg-simple), and the reviews / review_comments tables backing review history.' },
-  redis: { x: 610, y: 115, label: 'Redis', sub: 'cache + rate limit', info: 'Caches review results by diff hash for 1 hour, and rate-limits the review endpoint per user (fails open if Redis errors).' },
+  redis: { x: 610, y: 115, label: 'Redis', sub: 'cache + rate limit', info: 'Caches review results for 1 hour, keyed by a hash of the diff plus the model and prompt/schema version, and rate-limits the review endpoint per user with an atomic Lua script (fails open if Redis errors).' },
   github: { x: 610, y: 190, label: 'GitHub API', sub: 'Octokit', info: 'Fetches the user’s repositories, pull requests, and PR diffs via Octokit.' },
-  openai: { x: 610, y: 265, label: 'gpt-4o-mini', sub: 'OpenAI', info: 'Receives the (possibly truncated) diff and a prompt specifying the JSON shape to return; the server validates the response defensively.' },
+  openai: { x: 610, y: 265, label: 'gpt-4o-mini', sub: 'OpenAI', info: 'Receives the (possibly truncated) diff and returns findings in a strict JSON schema (Structured Outputs). The server rejects a refusal or an out-of-range result instead of patching it.' },
 };
 
 const mobileNodes: Record<NodeId, NodeDef> = {
