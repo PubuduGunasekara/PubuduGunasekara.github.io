@@ -39,7 +39,7 @@ export type JourneyStep = {
 export const journeySteps: JourneyStep[] = [
   { place: 'Sri Lanka', detail: 'Foundations, hackathons, and an IoT system I led as a student.' },
   { place: 'Virtusa', detail: 'Production Java and Selenium test automation on a British Telecommunications platform.' },
-  { place: 'Canada', detail: 'A postgraduate certificate in mobile solutions development.' },
+  { place: 'Canada', detail: 'A graduate certificate in mobile solutions development.' },
   { place: 'Northeastern, Silicon Valley', detail: 'Backend and distributed systems.' },
 ];
 
@@ -289,7 +289,7 @@ export const education = [
   },
   {
     school: 'Conestoga College',
-    program: 'Postgraduate Certificate - Mobile Solutions Development',
+    program: 'Graduate Certificate - Mobile Solutions Development',
     meta: 'Waterloo, ON, Canada · 2022 - 2023',
     detail: 'GPA: 3.74 / 4.0.',
     logo: brandAssets.conestoga,
