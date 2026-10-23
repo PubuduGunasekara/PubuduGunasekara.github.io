@@ -88,28 +88,28 @@ export type SkillCategory = {
 export const skills: SkillCategory[] = [
   {
     category: 'Languages',
-    items: ['Java', 'JavaScript', 'Python', 'SQL', 'C++ (Arduino)'],
-    context: 'Java anchors the Task Scheduler and the Virtusa automation; C++ runs the Arduino controllers in the Smart Farm project; Python and SQL span the rest of the work on this page.',
+    items: ['Java', 'Python', 'JavaScript', 'TypeScript', 'SQL', 'C++ (Arduino)'],
+    context: 'Java anchors the Task Scheduler and the Virtusa automation; TypeScript builds this site; C++ runs the Arduino controllers in the Smart Farm project; Python and SQL span the rest of the work on this page.',
   },
   {
-    category: 'Backend & Distributed',
-    items: ['Spring Boot', 'Node.js / Express', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Firebase', 'REST APIs'],
-    context: 'Spring Boot, Kafka, Redis, and PostgreSQL are the core of the Distributed Task Scheduler, built with Hexagonal Architecture: domain logic stays isolated from infrastructure adapters, enforced at build time by an ArchUnit test.',
+    category: 'Backend',
+    items: ['Spring Boot', 'Node.js', 'Express', 'Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'OpenAI API'],
+    context: 'Spring Boot, Kafka, Redis, and PostgreSQL are the core of the Distributed Task Scheduler, built with Hexagonal Architecture: domain logic stays isolated from infrastructure adapters, enforced at build time by an ArchUnit test. The AI Code Review Assistant’s Express API calls the OpenAI API.',
   },
   {
     category: 'Infra & DevOps',
-    items: ['Docker', 'Docker Compose', 'GitHub Actions', 'CI/CD', 'Jenkins', 'Prometheus', 'Grafana', 'AWS'],
+    items: ['Linux', 'Git', 'Docker', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'AWS'],
     context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production.',
   },
   {
-    category: 'Frontend',
-    items: ['React', 'Next.js', 'React Native', 'Vite', 'Redux'],
-    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI.',
+    category: 'Frontend & Mobile',
+    items: ['React', 'Next.js', 'React Native', 'Vite', 'Redux', 'Firebase', 'Android and iOS (coursework)'],
+    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI; React Native and Firebase drive the Smart Farm app.',
   },
   {
-    category: 'Applied AI',
-    items: ['OpenAI API', 'LLM integration', 'structured outputs'],
-    context: 'The AI Code Review Assistant sends a prompt-specified JSON contract to gpt-4o-mini and defensively validates the response server-side before trusting it.',
+    category: 'Concepts',
+    items: ['Distributed Systems', 'Data Structures', 'Object-Oriented Design', 'Concurrency', 'Unit Testing', 'Debugging'],
+    context: 'Concurrency and distributed systems drive the Task Scheduler’s locks, retries, and state machine; the Travel Day Scheduler’s heap pruning and the CS5010 Java projects cover data structures and object-oriented design; unit tests back the Task Scheduler and the Virtusa automation.',
     secondary: true,
   },
 ];
