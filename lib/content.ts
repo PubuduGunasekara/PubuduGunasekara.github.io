@@ -169,6 +169,18 @@ export const projects: Project[] = [
     caseStudySlug: 'ai-code-reviewer',
   },
   {
+    title: 'Multi-User Blog',
+    eyebrow: 'Full-stack · MERN · Bachelor’s project',
+    status: 'Built · 2020–21',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/Multi-User-Blog',
+    demo: null,
+    body: 'A multi-author phone review and news site where every post waits for admin approval. Express REST API (93 endpoints) on MongoDB with JWT roles, and Next.js static generation for SEO (Lighthouse SEO 100 on a local build). Revisited in 2026 with a 42-test API suite, which surfaced a privilege-escalation bug now documented in the repo.',
+    stack: ['Node.js', 'Express', 'MongoDB', 'Mongoose', 'Next.js', 'React', 'JWT'],
+    featured: false,
+    embed: null,
+  },
+  {
     title: 'IoT Smart Farm System',
     eyebrow: 'Mobile · IoT · Team project',
     status: 'Complete · Award winner',
