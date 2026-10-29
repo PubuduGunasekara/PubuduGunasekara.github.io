@@ -11,6 +11,10 @@
   --signal-blue: 157 184 255;
   --signal-amber: 232 179 104;
   --signal-red: 248 113 113;
+  /* Northeastern red: starting value, verify against Northeastern's brand page.
+     --nu-red is for fills and rules; --nu-red-text is the shade used for text. */
+  --nu-red: 200 16 46;
+  --nu-red-text: 242 102 122;
 }
 
 .light {
@@ -22,6 +26,7 @@
   --signal-blue: 37 99 235;
   --signal-amber: 161 98 7;
   --signal-red: 220 38 38;
+  --nu-red-text: 200 16 46;
 }
 
 * {
@@ -76,8 +81,8 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(ellipse 60% 80% at 78% 50%, transparent 15%, black 55%);
-  mask-image: radial-gradient(ellipse 60% 80% at 78% 50%, transparent 15%, black 55%);
+  -webkit-mask-image: radial-gradient(ellipse 35% 45% at 7% 10%, transparent 10%, black 60%);
+  mask-image: radial-gradient(ellipse 35% 45% at 7% 10%, transparent 10%, black 60%);
 }
 
 .light .hero-grid {

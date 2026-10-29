@@ -12,7 +12,7 @@ export function Section({
   children,
 }: {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   children: React.ReactNode;
 }) {
@@ -28,7 +28,7 @@ export function Section({
       className="grid gap-8 border-t border-slate-500/15 py-20 md:grid-cols-[12rem_1fr]"
     >
       <RevealItem className="relative">
-        {theme === 'light' && (
+        {theme === 'light' && eyebrow && (
           <span
             aria-hidden="true"
             className="pointer-events-none absolute -left-1 -top-32 -z-10 hidden select-none whitespace-nowrap font-mono text-[7.5rem] font-bold leading-none sm:block"
@@ -37,8 +37,8 @@ export function Section({
             {eyebrow}
           </span>
         )}
-        <p className={`font-mono text-xs ${muted}`}>{eyebrow}</p>
-        <h2 className="mt-2 text-xl font-semibold tracking-tight">{title}</h2>
+        {eyebrow && <p className={`font-mono text-xs ${muted}`}>{eyebrow}</p>}
+        <h2 className={`${eyebrow ? 'mt-2' : ''} text-xl font-semibold tracking-tight`}>{title}</h2>
       </RevealItem>
       <RevealItem className="min-w-0">{children}</RevealItem>
     </motion.section>

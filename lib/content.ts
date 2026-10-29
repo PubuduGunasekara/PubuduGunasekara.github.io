@@ -9,9 +9,19 @@ export const links = {
 };
 
 export const heroName = 'Pubudu Gunasekara';
-export const heroTagline = 'Software engineer focused on backend and distributed systems.';
-export const heroCredential = 'M.S. Computer Science · Northeastern · 4.0 GPA';
-export const heroTechLine = 'Java · Spring Boot · Kafka · Redis · PostgreSQL · AWS';
+export const heroUniversity = 'Northeastern University';
+export const heroProgram = 'M.S. Computer Science, Khoury College of Computer Sciences, Silicon Valley';
+export const heroExpected = 'Expected May 2028';
+export const heroGpa = 'GPA 4.0 / 4.0';
+export const heroSeeking = {
+  label: 'Seeking:',
+  text: 'Software Engineering Internship, Summer 2027, Bay Area.',
+};
+export const heroProof: { label: string; href?: string }[] = [
+  { label: '188 tests, 93.4% line coverage' },
+  { label: 'AI code reviewer, live demo', href: 'https://main.d3dm91k4g9mtr9.amplifyapp.com/' },
+  { label: 'Java 21, Spring Boot, Kafka, Redis, PostgreSQL' },
+];
 
 export const nav = [
   { id: 'projects', label: 'Projects' },
@@ -290,7 +300,17 @@ export const certifications: Array<[string, string, string]> = [
   ],
 ];
 
-export const education = [
+export type Education = {
+  school: string;
+  program: string;
+  meta: string;
+  detail: string;
+  logo: string;
+  mark: string;
+  wideLogo?: boolean;
+};
+
+export const education: Education[] = [
   {
     school: 'Northeastern University, Khoury College of Computer Sciences',
     program: 'M.S. Computer Science',
@@ -298,6 +318,7 @@ export const education = [
     detail: 'GPA: 4.0 / 4.0. Completed: Algorithms, Programming Design Paradigms (Java). In progress (Fall 2026): Machine Learning, Natural Language Processing.',
     logo: brandAssets.northeastern,
     mark: 'NU',
+    wideLogo: true,
   },
   {
     school: 'Conestoga College',
@@ -317,7 +338,6 @@ export const education = [
   },
 ];
 
-export const heroAvailability = 'Seeking Software Engineering internships · Summer 2027';
 export const contactBody =
   'I’m looking for a Summer 2027 Software Engineering internship focused on backend and distributed systems. Reach out if that’s a fit.';
 export const contactAvailability = 'Available Summer 2027 · open to relocation';
@@ -325,3 +345,41 @@ export const contactLookingFor = ['Backend & distributed systems internships', '
 
 export const githubUsername = 'PubuduGunasekara';
 export const githubFallbackRepos = 64;
+
+export const whyMeHeading = 'What I can do for your team';
+
+export type WhyMeProject = {
+  title: string;
+  href?: string;
+  built: string;
+  with: string;
+  means: string;
+};
+
+export const whyMeProjects: WhyMeProject[] = [
+  {
+    title: 'Distributed Task Scheduler',
+    href: '/projects/task-scheduler/',
+    built: 'A task scheduler that stops duplicate runs when Kafka delivers an event more than once.',
+    with: 'Java 21, Spring Boot, Kafka, Redis, PostgreSQL, Prometheus, Docker, GitHub Actions',
+    means: 'I build for retries and failure, and I test for it: 188 tests, 93.4% line coverage. Local load test: about 2,700 tasks/min, zero duplicate runs.',
+  },
+  {
+    title: 'AI Code Review Assistant',
+    href: '/projects/ai-code-reviewer/',
+    built: 'A GitHub app that reviews pull requests. Each finding has a severity, category, CWE reference and suggested fix.',
+    with: 'React, Node/Express, PostgreSQL, Redis, gpt-4o-mini, Docker, AWS',
+    means: 'I treat model output as untrusted: a strict JSON schema, so a malformed response fails the review. 19 tests. In 5 test reviews: 8.4 s average, about $0.002 each.',
+  },
+  {
+    title: 'Smart Farm',
+    built: 'A team project. I built the app’s device-control section and the physical Arduino farm model.',
+    with: 'React Native, Firebase, Arduino, ESP',
+    means: 'I can build across the app, the cloud and the hardware. Top 10 Most Innovative Projects, NSBM Green EXE v1.0.',
+  },
+];
+
+export const whyMeExperience =
+  'Virtusa, Associate Engineer (Quality Assurance), Jun 2021 to Mar 2022: Java and Selenium WebDriver tests for a British Telecommunications platform serving 1M+ users.';
+
+export const whyMeBuilding = 'Currently building: a retrieval-augmented generation system for my NLP course.';

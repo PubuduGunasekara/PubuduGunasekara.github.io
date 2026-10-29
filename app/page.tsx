@@ -5,6 +5,7 @@ import { ScrollProgress } from '@/components/ScrollProgress';
 import { BackgroundGrid } from '@/components/BackgroundGrid';
 import { Nav } from '@/components/Nav';
 import { Hero } from '@/components/Hero';
+import { WhyMeSection } from '@/components/sections/WhyMeSection';
 import { Footer } from '@/components/Footer';
 import { StorySection } from '@/components/sections/StorySection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
@@ -33,6 +34,7 @@ function PageBody() {
       <Nav />
       <div id="top" className="relative mx-auto max-w-6xl px-5 pb-20 sm:px-8">
         <Hero />
+        <WhyMeSection />
         <ProjectsSection />
         <ExperienceSection />
         <SkillsSection />

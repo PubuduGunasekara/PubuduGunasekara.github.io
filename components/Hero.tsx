@@ -1,7 +1,16 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { heroAvailability, heroCredential, heroName, heroTagline, heroTechLine, links } from '@/lib/content';
+import { motion, useReducedMotion } from 'framer-motion';
+import {
+  heroExpected,
+  heroGpa,
+  heroName,
+  heroProof,
+  heroProgram,
+  heroSeeking,
+  heroUniversity,
+  links,
+} from '@/lib/content';
 import { useTheme } from '@/lib/theme';
 import { LabeledIconLink, PrimaryLink } from './ui/Links';
 
@@ -12,14 +21,14 @@ function Photo({ sizeClasses }: { sizeClasses: string }) {
   return (
     <div className="relative shrink-0">
       {/* outer halo: diffuse teal glow, static */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-[1.4] rounded-full bg-signal-cyan/10 blur-[20px]" />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 scale-[1.4] rounded-full bg-signal-cyan/10 blur-[16px]" />
       {/* hairline ring between the halo and the photo */}
       <div aria-hidden="true" className="absolute inset-0 -z-10 scale-110 rounded-full border border-signal-cyan/[0.08]" />
       {/* inner solid ring, in the card's own surface tone, so the photo lifts off the card */}
-      <div className={`rounded-full p-1.5 ${ringColor}`}>
+      <div className={`rounded-full p-1 ${ringColor}`}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/assets/profile.png"
+          src="/assets/profile-256.jpg"
           alt="Pubudu Gunasekara"
           className={`${sizeClasses} rounded-full object-cover object-[center_28%]`}
         />
@@ -30,55 +39,69 @@ function Photo({ sizeClasses }: { sizeClasses: string }) {
 
 export function Hero() {
   const { muted, surface } = useTheme();
+  const reduceMotion = useReducedMotion();
 
   return (
-    <div id="hero" className="pt-10 pb-10 lg:pt-20 lg:pb-16">
+    <div id="hero" className="pt-5 pb-8 sm:pt-8 lg:pt-14 lg:pb-12">
       <motion.header
-        initial={{ opacity: 0, y: 12 }}
+        initial={reduceMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className={`relative grid items-center gap-8 overflow-hidden rounded-[2rem] border p-8 shadow-hero sm:p-12 md:grid-cols-[1fr_auto] md:gap-10 lg:p-14 ${surface}`}
+        className={`relative overflow-hidden rounded-[2rem] border p-5 text-center shadow-hero sm:p-10 sm:text-left lg:p-12 ${surface}`}
       >
         {/* Texture lives on its own layer so its fade mask only affects the
             grid, not the real content stacked on top of it (mask-image
             masks an element's whole painted box, children included). */}
         <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0 -z-10" />
 
-        {/* True mobile only (<640px): photo on top, name/tagline centered below it */}
-        <div className="flex flex-col items-center text-center sm:hidden">
-          <Photo sizeClasses="h-28 w-28" />
-          <h1 className="mt-4 text-3xl font-semibold tracking-[-0.02em]">{heroName}</h1>
-          <p className="mt-2 text-base font-medium">{heroTagline}</p>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
+          <Photo sizeClasses="h-14 w-14 sm:h-16 sm:w-16" />
+          <h1 className="text-xl font-semibold tracking-[-0.02em] sm:text-2xl">{heroName}</h1>
         </div>
 
-        {/* sm to md (tablet): small avatar beside the name, left-aligned - unchanged */}
-        <div className="hidden items-center gap-4 sm:flex md:hidden">
-          <Photo sizeClasses="h-16 w-16" />
-          <div className="text-left">
-            <h1 className="text-2xl font-semibold tracking-[-0.02em]">{heroName}</h1>
-            <p className="mt-1 text-sm font-medium">{heroTagline}</p>
-          </div>
+        {/* University wordmark: the largest element, in Northeastern red (text only, no logo) */}
+        <div className="mt-6 sm:mt-8">
+          <p className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-nu-red-text sm:text-5xl lg:text-6xl">
+            {heroUniversity}
+          </p>
+          <span aria-hidden="true" className="mx-auto mt-4 block h-0.5 w-16 rounded-full bg-nu-red sm:mx-0" />
+          <p className="mt-4 text-base font-medium sm:text-lg">{heroProgram}</p>
+          <p className={`mt-1 text-sm ${muted}`}>{heroExpected}</p>
         </div>
 
-        {/* Desktop-only photo, right column */}
-        <div className="order-2 hidden md:block">
-          <Photo sizeClasses="h-40 w-40 sm:h-48 sm:w-48" />
-        </div>
-
-        <div className="order-1 text-center sm:text-left">
-          <div className="hidden md:block">
-            <h1 className="text-balance text-4xl font-semibold tracking-[-0.03em] sm:text-5xl">{heroName}</h1>
-            <p className="mt-3 text-balance text-lg font-medium sm:text-xl">{heroTagline}</p>
-          </div>
-
-          <span className="mt-4 inline-flex items-center gap-2 rounded-full border border-signal-green/30 bg-signal-green/10 px-3 py-1.5 font-mono text-xs text-signal-green sm:text-sm">
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-signal-green" aria-hidden="true" />
-            {heroAvailability}
+        <p className="mt-5 flex justify-center sm:justify-start">
+          <span className="rounded-full border border-nu-red/30 bg-nu-red/10 px-3 py-1 font-mono text-sm font-semibold text-nu-red-text">
+            {heroGpa}
           </span>
+        </p>
 
-          <p className={`mt-3 text-sm ${muted}`}>{heroCredential}</p>
-          <p className="mt-3 font-mono text-sm text-signal-cyan">{heroTechLine}</p>
-        </div>
+        <p className="mt-5 text-base leading-7">
+          <span className="font-semibold">{heroSeeking.label}</span> {heroSeeking.text}
+        </p>
+
+        {/* Proof strip: three compact, verifiable facts */}
+        <ul className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
+          {heroProof.map((item) => {
+            const chip =
+              'inline-flex items-center rounded-full border border-slate-500/20 bg-slate-500/10 px-3 py-1.5 font-mono text-xs';
+            return (
+              <li key={item.label}>
+                {item.href ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`${chip} text-signal-cyan transition hover:border-nu-red/50 hover:text-nu-red-text`}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <span className={chip}>{item.label}</span>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </motion.header>
 
       {/* True mobile (<640px): single wrapping row, item order chosen so the
@@ -92,7 +115,7 @@ export function Hero() {
         <LabeledIconLink href={links.leetcode} label="LeetCode" icon="leetcode" />
       </div>
 
-      {/* sm and up: unchanged single-row wrap */}
+      {/* sm and up: single-row wrap */}
       <div className="mt-6 hidden flex-wrap justify-center gap-3 sm:flex">
         <PrimaryLink href={links.resume}>Resume</PrimaryLink>
         <LabeledIconLink href={links.github} label="GitHub" icon="github" />

@@ -26,6 +26,8 @@ const config: Config = {
           amber: 'rgb(var(--signal-amber) / <alpha-value>)',
           red: 'rgb(var(--signal-red) / <alpha-value>)',
         },
+        'nu-red': 'rgb(var(--nu-red) / <alpha-value>)',
+        'nu-red-text': 'rgb(var(--nu-red-text) / <alpha-value>)',
       },
       boxShadow: {
         premium: 'var(--shadow-premium)',

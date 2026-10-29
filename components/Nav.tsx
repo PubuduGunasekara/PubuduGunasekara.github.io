@@ -22,7 +22,7 @@ export function Nav() {
   return (
     <nav className={`sticky top-0 z-50 backdrop-blur-xl ${navSurface}`}>
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between gap-3 px-5 py-4 sm:px-8">
-        <a href={anchor('top')} className="flex shrink-0 items-center gap-3 font-mono text-sm tracking-tight">
+        <a href={anchor('top')} aria-label="Pubudu Gunasekara, home" className="flex shrink-0 items-center gap-3 font-mono text-sm tracking-tight">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/assets/pg-mark.svg" alt="" className="h-8 w-8" />
           <span className="hidden sm:inline">Pubudu Gunasekara</span>
