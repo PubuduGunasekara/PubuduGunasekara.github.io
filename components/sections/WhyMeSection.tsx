@@ -34,8 +34,8 @@ export function WhyMeSection() {
 
   return (
     <Section id="why-me" title={whyMeHeading}>
-      <EditorialCard>
-        <ul className="space-y-7">
+      <EditorialCard className="!p-4 sm:!p-5">
+        <ul className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
           {whyMeRows.map((row) => {
             const accent = accents[row.accent];
             const cells = [
@@ -45,8 +45,8 @@ export function WhyMeSection() {
               ['Helps you', row.helps],
             ];
             return (
-              <li key={row.title} className={`border-l-2 pl-4 ${accent.bar}`}>
-                <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
+              <li key={row.title} className={`border-l-2 pl-3 ${accent.bar}`}>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                   <h3 className="font-semibold tracking-tight">
                     {row.href ? (
                       <Link href={row.href} className="transition hover:text-nu-red-text">
@@ -56,13 +56,13 @@ export function WhyMeSection() {
                       row.title
                     )}
                   </h3>
-                  <span className={`rounded-full border px-2.5 py-0.5 font-mono text-xs ${accent.chip}`}>{row.fact}</span>
+                  <span className={`rounded-full border px-2 py-px font-mono text-[11px] ${accent.chip}`}>{row.fact}</span>
                 </div>
-                <dl className="mt-3 grid gap-x-8 gap-y-3 sm:grid-cols-2">
+                <dl className="mt-1.5 space-y-1 text-sm leading-5">
                   {cells.map(([label, text]) => (
                     <div key={label}>
-                      <dt className={`font-mono text-xs uppercase tracking-widest ${accent.label}`}>{label}</dt>
-                      <dd className="mt-0.5 text-sm leading-6">{text}</dd>
+                      <dt className={`mr-1.5 inline font-mono text-[11px] uppercase tracking-wider ${accent.label}`}>{label}</dt>
+                      <dd className="inline">{text}</dd>
                     </div>
                   ))}
                 </dl>
@@ -71,8 +71,8 @@ export function WhyMeSection() {
           })}
         </ul>
 
-        <p className={`mt-6 flex flex-wrap items-center gap-2 border-t border-slate-500/10 pt-4 text-sm ${muted}`}>
-          <span className="rounded-full bg-nu-red/10 px-2.5 py-0.5 font-mono text-xs text-nu-red-text">Now</span>
+        <p className={`mt-4 flex flex-wrap items-center gap-2 border-t border-slate-500/10 pt-3 text-sm ${muted}`}>
+          <span className="rounded-full bg-nu-red/10 px-2 py-px font-mono text-[11px] text-nu-red-text">Now</span>
           Currently building: {whyMeNow}
         </p>
       </EditorialCard>
