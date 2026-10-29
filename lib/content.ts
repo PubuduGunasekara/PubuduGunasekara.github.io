@@ -343,29 +343,35 @@ export const contactLookingFor = ['Backend & distributed systems internships', '
 export const githubUsername = 'PubuduGunasekara';
 export const githubFallbackRepos = 64;
 
-export const whyMeHeading = 'What I can do for your team';
+export const highlights = {
+  kicker: 'The short version',
+  title: 'Everything you need to know about me, in one glance',
+  sub: 'Highlights of my projects and work experience. The details are below.',
+  now: 'Currently building: a retrieval-augmented generation system for my NLP course.',
+};
 
-export type WhyMeAccent = 'cyan' | 'green' | 'amber' | 'blue';
+export type HighlightAccent = 'cyan' | 'green' | 'amber' | 'blue';
 
-export type WhyMeRow = {
+export type HighlightItem = {
   title: string;
   href?: string;
-  accent: WhyMeAccent;
+  accent: HighlightAccent;
   fact: string;
+  dates?: string;
   built: string;
-  used: string;
+  used: string[];
   learned: string;
   helps: string;
 };
 
-export const whyMeRows: WhyMeRow[] = [
+export const highlightProjects: HighlightItem[] = [
   {
     title: 'Distributed Task Scheduler',
     href: '/projects/task-scheduler/',
     accent: 'cyan',
     fact: '188 tests, 93.4% coverage',
     built: 'Runs background jobs across workers and avoids running one twice.',
-    used: 'Java, Spring Boot, Kafka, Redis, PostgreSQL, Docker.',
+    used: ['Java', 'Kafka', 'Redis', 'PostgreSQL'],
     learned: 'Designing for failure: retries, a dead-letter queue, recovery.',
     helps: 'Your background work keeps running when something fails.',
   },
@@ -375,7 +381,7 @@ export const whyMeRows: WhyMeRow[] = [
     accent: 'green',
     fact: '8.4 s, ~$0.002 per review (5 test reviews)',
     built: 'Reviews a GitHub pull request and lists issues with fixes.',
-    used: 'React, Node/Express, PostgreSQL, Redis, OpenAI, AWS.',
+    used: ['React', 'Node/Express', 'Redis', 'OpenAI'],
     learned: 'Not trusting AI output blindly: strict checks, rate limits, caching.',
     helps: 'A first review in seconds, so teammates focus on harder problems.',
   },
@@ -384,19 +390,24 @@ export const whyMeRows: WhyMeRow[] = [
     accent: 'amber',
     fact: 'Top 10 Most Innovative Projects, NSBM Green EXE v1.0',
     built: 'I built the app’s control section and the Arduino farm model.',
-    used: 'React Native, Firebase, Arduino, ESP.',
+    used: ['React Native', 'Firebase', 'Arduino'],
     learned: 'How apps, cloud and hardware connect, and teamwork.',
     helps: 'I connect software to real devices and work in a team.',
   },
-  {
-    title: 'Virtusa',
-    accent: 'blue',
-    fact: '1M+ user platform',
-    built: 'Tests and test plans for a British Telecommunications platform.',
-    used: 'Java, Selenium WebDriver, agile sprints.',
-    learned: 'How a large platform is tested; working with developers and clients.',
-    helps: 'I know how real software gets tested before release.',
-  },
 ];
 
-export const whyMeNow = 'a retrieval-augmented generation system for my NLP course.';
+export const highlightWork: HighlightItem = {
+  title: 'Virtusa',
+  accent: 'blue',
+  fact: '1M+ user platform',
+  dates: 'Associate Engineer (QA) · Jun 2021 to Mar 2022',
+  built: 'Tests and test plans for a British Telecommunications platform.',
+  used: ['Java', 'Selenium WebDriver', 'Agile'],
+  learned: 'How a large platform is tested; working with developers and clients.',
+  helps: 'I know how real software gets tested before release.',
+};
+
+export const learnMore = {
+  title: 'Want to learn more about me?',
+  sub: 'Everything in detail, below.',
+};
