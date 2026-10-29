@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import {
   heroExpected,
   heroGpa,
+  heroLocation,
   heroName,
   heroProof,
   heroProgram,
@@ -56,7 +57,10 @@ export function Hero() {
 
         <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
           <Photo sizeClasses="h-14 w-14 sm:h-16 sm:w-16" />
-          <h1 className="text-xl font-semibold tracking-[-0.02em] sm:text-2xl">{heroName}</h1>
+          <div>
+            <h1 className="text-xl font-semibold tracking-[-0.02em] sm:text-2xl">{heroName}</h1>
+            <p className={`mt-0.5 text-sm ${muted}`}>{heroLocation}</p>
+          </div>
         </div>
 
         {/* University wordmark: the largest element, in Northeastern red (text only, no logo) */}
@@ -79,28 +83,15 @@ export function Hero() {
           <span className="font-semibold">{heroSeeking.label}</span> {heroSeeking.text}
         </p>
 
-        {/* Proof strip: three compact, verifiable facts */}
         <ul className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
-          {heroProof.map((item) => {
-            const chip =
-              'inline-flex items-center rounded-full border border-slate-500/20 bg-slate-500/10 px-3 py-1.5 font-mono text-xs';
-            return (
-              <li key={item.label}>
-                {item.href ? (
-                  <a
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`${chip} text-signal-cyan transition hover:border-nu-red/50 hover:text-nu-red-text`}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <span className={chip}>{item.label}</span>
-                )}
-              </li>
-            );
-          })}
+          {heroProof.map((item) => (
+            <li
+              key={item}
+              className="inline-flex items-center rounded-full border border-slate-500/20 bg-slate-500/10 px-3 py-1.5 font-mono text-xs"
+            >
+              {item}
+            </li>
+          ))}
         </ul>
       </motion.header>
 

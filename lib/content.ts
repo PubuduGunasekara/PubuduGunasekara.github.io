@@ -17,11 +17,8 @@ export const heroSeeking = {
   label: 'Seeking:',
   text: 'Software Engineering Internship, Summer 2027, Bay Area.',
 };
-export const heroProof: { label: string; href?: string }[] = [
-  { label: '188 tests, 93.4% line coverage' },
-  { label: 'AI code reviewer, live demo', href: 'https://main.d3dm91k4g9mtr9.amplifyapp.com/' },
-  { label: 'Java 21, Spring Boot, Kafka, Redis, PostgreSQL' },
-];
+export const heroLocation = 'Based in San Jose, CA';
+export const heroProof = ['Java 21, Spring Boot, Kafka, Redis, PostgreSQL'];
 
 export const nav = [
   { id: 'projects', label: 'Projects' },
