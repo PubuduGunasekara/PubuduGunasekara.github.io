@@ -350,42 +350,52 @@ export type WhyMeAccent = 'cyan' | 'green' | 'amber' | 'blue';
 export type WhyMeRow = {
   title: string;
   href?: string;
-  tag: string;
   accent: WhyMeAccent;
-  text: string;
-  facts: string[];
+  fact: string;
+  built: string;
+  used: string;
+  learned: string;
+  helps: string;
 };
 
 export const whyMeRows: WhyMeRow[] = [
   {
     title: 'Distributed Task Scheduler',
     href: '/projects/task-scheduler/',
-    tag: 'Reliable under failure',
     accent: 'cyan',
-    text: 'Stops duplicate runs when Kafka redelivers an event.',
-    facts: ['188 tests', '93.4% coverage', '~2,700 tasks/min (local)', 'zero duplicate runs'],
+    fact: '188 tests, 93.4% coverage',
+    built: 'Runs background jobs across workers and avoids running one twice.',
+    used: 'Java, Spring Boot, Kafka, Redis, PostgreSQL, Docker.',
+    learned: 'Designing for failure: retries, a dead-letter queue, recovery.',
+    helps: 'Your background work keeps running when something fails.',
   },
   {
     title: 'AI Code Review Assistant',
     href: '/projects/ai-code-reviewer/',
-    tag: 'AI that fails loudly',
     accent: 'green',
-    text: 'Reviews pull requests; a malformed model response fails the review. 5 test reviews:',
-    facts: ['8.4 s average', '~$0.002 each', '19 tests'],
+    fact: '8.4 s, ~$0.002 per review (5 test reviews)',
+    built: 'Reviews a GitHub pull request and lists issues with fixes.',
+    used: 'React, Node/Express, PostgreSQL, Redis, OpenAI, AWS.',
+    learned: 'Not trusting AI output blindly: strict checks, rate limits, caching.',
+    helps: 'A first review in seconds, so teammates focus on harder problems.',
   },
   {
     title: 'Smart Farm',
-    tag: 'App to hardware',
     accent: 'amber',
-    text: 'Team project. I built the app’s device control and the Arduino farm model.',
-    facts: ['Top 10 Most Innovative Projects, NSBM Green EXE v1.0'],
+    fact: 'Top 10 Most Innovative Projects, NSBM Green EXE v1.0',
+    built: 'I built the app’s control section and the Arduino farm model.',
+    used: 'React Native, Firebase, Arduino, ESP.',
+    learned: 'How apps, cloud and hardware connect, and teamwork.',
+    helps: 'I connect software to real devices and work in a team.',
   },
   {
     title: 'Virtusa',
-    tag: 'QA on a 1M+ user platform',
     accent: 'blue',
-    text: 'Associate Engineer (QA), Jun 2021 to Mar 2022. Tests for a British Telecommunications platform.',
-    facts: ['Java', 'Selenium WebDriver'],
+    fact: '1M+ user platform',
+    built: 'Tests and test plans for a British Telecommunications platform.',
+    used: 'Java, Selenium WebDriver, agile sprints.',
+    learned: 'How a large platform is tested; working with developers and clients.',
+    helps: 'I know how real software gets tested before release.',
   },
 ];
 

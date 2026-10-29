@@ -10,11 +10,9 @@ import {
   heroProgram,
   heroSeeking,
   heroUniversity,
-  brandAssets,
   links,
 } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
-import { BrandLogo } from './ui/BrandLogo';
 import { LabeledIconLink, PrimaryLink } from './ui/Links';
 
 function Photo({ sizeClasses }: { sizeClasses: string }) {
@@ -68,9 +66,6 @@ export function Hero() {
           </div>
 
           <div>
-            <div className="mb-5 flex justify-center md:justify-start">
-              <BrandLogo src={brandAssets.northeastern} alt="Northeastern University logo" mark="NU" wide />
-            </div>
             {/* University wordmark: the largest element, in Northeastern red (text only, no logo) */}
             <p className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-nu-red-text sm:text-5xl lg:text-6xl">
               {heroUniversity}
