@@ -345,38 +345,48 @@ export const githubFallbackRepos = 64;
 
 export const whyMeHeading = 'What I can do for your team';
 
-export type WhyMeProject = {
+export type WhyMeAccent = 'cyan' | 'green' | 'amber' | 'blue';
+
+export type WhyMeRow = {
   title: string;
   href?: string;
-  built: string;
-  with: string;
-  means: string;
+  tag: string;
+  accent: WhyMeAccent;
+  text: string;
+  facts: string[];
 };
 
-export const whyMeProjects: WhyMeProject[] = [
+export const whyMeRows: WhyMeRow[] = [
   {
     title: 'Distributed Task Scheduler',
     href: '/projects/task-scheduler/',
-    built: 'A task scheduler that stops duplicate runs when Kafka delivers an event more than once.',
-    with: 'Java 21, Spring Boot, Kafka, Redis, PostgreSQL, Prometheus, Docker, GitHub Actions',
-    means: 'I build for retries and failure, and I test for it: 188 tests, 93.4% line coverage. Local load test: about 2,700 tasks/min, zero duplicate runs.',
+    tag: 'Reliable under failure',
+    accent: 'cyan',
+    text: 'Stops duplicate runs when Kafka redelivers an event.',
+    facts: ['188 tests', '93.4% coverage', '~2,700 tasks/min (local)', 'zero duplicate runs'],
   },
   {
     title: 'AI Code Review Assistant',
     href: '/projects/ai-code-reviewer/',
-    built: 'A GitHub app that reviews pull requests. Each finding has a severity, category, CWE reference and suggested fix.',
-    with: 'React, Node/Express, PostgreSQL, Redis, gpt-4o-mini, Docker, AWS',
-    means: 'I treat model output as untrusted: a strict JSON schema, so a malformed response fails the review. 19 tests. In 5 test reviews: 8.4 s average, about $0.002 each.',
+    tag: 'AI that fails loudly',
+    accent: 'green',
+    text: 'Reviews pull requests; a malformed model response fails the review. 5 test reviews:',
+    facts: ['8.4 s average', '~$0.002 each', '19 tests'],
   },
   {
     title: 'Smart Farm',
-    built: 'A team project. I built the app’s device-control section and the physical Arduino farm model.',
-    with: 'React Native, Firebase, Arduino, ESP',
-    means: 'I can build across the app, the cloud and the hardware. Top 10 Most Innovative Projects, NSBM Green EXE v1.0.',
+    tag: 'App to hardware',
+    accent: 'amber',
+    text: 'Team project. I built the app’s device control and the Arduino farm model.',
+    facts: ['Top 10 Most Innovative Projects, NSBM Green EXE v1.0'],
+  },
+  {
+    title: 'Virtusa',
+    tag: 'QA on a 1M+ user platform',
+    accent: 'blue',
+    text: 'Associate Engineer (QA), Jun 2021 to Mar 2022. Tests for a British Telecommunications platform.',
+    facts: ['Java', 'Selenium WebDriver'],
   },
 ];
 
-export const whyMeExperience =
-  'Virtusa, Associate Engineer (Quality Assurance), Jun 2021 to Mar 2022: Java and Selenium WebDriver tests for a British Telecommunications platform serving 1M+ users.';
-
-export const whyMeBuilding = 'Currently building: a retrieval-augmented generation system for my NLP course.';
+export const whyMeNow = 'a retrieval-augmented generation system for my NLP course.';

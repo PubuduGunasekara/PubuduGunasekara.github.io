@@ -10,9 +10,11 @@ import {
   heroProgram,
   heroSeeking,
   heroUniversity,
+  brandAssets,
   links,
 } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
+import { BrandLogo } from './ui/BrandLogo';
 import { LabeledIconLink, PrimaryLink } from './ui/Links';
 
 function Photo({ sizeClasses }: { sizeClasses: string }) {
@@ -48,51 +50,57 @@ export function Hero() {
         initial={reduceMotion ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: 'easeOut' }}
-        className={`relative overflow-hidden rounded-[2rem] border p-5 text-center shadow-hero sm:p-10 sm:text-left lg:p-12 ${surface}`}
+        className={`relative overflow-hidden rounded-[2rem] border p-5 text-center shadow-hero sm:p-10 md:text-left lg:p-12 ${surface}`}
       >
         {/* Texture lives on its own layer so its fade mask only affects the
             grid, not the real content stacked on top of it (mask-image
             masks an element's whole painted box, children included). */}
         <div aria-hidden="true" className="hero-grid pointer-events-none absolute inset-0 -z-10" />
 
-        <div className="flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-          <Photo sizeClasses="h-14 w-14 sm:h-16 sm:w-16" />
+        <div className="grid items-center gap-6 md:grid-cols-[1fr_auto] md:gap-12">
+          {/* Identity: on top for mobile, a right-hand column from md up */}
+          <div className="order-first flex flex-col items-center gap-2 text-center md:order-last md:gap-3">
+            <Photo sizeClasses="h-16 w-16 md:h-40 md:w-40 lg:h-44 lg:w-44" />
+            <div>
+              <h1 className="text-xl font-semibold tracking-[-0.02em] md:text-2xl">{heroName}</h1>
+              <p className={`mt-0.5 text-sm ${muted}`}>{heroLocation}</p>
+            </div>
+          </div>
+
           <div>
-            <h1 className="text-xl font-semibold tracking-[-0.02em] sm:text-2xl">{heroName}</h1>
-            <p className={`mt-0.5 text-sm ${muted}`}>{heroLocation}</p>
+            <div className="mb-5 flex justify-center md:justify-start">
+              <BrandLogo src={brandAssets.northeastern} alt="Northeastern University logo" mark="NU" wide />
+            </div>
+            {/* University wordmark: the largest element, in Northeastern red (text only, no logo) */}
+            <p className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-nu-red-text sm:text-5xl lg:text-6xl">
+              {heroUniversity}
+            </p>
+            <span aria-hidden="true" className="mx-auto mt-4 block h-0.5 w-16 rounded-full bg-nu-red md:mx-0" />
+            <p className="mt-4 text-base font-medium sm:text-lg">{heroProgram}</p>
+            <p className={`mt-1 text-sm ${muted}`}>{heroExpected}</p>
+
+            <p className="mt-5 flex justify-center md:justify-start">
+              <span className="rounded-full border border-nu-red/30 bg-nu-red/10 px-3 py-1 font-mono text-sm font-semibold text-nu-red-text">
+                {heroGpa}
+              </span>
+            </p>
+
+            <p className="mt-5 text-base leading-7">
+              <span className="font-semibold">{heroSeeking.label}</span> {heroSeeking.text}
+            </p>
+
+            <ul className="mt-5 flex flex-wrap justify-center gap-2 md:justify-start">
+              {heroProof.map((item) => (
+                <li
+                  key={item}
+                  className="inline-flex items-center rounded-full border border-slate-500/20 bg-slate-500/10 px-3 py-1.5 font-mono text-xs"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
-
-        {/* University wordmark: the largest element, in Northeastern red (text only, no logo) */}
-        <div className="mt-6 sm:mt-8">
-          <p className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-nu-red-text sm:text-5xl lg:text-6xl">
-            {heroUniversity}
-          </p>
-          <span aria-hidden="true" className="mx-auto mt-4 block h-0.5 w-16 rounded-full bg-nu-red sm:mx-0" />
-          <p className="mt-4 text-base font-medium sm:text-lg">{heroProgram}</p>
-          <p className={`mt-1 text-sm ${muted}`}>{heroExpected}</p>
-        </div>
-
-        <p className="mt-5 flex justify-center sm:justify-start">
-          <span className="rounded-full border border-nu-red/30 bg-nu-red/10 px-3 py-1 font-mono text-sm font-semibold text-nu-red-text">
-            {heroGpa}
-          </span>
-        </p>
-
-        <p className="mt-5 text-base leading-7">
-          <span className="font-semibold">{heroSeeking.label}</span> {heroSeeking.text}
-        </p>
-
-        <ul className="mt-5 flex flex-wrap justify-center gap-2 sm:justify-start">
-          {heroProof.map((item) => (
-            <li
-              key={item}
-              className="inline-flex items-center rounded-full border border-slate-500/20 bg-slate-500/10 px-3 py-1.5 font-mono text-xs"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
       </motion.header>
 
       {/* True mobile (<640px): single wrapping row, item order chosen so the

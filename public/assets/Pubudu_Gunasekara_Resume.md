@@ -32,16 +32,16 @@ Major: Web and Mobile Application Development
 
 ## Experience
 
-### Food Services & Hospitality, Team Member, Waterloo, Canada
-
-01/2024 - 12/2025
-
 ### Virtusa, Associate Engineer (Quality Assurance), Colombo, Sri Lanka
 
 06/2021 - 03/2022
 
 - Wrote Java and Selenium WebDriver tests and ran test plans in agile sprints for a British Telecommunications (BT) platform serving 1M+ users.
 - Closed about 10 tickets per 2-week sprint, 2-3 days early, plus peer reviews, ad hoc tasks, client demos and meetings. Tracked defect density and open defect counts.
+
+### Food Services & Hospitality, Team Member, Waterloo, Canada
+
+01/2024 - 12/2025
 
 ## Projects
 

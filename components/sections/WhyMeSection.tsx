@@ -1,47 +1,75 @@
 'use client';
 
 import Link from 'next/link';
-import { whyMeBuilding, whyMeExperience, whyMeHeading, whyMeProjects } from '@/lib/content';
+import { whyMeHeading, whyMeNow, whyMeRows, type WhyMeAccent } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
 import { Section } from '../ui/Section';
 import { EditorialCard } from '../ui/EditorialCard';
 
+const accents: Record<WhyMeAccent, { bar: string; tag: string; chip: string }> = {
+  cyan: {
+    bar: 'border-l-signal-cyan',
+    tag: 'text-signal-cyan',
+    chip: 'border-signal-cyan/30 bg-signal-cyan/10 text-signal-cyan',
+  },
+  green: {
+    bar: 'border-l-signal-green',
+    tag: 'text-signal-green',
+    chip: 'border-signal-green/30 bg-signal-green/10 text-signal-green',
+  },
+  amber: {
+    bar: 'border-l-signal-amber',
+    tag: 'text-signal-amber',
+    chip: 'border-signal-amber/30 bg-signal-amber/10 text-signal-amber',
+  },
+  blue: {
+    bar: 'border-l-signal-blue',
+    tag: 'text-signal-blue',
+    chip: 'border-signal-blue/30 bg-signal-blue/10 text-signal-blue',
+  },
+};
+
 export function WhyMeSection() {
   const { muted } = useTheme();
-  const label = `font-mono text-xs uppercase tracking-widest ${muted}`;
 
   return (
     <Section id="why-me" title={whyMeHeading}>
-      <div className="grid gap-4">
-        {whyMeProjects.map((project) => (
-          <EditorialCard key={project.title}>
-            <h3 className="text-lg font-semibold tracking-tight sm:text-xl">
-              {project.href ? (
-                <Link href={project.href} className="transition hover:text-nu-red-text">
-                  {project.title}
-                </Link>
-              ) : (
-                project.title
-              )}
-            </h3>
-            <dl className="mt-4 grid gap-x-6 gap-y-4 sm:grid-cols-[10.5rem_1fr]">
-              <dt className={`${label} sm:pt-1`}>Built</dt>
-              <dd className="leading-7">{project.built}</dd>
-              <dt className={`${label} sm:pt-1`}>With</dt>
-              <dd className={`font-mono text-sm leading-7 ${muted}`}>{project.with}</dd>
-              <dt className="font-mono text-xs uppercase tracking-widest text-nu-red-text sm:pt-1">What it means for your team</dt>
-              <dd className="leading-7">{project.means}</dd>
-            </dl>
-          </EditorialCard>
-        ))}
-      </div>
+      <EditorialCard>
+        <ul className="space-y-6">
+          {whyMeRows.map((row) => {
+            const accent = accents[row.accent];
+            return (
+              <li key={row.title} className={`grid gap-2 border-l-2 pl-4 sm:grid-cols-[14rem_1fr] sm:gap-6 ${accent.bar}`}>
+                <div>
+                  <h3 className="font-semibold tracking-tight">
+                    {row.href ? (
+                      <Link href={row.href} className="transition hover:text-nu-red-text">
+                        {row.title}
+                      </Link>
+                    ) : (
+                      row.title
+                    )}
+                  </h3>
+                  <p className={`mt-0.5 font-mono text-xs ${accent.tag}`}>{row.tag}</p>
+                </div>
+                <p className="flex flex-wrap items-center gap-x-2 gap-y-1.5 text-sm leading-6">
+                  <span>{row.text}</span>
+                  {row.facts.map((fact) => (
+                    <span key={fact} className={`rounded-full border px-2.5 py-0.5 font-mono text-xs ${accent.chip}`}>
+                      {fact}
+                    </span>
+                  ))}
+                </p>
+              </li>
+            );
+          })}
+        </ul>
 
-      <div className="mt-4 rounded-2xl border border-slate-500/15 px-5 py-4">
-        <p className={label}>Experience</p>
-        <p className="mt-2 text-sm leading-7">{whyMeExperience}</p>
-      </div>
-
-      <p className={`mt-4 text-sm leading-6 ${muted}`}>{whyMeBuilding}</p>
+        <p className={`mt-6 flex flex-wrap items-center gap-2 border-t border-slate-500/10 pt-4 text-sm ${muted}`}>
+          <span className="rounded-full bg-nu-red/10 px-2.5 py-0.5 font-mono text-xs text-nu-red-text">Now</span>
+          Currently building: {whyMeNow}
+        </p>
+      </EditorialCard>
     </Section>
   );
 }

@@ -81,8 +81,8 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
-  -webkit-mask-image: radial-gradient(ellipse 35% 45% at 7% 10%, transparent 10%, black 60%);
-  mask-image: radial-gradient(ellipse 35% 45% at 7% 10%, transparent 10%, black 60%);
+  -webkit-mask-image: radial-gradient(ellipse 30% 70% at 86% 50%, transparent 10%, black 60%);
+  mask-image: radial-gradient(ellipse 30% 70% at 86% 50%, transparent 10%, black 60%);
 }
 
 .light .hero-grid {
@@ -93,8 +93,8 @@ body {
 
 @media (max-width: 767px) {
   .hero-grid {
-    -webkit-mask-image: radial-gradient(ellipse 55% 40% at 18% 14%, transparent 8%, black 55%);
-    mask-image: radial-gradient(ellipse 55% 40% at 18% 14%, transparent 8%, black 55%);
+    -webkit-mask-image: radial-gradient(ellipse 55% 25% at 50% 8%, transparent 8%, black 55%);
+    mask-image: radial-gradient(ellipse 55% 25% at 50% 8%, transparent 8%, black 55%);
   }
 }
 
