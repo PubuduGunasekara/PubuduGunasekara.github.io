@@ -32,6 +32,13 @@ const accents: Record<HighlightAccent, { top: string; left: string; label: strin
     chip: 'border-signal-amber/30 bg-signal-amber/10 text-signal-amber',
     tag: 'bg-signal-amber/10 text-signal-amber',
   },
+  red: {
+    top: 'border-t-nu-red',
+    left: 'border-l-nu-red',
+    label: 'text-nu-red-text',
+    chip: 'border-nu-red/30 bg-nu-red/10 text-nu-red-text',
+    tag: 'bg-nu-red/10 text-nu-red-text',
+  },
   blue: {
     top: 'border-t-signal-blue',
     left: 'border-l-signal-blue',
@@ -108,11 +115,14 @@ export function HighlightsSection() {
 
         <div className="mt-7">
           <GroupLabel count={String(highlightProjects.length)}>Projects</GroupLabel>
-          <ul className="grid gap-4 md:grid-cols-3">
+          <ul className="grid gap-4 md:grid-cols-2">
             {highlightProjects.map((item) => {
               const accent = accents[item.accent];
               return (
                 <li key={item.title} className={`rounded-2xl border border-t-2 border-slate-500/15 bg-slate-500/[0.04] p-4 ${accent.top}`}>
+                  {item.kind && (
+                    <p className={`mb-0.5 font-mono text-[11px] uppercase tracking-wider ${accent.label}`}>{item.kind}</p>
+                  )}
                   <h3 className="font-semibold tracking-tight">
                     {item.href ? (
                       <Link href={item.href} className="transition hover:text-nu-red-text">
@@ -157,11 +167,6 @@ export function HighlightsSection() {
             </div>
           </div>
         </div>
-
-        <p className={`mt-6 flex flex-wrap items-center gap-2 text-sm ${muted}`}>
-          <span className="rounded-full bg-nu-red/10 px-2 py-px font-mono text-[11px] text-nu-red-text">Now</span>
-          {highlights.now}
-        </p>
       </div>
     </section>
   );

@@ -8,6 +8,26 @@ export const links = {
   calendly: '',
 };
 
+// TODO(pubudu): set these when ResumeMatch has a demo. An empty value hides the demo video and the "Live demo" button.
+export const resumeMatchConfig = {
+  demoVideoUrl: '',
+  liveDemoUrl: '',
+};
+
+export type Metric = {
+  value: number;
+  decimals?: number;
+  suffix?: string;
+  label: string;
+};
+
+export const resumeMatchMetrics: Metric[] = [
+  { value: 107528, label: 'real LinkedIn postings searched' },
+  { value: 13.8, decimals: 1, suffix: ' s', label: 'median per resume (M3 Pro, 3 resumes, 9 runs)' },
+  { value: 226, label: 'tests' },
+  { value: 73, suffix: '%', label: 'unsupported “matched” claims caught (35 of 48)' },
+];
+
 export const heroName = 'Pubudu Gunasekara';
 export const heroUniversity = 'Northeastern University';
 export const heroProgram = 'M.S. Computer Science, Khoury College of Computer Sciences, Silicon Valley';
@@ -18,7 +38,7 @@ export const heroSeeking = {
   text: 'Software Engineering Internship, Summer 2027, Bay Area.',
 };
 export const heroLocation = 'Based in San Jose, CA';
-export const heroProof = ['Java 21, Spring Boot, Kafka, Redis, PostgreSQL'];
+export const heroProof = ['Java 21, Spring Boot, Kafka, Redis, PostgreSQL, RAG'];
 
 export const nav = [
   { id: 'projects', label: 'Projects' },
@@ -135,9 +155,29 @@ export type Project = {
   embed?: string | null;
   hasDiagram?: boolean;
   caseStudySlug?: string;
+  metrics?: Metric[];
 };
 
 export const projects: Project[] = [
+  {
+    title: 'ResumeMatch',
+    eyebrow: 'RAG system · Runs locally',
+    status: 'Built',
+    statusColor: 'text-signal-green',
+    href: 'https://github.com/PubuduGunasekara/rag-resumematch',
+    demo: resumeMatchConfig.liveDemoUrl || null,
+    body: 'A retrieval-augmented generation (RAG) system that compares a resume with 107,528 real LinkedIn job postings and shows which requirements it meets, with every claim checked against the resume and the posting it came from.',
+    highlights: [
+      'The model only proposes. Code checks that the cited posting asks for the requirement, that the resume quote is really in the resume, and that a “missing” skill is not listed. Rankings and verdicts are computed in code.',
+      'Runs fully local: bge-small-en-v1.5 embeddings, ChromaDB and llama3.2:3b through Ollama. The resume never leaves the machine and no paid API is used.',
+      'With the 3B model, 35 of 48 “matched” claims (73%) cited a posting that never mentioned them, so every claim is now checked from both sides.',
+    ],
+    stack: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
+    featured: true,
+    embed: null,
+    caseStudySlug: 'resumematch',
+    metrics: resumeMatchMetrics,
+  },
   {
     title: 'Distributed Task Scheduler',
     eyebrow: 'Backend · Distributed systems',
@@ -347,13 +387,13 @@ export const highlights = {
   kicker: 'The short version',
   title: 'Everything you need to know about me, in one glance',
   sub: 'Highlights of my projects and work experience. The details are below.',
-  now: 'Currently building: a retrieval-augmented generation system for my NLP course.',
 };
 
-export type HighlightAccent = 'cyan' | 'green' | 'amber' | 'blue';
+export type HighlightAccent = 'cyan' | 'green' | 'amber' | 'blue' | 'red';
 
 export type HighlightItem = {
   title: string;
+  kind?: string;
   href?: string;
   accent: HighlightAccent;
   fact: string;
@@ -366,30 +406,44 @@ export type HighlightItem = {
 
 export const highlightProjects: HighlightItem[] = [
   {
+    title: 'ResumeMatch',
+    kind: 'RAG system',
+    href: '/projects/resumematch/',
+    accent: 'red',
+    fact: '107,528 postings searched',
+    built: 'A retrieval-augmented generation (RAG) app: it finds job postings that match a resume, then checks every claim against the resume and the posting.',
+    used: ['Python', 'FastAPI', 'ChromaDB', 'Ollama', 'RAG'],
+    learned: '73% of a 3B model’s “matched” claims were unsupported, so code now checks every one.',
+    helps: 'AI results you can verify, running fully on your own machine.',
+  },
+  {
     title: 'Distributed Task Scheduler',
+    kind: 'Backend job scheduler',
     href: '/projects/task-scheduler/',
     accent: 'cyan',
     fact: '188 tests, 93.4% coverage',
-    built: 'Runs background jobs across workers and avoids running one twice.',
+    built: 'A backend job queue and scheduler: it runs background jobs across several workers and avoids running one twice.',
     used: ['Java', 'Kafka', 'Redis', 'PostgreSQL'],
     learned: 'Designing for failure: retries, a dead-letter queue, recovery.',
     helps: 'Your background work keeps running when something fails.',
   },
   {
     title: 'AI Code Review Assistant',
+    kind: 'AI web app',
     href: '/projects/ai-code-reviewer/',
     accent: 'green',
     fact: '8.4 s, ~$0.002 per review (5 test reviews)',
-    built: 'Reviews a GitHub pull request and lists issues with fixes.',
+    built: 'A web app that uses an AI model to review a GitHub pull request and list issues with fixes.',
     used: ['React', 'Node/Express', 'Redis', 'OpenAI'],
     learned: 'Not trusting AI output blindly: strict checks, rate limits, caching.',
     helps: 'A first review in seconds, so teammates focus on harder problems.',
   },
   {
     title: 'Smart Farm',
+    kind: 'IoT project',
     accent: 'amber',
     fact: 'Top 10 Most Innovative Projects, NSBM Green EXE v1.0',
-    built: 'I built the app’s control section and the Arduino farm model.',
+    built: 'A phone app that controls an Arduino farm model (water, feed, gate, cleaning). I built the app’s control section and the model.',
     used: ['React Native', 'Firebase', 'Arduino'],
     learned: 'How apps, cloud and hardware connect, and teamwork.',
     helps: 'I connect software to real devices and work in a team.',

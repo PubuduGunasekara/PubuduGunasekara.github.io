@@ -8,17 +8,24 @@ import { EditorialCard } from '../ui/EditorialCard';
 import { BulletList, StackRow } from '../ui/StackRow';
 import { SecondaryLink } from '../ui/Links';
 import { DetailsChevronIcon } from '../ui/icons';
+import { MetricsStrip } from '../ui/Metrics';
 
-function FeaturedCard({ project, index }: { project: Project; index: number }) {
+function FeaturedCard({ project, index, wide = false }: { project: Project; index: number; wide?: boolean }) {
   const { muted } = useTheme();
 
   return (
-    <EditorialCard>
+    <EditorialCard className={wide ? 'sm:col-span-2' : ''}>
       <p className={`font-mono text-xs ${muted}`}>
         0{index + 1} / {project.eyebrow}
       </p>
       <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl">{project.title}</h3>
       <p className={`mt-3 leading-7 ${muted}`}>{project.body}</p>
+
+      {project.metrics && (
+        <div className="mt-5">
+          <MetricsStrip metrics={project.metrics} />
+        </div>
+      )}
 
       {project.highlights && (
         <details className="group mt-5">
@@ -88,7 +95,7 @@ export function ProjectsSection() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         {featuredProjects.map((project, index) => (
-          <FeaturedCard key={project.title} project={project} index={index} />
+          <FeaturedCard key={project.title} project={project} index={index} wide={index === 0} />
         ))}
       </div>
 

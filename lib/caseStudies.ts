@@ -1,16 +1,33 @@
+
+
+import { resumeMatchConfig, resumeMatchMetrics, type Metric } from './content';
+
+export type CaseStudyImage = {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+};
+
 export type CaseStudySection = {
   heading: string;
   paragraphs?: string[];
   bullets?: string[];
+  images?: CaseStudyImage[];
 };
 
-export type CaseStudy = {
+type CaseStudyBase = {
   slug: string;
   title: string;
   tagline: string;
   repo: string;
   demo?: string;
   stack: string[];
+};
+
+export type ClassicCaseStudy = CaseStudyBase & {
+  kind?: 'classic';
   diagram: 'task-scheduler' | 'ai-code-reviewer';
   problem: string[];
   architectureNote: string[];
@@ -23,7 +40,114 @@ export type CaseStudy = {
   limitations: string[];
 };
 
+export type SectionedCaseStudy = CaseStudyBase & {
+  kind: 'sectioned';
+  metrics?: Metric[];
+  heroImage?: CaseStudyImage;
+  videoUrl?: string;
+  sections: CaseStudySection[];
+};
+
+export type CaseStudy = ClassicCaseStudy | SectionedCaseStudy;
+
 export const caseStudies: Record<string, CaseStudy> = {
+  resumematch: {
+    kind: 'sectioned',
+    slug: 'resumematch',
+    title: 'ResumeMatch',
+    tagline: 'A retrieval-augmented generation (RAG) system that compares a resume with 107,528 real LinkedIn job postings and checks every claim against the resume and the posting it came from.',
+    repo: 'https://github.com/PubuduGunasekara/rag-resumematch',
+    demo: resumeMatchConfig.liveDemoUrl || undefined,
+    videoUrl: resumeMatchConfig.demoVideoUrl || undefined,
+    stack: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
+    metrics: resumeMatchMetrics,
+    heroImage: {
+      src: '/assets/resumematch/hero-backend.png',
+      alt: 'A ResumeMatch report for a test resume. The closest match is a Lead Java Developer posting, with 4 of 4 requirements shown and each one tied to a quote from the resume.',
+      width: 1520,
+      height: 1572,
+      caption: 'A report for one of my synthetic test resumes: each requirement is tied to a quote from the resume.',
+    },
+    sections: [
+      {
+        heading: 'Problem',
+        paragraphs: [
+          'I wanted a resume checker where every claim can be checked: which requirement a resume meets, which job posting asked for it, and the exact line on the resume that shows it.',
+          'ResumeMatch is a retrieval-augmented generation (RAG) system. It retrieves the job postings closest to a resume, then a local model writes the findings and code checks each one. It compares a resume with 107,528 real LinkedIn job postings (237,902 chunks, from 123,849 rows after removing 7 empty and 16,314 duplicate postings). It shows which requirements the resume meets. Every claim is checked against the resume and against the posting it came from.',
+          'It started in Fall 2026 as an NLP course project at Northeastern (CS6120). This repository is my own portfolio version, designed and built by me. I built it with Claude Code assistance. The design, the experiments and the measurements are mine.',
+          'It runs fully on one machine: bge-small-en-v1.5 embeddings, ChromaDB, and llama3.2:3b through Ollama. The resume never leaves the machine and no paid API is used.',
+        ],
+      },
+      {
+        heading: 'Approach',
+        paragraphs: [
+          'The model only proposes. Code checks that the cited posting really asks for the requirement, that the resume quote is really in the resume, and that a “missing” skill is not listed on the resume. Rankings and verdicts are computed in code, not by the model.',
+        ],
+        bullets: [
+          'Validate the upload.',
+          'Correct typos by edit distance, for search only.',
+          'Split the resume into sections of at most 480 tokens, because the embedder ignores text past 512 tokens.',
+          'Search each section on its own.',
+          'Combine the results with reciprocal rank fusion (k=60, top 5, at most 2 per company).',
+          'Keep the requirement sentences of those postings.',
+          'Make one model call with a JSON schema enforced.',
+          'Run code checks on every claim.',
+          'Build a report per posting.',
+        ],
+        images: [
+          {
+            src: '/assets/resumematch/diagram-overview.png',
+            alt: 'Flow diagram of ResumeMatch. An index is built once offline from 123,849 postings into 237,902 chunks in ChromaDB. Each upload is validated, typo-corrected for search, split into sections, searched, reduced to requirement sentences, sent to the local model once with a JSON schema, and every claim is checked before the report is built.',
+            width: 2372,
+            height: 3229,
+            caption: 'The pipeline: an index built once offline, then ten steps for each upload.',
+          },
+        ],
+      },
+      {
+        heading: 'What failed first',
+        paragraphs: ['Each of these is in the engineering log in the repository.'],
+        bullets: [
+          'The search read only half of a long resume. The embedder ignores text past 512 tokens, so I split the resume into sections of at most 480 tokens and search each one.',
+          'Typo correction rewrote “Redis” to “Hedis”. Typo correction is now used for search only.',
+          'Employer benefits came back as skills.',
+          'A prompt instruction made the model list less. Findings per run fell from 2.8 to 0.2.',
+          'With the 3B model, 35 of 48 “matched” claims (73%) cited a posting that never mentioned them (6 runs, one resume, counted with the same lexical checker the app runs). That is why every claim is now checked from both sides.',
+        ],
+      },
+      {
+        heading: 'What I measured',
+        paragraphs: ['The hardware and the sample size are listed with each number.'],
+        bullets: [
+          'Speed: a median of 13.8 s per resume (range 11.4 to 19.4 s) on an M3 Pro with Ollama on Metal, over 3 resumes and 9 runs. In Docker on CPU the median was 57 s (35.5 to 72.3 s).',
+          'Where the time goes: search and fusion take 0.08 to 0.23 s. About 96% of the time is the model writing.',
+          'Tests: 226.',
+          'Vector search: recall@30 against exact search was 0.972 after tuning and 0.791 with the defaults (17 resumes, 91 sections).',
+          'Typo correction: top-10 overlap at 10% typos was 0.68 to 0.82 without correction and 0.92 to 0.98 with it (4 resumes, 5 seeds).',
+          'Chunk cleanup: legal boilerplate in chunks was 26.9% before cleanup and 2.9% after.',
+          'Unsupported claims: 35 of 48 “matched” claims (73%) from the 3B model cited a posting that never mentioned them (6 runs, one resume).',
+        ],
+      },
+      {
+        heading: 'Limits',
+        bullets: [
+          'The checks compare wording. A resume that lists NetSuite shows “ERP system” as not found.',
+          'I have only tested synthetic resumes so far (20 fictional ones).',
+          'I have no ground-truth relevance labels yet, so retrieval quality and claim-check precision are not measured.',
+          'The GPU VM profile has not been run.',
+        ],
+        images: [
+          {
+            src: '/assets/resumematch/evidence.png',
+            alt: 'A ResumeMatch report for a Senior Accountant posting. Four of seven requirements are shown with resume quotes, and three, including ERP system, are listed as not found.',
+            width: 1520,
+            height: 1535,
+            caption: 'A report where three requirements are listed as not found, including “ERP system”.',
+          },
+        ],
+      },
+    ],
+  },
   'task-scheduler': {
     slug: 'task-scheduler',
     title: 'Distributed Task Scheduler',
