@@ -59,7 +59,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     repo: 'https://github.com/PubuduGunasekara/rag-resumematch',
     demo: resumeMatchConfig.liveDemoUrl || undefined,
     videoUrl: resumeMatchConfig.demoVideoUrl || undefined,
-    stack: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
+    stack: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
     metrics: resumeMatchMetrics,
     heroImage: {
       src: '/assets/resumematch/hero-backend.png',

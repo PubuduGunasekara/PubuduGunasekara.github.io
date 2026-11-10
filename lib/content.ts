@@ -132,12 +132,12 @@ export const skills: SkillCategory[] = [
   },
   {
     category: 'AI & RAG',
-    items: ['RAG', 'Embeddings (sentence-transformers, bge-small)', 'Vector search (ChromaDB)', 'Ollama (local LLMs)', 'Structured outputs', 'OpenAI API'],
+    items: ['RAG', 'Embeddings (sentence-transformers, bge-small)', 'Vector search (ChromaDB)', 'Ollama (local LLMs)', 'LLMs', 'Structured outputs', 'OpenAI API'],
     context: 'ResumeMatch retrieves job postings with bge-small-en-v1.5 embeddings and ChromaDB, runs llama3.2:3b through Ollama, and checks every claim in code. The AI Code Review Assistant uses OpenAI Structured Outputs.',
   },
   {
     category: 'Infra & Testing',
-    items: ['Linux', 'Git', 'Docker', 'AWS', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'Selenium WebDriver', 'JUnit', 'Testcontainers'],
+    items: ['Linux', 'Git', 'Docker', 'AWS', 'Azure', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'Selenium WebDriver', 'JUnit', 'Testcontainers'],
     context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production. Selenium WebDriver drove the Virtusa test automation, and JUnit and Testcontainers back the Task Scheduler’s tests.',
   },
   {
@@ -146,9 +146,9 @@ export const skills: SkillCategory[] = [
     context: 'React and Next.js power this site and the AI Code Review Assistant’s UI; React Native and Firebase drive the Smart Farm app; ResumeMatch uses Next.js and Streamlit.',
   },
   {
-    category: 'Concepts',
-    items: ['Distributed Systems', 'Data Structures', 'Object-Oriented Design', 'Concurrency', 'Unit Testing', 'Debugging'],
-    context: 'Concurrency and distributed systems drive the Task Scheduler’s locks, retries, and state machine; the Travel Day Scheduler’s heap pruning and the CS5010 Java projects cover data structures and object-oriented design; unit tests back the Task Scheduler and the Virtusa automation.',
+    category: 'Fundamentals',
+    items: ['Algorithms', 'Distributed Systems', 'Data Structures', 'Object-Oriented Design', 'Concurrency', 'Unit Testing', 'Debugging'],
+    context: 'Concurrency and distributed systems drive the Task Scheduler’s locks, retries, and state machine; the Travel Day Scheduler’s weighted A* search and heap pruning and the CS5010 Java projects cover algorithms, data structures and object-oriented design; unit tests back the Task Scheduler and the Virtusa automation.',
     secondary: true,
   },
 ];
@@ -184,7 +184,7 @@ export const projects: Project[] = [
       'Runs fully local: bge-small-en-v1.5 embeddings, ChromaDB and llama3.2:3b through Ollama. The resume never leaves the machine and no paid API is used.',
       'With the 3B model, 35 of 48 “matched” claims (73%) cited a posting that never mentioned them, so every claim is now checked from both sides.',
     ],
-    stack: ['Python', 'FastAPI', 'Next.js', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
+    stack: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
     featured: true,
     embed: null,
     caseStudySlug: 'resumematch',
