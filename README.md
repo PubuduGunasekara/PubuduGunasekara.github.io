@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Geist+Mono&weight=600&size=24&pause=1200&color=0E7490&center=true&vCenter=true&width=780&lines=Hi%2C%20I%27m%20Pubudu%20Gunasekara;Backend%20%26%20Distributed%20Systems;M.S.%20Computer%20Science%20%40%20Northeastern;Seeking%20a%20SWE%20Internship%20-%20Summer%202027" alt="Pubudu Gunasekara - backend and distributed systems" />
+<img src="https://readme-typing-svg.demolab.com?font=Geist+Mono&weight=600&size=24&pause=1200&color=0E7490&center=true&vCenter=true&width=780&lines=Hi%2C%20I%27m%20Pubudu%20Gunasekara;Backend%2C%20Distributed%20Systems%20%26%20AI%20Applications;M.S.%20Computer%20Science%20%40%20Northeastern;Seeking%20a%20SWE%20Internship%20-%20Summer%202027" alt="Pubudu Gunasekara - backend, distributed systems and AI applications" />
 
 ### pubudugunasekara.github.io — portfolio source
 
@@ -18,18 +18,34 @@
 
 The source for my portfolio site. It's a statically exported Next.js app hosted on GitHub Pages, built to do one job well: show a hiring manager what I build and how I reason about it, in about sixty seconds.
 
-The homepage is deliberately short. The depth lives in two case studies that walk through the engineering decisions behind my flagship projects, including where those systems fall short.
+The homepage is deliberately short. The depth lives in three case studies that walk through the engineering decisions behind my flagship projects, including where those systems fall short.
 
 ---
 
 ### Highlights
 
-- **Two long-form case studies** — [Distributed Task Scheduler](https://pubudugunasekara.github.io/projects/task-scheduler/) and [AI Code Review Assistant](https://pubudugunasekara.github.io/projects/ai-code-reviewer/), each structured as Problem → Architecture → Key decisions → Failure scenarios → Testing → Observability → Deployment → Known limitations.
+- **Three long-form case studies** — [ResumeMatch](https://pubudugunasekara.github.io/projects/resumematch/) (a RAG system), [Distributed Task Scheduler](https://pubudugunasekara.github.io/projects/task-scheduler/) and [AI Code Review Assistant](https://pubudugunasekara.github.io/projects/ai-code-reviewer/). The two backend studies follow Problem → Architecture → Key decisions → Failure scenarios → Testing → Observability → Deployment → Known limitations. ResumeMatch follows Problem → Approach → What failed first → What I measured → Limits.
+- **A highlights card right under the hero** — every project and my work experience in one glance: what I built, what I used, what I learned and how it helps a team.
+- **Animated metrics** — count-up numbers for ResumeMatch that respect `prefers-reduced-motion` and show the final value in the static HTML.
 - **Interactive architecture diagrams** — hand-built SVG, keyboard navigable, click or tab a node to read what it does.
 - **Content/presentation split** — all copy lives in `lib/content.ts` and `lib/caseStudies.ts`; components only render.
 - **Light and dark themes** with a persisted preference, tuned separately for contrast.
 - **Accessibility** — WCAG AA contrast targets, full keyboard navigation, `prefers-reduced-motion` respected throughout.
 - **Static export** — no server, no runtime dependencies, deployed straight to GitHub Pages.
+
+---
+
+### Featured: ResumeMatch (RAG system)
+
+[ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) compares a resume with 107,528 real LinkedIn job postings (237,902 chunks) and shows which requirements the resume meets, with every claim checked against the resume and the posting it came from. It started in Fall 2026 as an NLP course project at Northeastern (CS6120). The portfolio version is my own, designed and built by me with Claude Code assistance; the design, experiments and measurements are mine.
+
+- **Fully local.** bge-small-en-v1.5 embeddings, ChromaDB and llama3.2:3b through Ollama. The resume never leaves the machine and no paid API is used.
+- **The model only proposes.** Code checks that the cited posting asks for the requirement, that the resume quote is really in the resume, and that a "missing" skill is not listed. Rankings and verdicts are computed in code.
+- **Key finding.** With the 3B model, 35 of 48 "matched" claims (73%) cited a posting that never mentioned them, which is why every claim is checked from both sides.
+- **Measured.** 13.8 s median per resume on an M3 Pro (3 resumes, 9 runs), 57 s median in Docker on CPU, recall@30 against exact search 0.972 after tuning versus 0.791 with defaults, 226 tests.
+- **Honest limits.** The checks compare wording, only synthetic resumes are tested so far, and there are no ground-truth relevance labels yet.
+
+Read the full write-up in the [case study](https://pubudugunasekara.github.io/projects/resumematch/).
 
 ---
 
@@ -59,14 +75,16 @@ components/
   Hero.tsx  Nav.tsx  Footer.tsx
   CaseStudyView.tsx     # shared case-study layout
   sections/             # one component per homepage section
+    HighlightsSection.tsx                       # the one-glance overview under the hero
     SchedulerDiagram.tsx  ReviewerDiagram.tsx   # interactive SVG diagrams
-  ui/                   # Section, EditorialCard, Reveal, ThemeToggle, icons
+  ui/                   # Section, EditorialCard, Reveal, Metrics (count-up), ThemeToggle, icons
 lib/
   content.ts            # all homepage copy and data
   caseStudies.ts        # case-study content
   theme.tsx             # light/dark tokens and toggle
   hooks.ts              # prefers-reduced-motion and friends
 public/assets/          # résumé PDF, logos, profile image
+  resumematch/          # ResumeMatch report screenshots and pipeline diagram
 ```
 
 ---
@@ -88,10 +106,10 @@ Node 20 or newer, matching CI.
 Almost every change is a content change, not a code change:
 
 - **Homepage copy and data** — `lib/content.ts` (hero, experience, skills, projects, education, certifications, leadership, journey, contact links)
-- **Case studies** — `lib/caseStudies.ts`
+- **Case studies** — `lib/caseStudies.ts` (ResumeMatch uses the sectioned layout with images and metrics)
 - **Résumé PDF** — `public/assets/`
 
-The Contact section's "Book a 15-minute chat" button only renders when `links.calendly` is set, so leaving it empty hides it.
+The Contact section's "Book a 15-minute chat" button only renders when `links.calendly` is set, so leaving it empty hides it. In the same way, `resumeMatchConfig` in `lib/content.ts` holds `demoVideoUrl` and `liveDemoUrl` for ResumeMatch: the demo video and the "Live demo" button stay hidden until a URL is set.
 
 ---
 
@@ -103,7 +121,7 @@ Every push to `main` triggers `.github/workflows/deploy.yml`, which builds the s
 
 ### About me
 
-I'm an M.S. Computer Science student at Northeastern University in Silicon Valley (Khoury College), working mostly in backend and distributed systems. The parts of engineering I find most interesting are the ones that only show up under load: concurrency, failure handling, and keeping a system observable when things go wrong.
+I'm an M.S. Computer Science student at Northeastern University in Silicon Valley (Khoury College), working mostly in backend, distributed systems and AI applications. The parts of engineering I find most interesting are the ones that only show up under load: concurrency, failure handling, and keeping a system observable when things go wrong.
 
 Before my master's I worked at Virtusa as an Associate Engineer in QA, building Java and Selenium test automation for a British Telecommunications platform serving 1M+ users.
 
@@ -122,8 +140,10 @@ mindmap
       Retries and dead-letter queues
       Crash recovery
       Prometheus and Grafana
-    Applied AI
-      LLM integration
+    Applied AI and RAG
+      Embeddings and vector search
+      Local LLMs with Ollama
+      Checking every model claim in code
       Structured outputs
       GitHub API integration
     Foundations
@@ -135,6 +155,7 @@ Selected work:
 
 | Project | What it is | Built with |
 |---|---|---|
+| [ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) · [case study](https://pubudugunasekara.github.io/projects/resumematch/) | A RAG system that matches a resume against 107,528 LinkedIn postings fully on a laptop, and checks every claim in code before showing it (226 tests) | Python, FastAPI, ChromaDB, Ollama, Next.js, TypeScript |
 | [Distributed Task Scheduler](https://github.com/PubuduGunasekara/distributed-task-scheduler) | At-least-once background job execution with a Redis distributed lock, a database state machine, backoff retries, a dead-letter queue, crash recovery, and end-to-end observability | Java 21, Spring Boot, Kafka, Redis, PostgreSQL |
 | [AI Code Review Assistant](https://github.com/PubuduGunasekara/ai-code-reviewer) · [live](https://main.d3dm91k4g9mtr9.amplifyapp.com/) | Reviews a GitHub pull request via OAuth and returns severity-tagged findings in a strict JSON schema, with Redis rate limiting and caching | Node.js, Express, React, gpt-4o-mini, Redis, AWS |
 | [Travel Day Scheduler](https://github.com/PubuduGunasekara/SmartTravelPlanner) | Weighted / anytime A* itinerary planner with iterative weight escalation and heap pruning (2-person graduate algorithms project) | Python, Flask |
