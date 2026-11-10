@@ -217,6 +217,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       '188 tests across unit tests and integration tests that run against real PostgreSQL and Redis via Testcontainers, not mocks, so the Redis lock script and the database state machine are exercised against the real thing.',
       'An ArchUnit test enforces the hexagonal boundary at build time.',
       'CI runs the full suite through Maven’s verify goal with a JaCoCo coverage gate set at 80% line and 80% branch; the project’s own README reports the current run at 93.4% line / 91.1% branch.',
+      'A local load test (1,000 simulated 50 ms tasks, 3 consumers) sustained about 2,700 tasks per minute with zero duplicate runs. It is a local run only, not a production measurement.',
     ],
     observability: [
       'Every component (the API, the workers, the retry scheduler, the recovery sweep) reports metrics through Micrometer to Prometheus.',
@@ -294,6 +295,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       '19 backend tests (node --test with supertest) cover the structured-output handling, diff truncation, the rate limiter middleware, the atomic rate-limit script, and cache-key invalidation.',
       'OpenAI and Redis are mocked at the module boundary, so the suite runs fast and never calls a real service. That also means the Lua script is tested against a fake Redis, not a real one, unlike the Task Scheduler’s real-database integration tests. The frontend is covered by lint and a production build in CI rather than by tests.',
       'GitHub Actions runs on every push and pull request to main: the backend tests, and the frontend lint and build as a separate job.',
+      'In 5 test reviews, a review took 8.4 s on average and cost about $0.002. That is latency and cost only, not a measure of review quality.',
     ],
     observability: [
       'Observability today is request-level logging (PR fetch and processing timing, cache hit/miss, and OpenAI response timing logged to the console) plus a GET /health endpoint for basic liveness checks. There is no metrics or dashboard layer here the way the Task Scheduler has Prometheus and Grafana. That is a smaller-scale setup, worth naming directly rather than glossing over.',

@@ -18,12 +18,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: 'Pubudu Gunasekara · Software Engineer · Open to SWE Internships Summer 2027',
   description:
-    'Software engineer focused on backend and distributed systems. M.S. Computer Science at Northeastern (4.0 GPA); I build reliable backend systems and AI-powered developer tools. Open to Software Engineering internships for Summer 2027.',
+    'Software engineer focused on backend, distributed systems and AI applications. M.S. Computer Science at Northeastern (4.0 GPA); I build reliable backend systems and AI-powered developer tools. Open to Software Engineering internships for Summer 2027.',
   keywords: [
     'software engineer',
     'SWE intern',
     'backend engineer',
     'distributed systems',
+    'RAG',
+    'retrieval-augmented generation',
     'Java',
     'Spring Boot',
     'Apache Kafka',
@@ -37,7 +39,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Pubudu Gunasekara · Software Engineer',
     description:
-      'Software engineer focused on backend and distributed systems. M.S. CS at Northeastern (4.0 GPA). Open to SWE Internships, Summer 2027.',
+      'Software engineer focused on backend, distributed systems and AI applications. M.S. CS at Northeastern (4.0 GPA). Open to SWE Internships, Summer 2027.',
     url: siteUrl,
     siteName: 'Pubudu Gunasekara Portfolio',
     locale: 'en_US',
@@ -46,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Pubudu Gunasekara · Software Engineer · Open to SWE Internships Summer 2027',
-    description: 'Software engineer focused on backend and distributed systems. M.S. CS at Northeastern (4.0 GPA). Open to SWE Internships, Summer 2027.',
+    description: 'Software engineer focused on backend, distributed systems and AI applications. M.S. CS at Northeastern (4.0 GPA). Open to SWE Internships, Summer 2027.',
   },
   robots: {
     index: true,

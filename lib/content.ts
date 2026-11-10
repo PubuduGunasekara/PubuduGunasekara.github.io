@@ -35,7 +35,7 @@ export const heroExpected = 'Expected May 2028';
 export const heroGpa = 'GPA 4.0 / 4.0';
 export const heroSeeking = {
   label: 'Seeking:',
-  text: 'Software Engineering Internship, Summer 2027, Bay Area.',
+  text: 'Software Engineering Internship, Summer 2027, Bay Area. Backend, distributed systems and AI applications.',
 };
 export const heroLocation = 'Based in San Jose, CA';
 export const heroProof = ['Java 21, Spring Boot, Kafka, Redis, PostgreSQL, RAG'];
@@ -67,10 +67,10 @@ export const journeySteps: JourneyStep[] = [
   { place: 'Sri Lanka', detail: 'Foundations, hackathons, and an IoT system I led as a student.' },
   { place: 'Virtusa', detail: 'Production Java and Selenium test automation on a British Telecommunications platform.' },
   { place: 'Canada', detail: 'A graduate certificate in mobile solutions development.' },
-  { place: 'Northeastern, Silicon Valley', detail: 'Backend and distributed systems.' },
+  { place: 'Northeastern, Silicon Valley', detail: 'Backend, distributed systems and AI applications.' },
 ];
 
-export const journeyClosing = 'I started in test automation and moved steadily toward building backend and distributed systems.';
+export const journeyClosing = 'I started in test automation and moved steadily toward building backend, distributed and AI systems.';
 
 export type Experience = {
   role: string;
@@ -91,10 +91,8 @@ export const experience: Experience[] = [
     company: 'Virtusa',
     period: 'Jun 2021 - Mar 2022 · Colombo',
     bullets: [
-      'Wrote Java and Selenium WebDriver automated tests inside the team’s framework for a British Telecommunications (BT) platform serving 1M+ users.',
-      'Designed and ran test plans across agile sprints.',
-      'Finished assigned sprint tickets ahead of the sprint end, leaving room for peer review and ad hoc requests.',
-      'Ran client demos and daily stand-ups when the QA lead delegated them, and tracked defect density and open defect counts.',
+      'Verified a British Telecommunications (BT) platform serving 1M+ users by writing Java and Selenium WebDriver tests and running test plans in agile sprints.',
+      'Closed about 10 tickets per 2-week sprint, 2-3 days early, while handling peer reviews, client demos and meetings, and tracking defect density and open defect counts.',
     ],
     focus: ['Java', 'Selenium WebDriver', 'CST Environment', 'Camunda Cockpit', 'RabbitMQ', 'Swagger UI', 'MQ Console', 'agile'],
     logo: brandAssets.virtusa,
@@ -102,6 +100,15 @@ export const experience: Experience[] = [
     highlights: ['British Telecommunications platform', 'Production engineering · 1M+ user platform'],
     reflection: 'Watching a production platform fail in real ways is why my projects are built around failure handling.',
     reflectionLink: { label: 'See how this shaped the Task Scheduler', href: '/projects/task-scheduler/' },
+  },
+  {
+    role: 'Team Member',
+    company: 'Food Services & Hospitality',
+    period: 'Jan 2024 - Dec 2025 · Waterloo, Canada',
+    bullets: [],
+    focus: [],
+    logo: '',
+    mark: 'FS',
   },
 ];
 
@@ -116,22 +123,27 @@ export const skills: SkillCategory[] = [
   {
     category: 'Languages',
     items: ['Java', 'Python', 'JavaScript', 'TypeScript', 'SQL', 'C++ (Arduino)'],
-    context: 'Java anchors the Task Scheduler and the Virtusa automation; TypeScript builds this site; C++ runs the Arduino controllers in the Smart Farm project; Python and SQL span the rest of the work on this page.',
+    context: 'Java anchors the Task Scheduler and the Virtusa automation; TypeScript builds this site; C++ runs the Arduino controllers in the Smart Farm project; Python powers ResumeMatch; SQL spans the rest of the work on this page.',
   },
   {
     category: 'Backend',
-    items: ['Spring Boot', 'Node.js', 'Express', 'Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'OpenAI API'],
-    context: 'Spring Boot, Kafka, Redis, and PostgreSQL are the core of the Distributed Task Scheduler, built with Hexagonal Architecture: domain logic stays isolated from infrastructure adapters, enforced at build time by an ArchUnit test. The AI Code Review Assistant’s Express API calls the OpenAI API.',
+    items: ['Spring Boot', 'Node.js', 'Express', 'FastAPI', 'Kafka', 'Redis', 'PostgreSQL', 'MongoDB', 'REST APIs', 'OpenAI API'],
+    context: 'Spring Boot, Kafka, Redis, and PostgreSQL are the core of the Distributed Task Scheduler, built with Hexagonal Architecture: domain logic stays isolated from infrastructure adapters, enforced at build time by an ArchUnit test. The AI Code Review Assistant’s Express API calls the OpenAI API, and ResumeMatch’s API is built with FastAPI.',
   },
   {
-    category: 'Infra & DevOps',
-    items: ['Linux', 'Git', 'Docker', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'AWS'],
-    context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production.',
+    category: 'AI & RAG',
+    items: ['RAG', 'Embeddings (sentence-transformers, bge-small)', 'Vector search (ChromaDB)', 'Ollama (local LLMs)', 'Structured outputs', 'OpenAI API'],
+    context: 'ResumeMatch retrieves job postings with bge-small-en-v1.5 embeddings and ChromaDB, runs llama3.2:3b through Ollama, and checks every claim in code. The AI Code Review Assistant uses OpenAI Structured Outputs.',
+  },
+  {
+    category: 'Infra & Testing',
+    items: ['Linux', 'Git', 'Docker', 'AWS', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'Selenium WebDriver', 'JUnit', 'Testcontainers'],
+    context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production. Selenium WebDriver drove the Virtusa test automation, and JUnit and Testcontainers back the Task Scheduler’s tests.',
   },
   {
     category: 'Frontend & Mobile',
-    items: ['React', 'Next.js', 'React Native', 'Vite', 'Redux', 'Firebase', 'Android and iOS (coursework)'],
-    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI; React Native and Firebase drive the Smart Farm app.',
+    items: ['React', 'Next.js', 'Streamlit', 'React Native (Expo)', 'Vite', 'Redux', 'Firebase', 'Android, iOS and Android Wear (coursework)'],
+    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI; React Native and Firebase drive the Smart Farm app; ResumeMatch uses Next.js and Streamlit.',
   },
   {
     category: 'Concepts',
@@ -190,6 +202,7 @@ export const projects: Project[] = [
       'Three independent layers (a Redis lock, a database state machine, and optimistic locking) stop the same job from running twice, even with Kafka’s at-least-once delivery.',
       'Failed jobs retry with backoff (10s, 30s, 90s) before landing in a dead-letter queue instead of vanishing; a recovery sweeper catches jobs stuck behind a crashed worker.',
       '188 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for live observability.',
+      'In a local load test (1,000 simulated 50 ms tasks, 3 consumers) it sustained about 2,700 tasks/min with zero duplicate runs.',
     ],
     stack: ['Java 21', 'Spring Boot', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker', 'Prometheus', 'Grafana', 'JUnit', 'GitHub Actions'],
     featured: true,
@@ -209,6 +222,7 @@ export const projects: Project[] = [
       'Large diffs are trimmed to fit the model’s context window instead of failing outright; results are cached in Redis by diff hash so re-opening a PR is instant and free.',
       'The review endpoint is rate limited per user in Redis and fails open, so if Redis is briefly unavailable, reviews still work rather than the whole app going down.',
       'Review history persists in PostgreSQL, so it survives a server restart even after the Redis cache expires.',
+      'In 5 test reviews, a review took 8.4 s on average and cost about $0.002.',
     ],
     stack: ['Node.js', 'Express', 'React', 'gpt-4o-mini', 'Redis', 'PostgreSQL', 'GitHub OAuth', 'Docker', 'AWS EC2', 'AWS Amplify'],
     featured: true,
@@ -361,7 +375,7 @@ export const education: Education[] = [
     school: 'Conestoga College',
     program: 'Graduate Certificate - Mobile Solutions Development',
     meta: 'Waterloo, ON, Canada · 2022 - 2023',
-    detail: 'GPA: 3.74 / 4.0.',
+    detail: 'GPA: 3.74 / 4.0. Coursework: Android and iOS Application Development, Android Wear, Mobile Capstone.',
     logo: brandAssets.conestoga,
     mark: 'CC',
   },
@@ -369,16 +383,16 @@ export const education: Education[] = [
     school: 'Victoria University',
     program: 'Bachelor of Information Technology',
     meta: 'Melbourne, Australia · 2018 - 2021',
-    detail: 'GPA: 6.25 / 7.0.',
+    detail: 'GPA: 6.25 / 7.0. Major: Web and Mobile Application Development.',
     logo: brandAssets.victoria,
     mark: 'VU',
   },
 ];
 
 export const contactBody =
-  'I’m looking for a Summer 2027 Software Engineering internship focused on backend and distributed systems. Reach out if that’s a fit.';
+  'I’m looking for a Summer 2027 Software Engineering internship focused on backend, distributed systems and AI applications. Reach out if that’s a fit.';
 export const contactAvailability = 'Available Summer 2027 · open to relocation';
-export const contactLookingFor = ['Backend & distributed systems internships', 'Summer 2027 (May–Aug)', 'Open to relocation'];
+export const contactLookingFor = ['Backend, distributed systems and AI application internships', 'Summer 2027 (May–Aug)', 'Open to relocation'];
 
 export const githubUsername = 'PubuduGunasekara';
 export const githubFallbackRepos = 64;
@@ -455,7 +469,7 @@ export const highlightWork: HighlightItem = {
   accent: 'blue',
   fact: '1M+ user platform',
   dates: 'Associate Engineer (QA) · Jun 2021 to Mar 2022',
-  built: 'Tests and test plans for a British Telecommunications platform.',
+  built: 'Verified a British Telecommunications platform by writing tests and running test plans.',
   used: ['Java', 'Selenium WebDriver', 'Agile'],
   learned: 'How a large platform is tested; working with developers and clients.',
   helps: 'I know how real software gets tested before release.',

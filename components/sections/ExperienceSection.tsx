@@ -41,7 +41,7 @@ export function ExperienceSection() {
                 <p className={`shrink-0 font-mono text-xs ${muted}`}>{item.period}</p>
               </div>
 
-              <BulletList items={item.bullets} />
+              {item.bullets.length > 0 && <BulletList items={item.bullets} />}
 
               {item.reflection && <p className={`mt-4 text-sm italic leading-6 ${muted}`}>{item.reflection}</p>}
               {item.reflectionLink && (
@@ -54,10 +54,12 @@ export function ExperienceSection() {
                 </Link>
               )}
 
-              <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
-                <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>
-                <StackRow items={item.focus} />
-              </div>
+              {item.focus.length > 0 && (
+                <div className="mt-6 flex flex-wrap items-baseline gap-3 border-t border-slate-500/10 pt-4">
+                  <p className={`shrink-0 font-mono text-xs uppercase tracking-widest ${muted}`}>stack</p>
+                  <StackRow items={item.focus} />
+                </div>
+              )}
             </EditorialCard>
           </RevealItem>
         ))}
