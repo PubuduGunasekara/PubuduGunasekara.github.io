@@ -65,7 +65,7 @@ export type JourneyStep = {
 
 export const journeySteps: JourneyStep[] = [
   { place: 'Sri Lanka', detail: 'Foundations, hackathons, and an IoT system I led as a student.' },
-  { place: 'Virtusa', detail: 'Production Java and Selenium test automation on a British Telecommunications platform.' },
+  { place: 'Virtusa', detail: 'Java and Selenium test automation on a British Telecommunications platform.' },
   { place: 'Canada', detail: 'A graduate certificate in mobile solutions development.' },
   { place: 'Northeastern, Silicon Valley', detail: 'Backend, distributed systems and AI applications.' },
 ];
@@ -97,7 +97,7 @@ export const experience: Experience[] = [
     focus: ['Java', 'Selenium WebDriver', 'CST Environment', 'Camunda Cockpit', 'RabbitMQ', 'Swagger UI', 'MQ Console', 'agile'],
     logo: brandAssets.virtusa,
     mark: 'VU',
-    highlights: ['British Telecommunications platform', 'Production engineering · 1M+ user platform'],
+    highlights: ['British Telecommunications platform', 'QA for a 1M+ user platform'],
     reflection: 'Watching a production platform fail in real ways is why my projects are built around failure handling.',
     reflectionLink: { label: 'See how this shaped the Task Scheduler', href: '/projects/task-scheduler/' },
   },
@@ -138,7 +138,7 @@ export const skills: SkillCategory[] = [
   {
     category: 'Infra & Testing',
     items: ['Linux', 'Git', 'Docker', 'AWS', 'Azure', 'GitHub Actions', 'CI/CD', 'Prometheus', 'Grafana', 'Selenium WebDriver', 'JUnit', 'Testcontainers'],
-    context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in production. Selenium WebDriver drove the Virtusa test automation, and JUnit and Testcontainers back the Task Scheduler’s tests.',
+    context: 'Docker and GitHub Actions package and test the Task Scheduler; Prometheus and Grafana instrument it in the local Docker Compose stack. Selenium WebDriver drove the Virtusa test automation, and JUnit and Testcontainers back the Task Scheduler’s tests.',
   },
   {
     category: 'Frontend & Mobile',
@@ -148,7 +148,7 @@ export const skills: SkillCategory[] = [
   {
     category: 'Fundamentals',
     items: ['Algorithms', 'Distributed Systems', 'Data Structures', 'Object-Oriented Design', 'Concurrency', 'Unit Testing', 'Debugging'],
-    context: 'Concurrency and distributed systems drive the Task Scheduler’s locks, retries, and state machine; the Travel Day Scheduler’s weighted A* search and heap pruning and the CS5010 Java projects cover algorithms, data structures and object-oriented design; unit tests back the Task Scheduler and the Virtusa automation.',
+    context: 'Concurrency and distributed systems drive the Task Scheduler’s locks, retries, and state machine; the CS5010 Java projects cover data structures and object-oriented design; unit tests back the Task Scheduler and the Virtusa automation.',
     secondary: true,
   },
 ];
@@ -201,7 +201,7 @@ export const projects: Project[] = [
     highlights: [
       'Three independent layers (a Redis lock, a database state machine, and optimistic locking) stop the same job from running twice, even with Kafka’s at-least-once delivery.',
       'Failed jobs retry with backoff (10s, 30s, 90s) before landing in a dead-letter queue instead of vanishing; a recovery sweeper catches jobs stuck behind a crashed worker.',
-      '188 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for live observability.',
+      '188 tests (unit plus real-Postgres/Redis integration tests) behind an 80% coverage gate enforced in CI, with Prometheus and Grafana for observability in the local Docker Compose stack.',
       'In a local load test (1,000 simulated 50 ms tasks, 3 consumers) it sustained about 2,700 tasks/min with zero duplicate runs.',
     ],
     stack: ['Java 21', 'Spring Boot', 'Apache Kafka', 'Redis', 'PostgreSQL', 'Docker', 'Prometheus', 'Grafana', 'JUnit', 'GitHub Actions'],
@@ -243,27 +243,15 @@ export const projects: Project[] = [
   },
   {
     title: 'IoT Smart Farm System',
-    eyebrow: 'Mobile · IoT · Team project',
+    eyebrow: 'Mobile · IoT · Team project, team lead',
     status: 'Complete · Award winner',
     statusColor: 'text-signal-amber',
     href: 'https://github.com/PubuduGunasekara/smart-farm-1.1.0',
     demo: 'https://www.linkedin.com/posts/pubudugunasekera_softwareengineering-iot-fullstackdevelopment-ugcPost-6794005940980072448-jYhD/',
-    body: 'Built the app’s device-control section and the physical Arduino farm model. The control panel (water, food, gate, cleaning) sends commands through Firebase to WiFi-enabled Arduino/ESP controllers that drive relays and motors. Team project, one of the Top 10 Most Innovative Projects at the NSBM Green EXE v1.0 software competition.',
+    body: 'I led the team and built the app’s device-control section and the physical Arduino farm model (sensors, TT motors, Arduino and ESP controllers, relays). The control panel (water, food, gate, cleaning) sends commands through Firebase to WiFi-enabled Arduino/ESP controllers that drive relays and motors. Top 10 Most Innovative Projects at the NSBM Green EXE v1.0 software competition.',
     stack: ['React Native (Expo)', 'Redux', 'Firebase', 'Arduino', 'ESP'],
     featured: false,
     embed: 'https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:6794005940980072448?compact=1',
-  },
-  {
-    title: 'Travel Day Scheduler',
-    eyebrow: 'Algorithms · Weighted A*',
-    status: 'Built',
-    statusColor: 'text-signal-green',
-    href: 'https://github.com/PubuduGunasekara/SmartTravelPlanner',
-    demo: null,
-    body: 'Graduate algorithms team project (team of 2): a weighted / anytime A* itinerary planner with heap pruning. I wrote the initial search and the route-visualization frontend.',
-    stack: ['Python', 'Weighted A*', 'Flask', 'JavaScript'],
-    featured: false,
-    embed: null,
   },
   {
     title: 'Bird Conservatory Management System',
@@ -311,10 +299,10 @@ export const leadership: LeadershipEntry[] = [
   },
   {
     title: 'Smart Farm IoT Project, Team Lead',
-    meta: 'Coordinated hardware, software, and cloud execution',
+    meta: 'Led the team; built the app’s control section and the physical farm model',
   },
   {
-    title: 'QA Sub-team Lead & Client-facing Demos',
+    title: 'Client-facing demos and QA coordination',
     meta: 'Virtusa · AU / UK / LK sprint cycles',
   },
   {
@@ -394,8 +382,6 @@ export const contactBody =
 export const contactAvailability = 'Available Summer 2027 · open to relocation';
 export const contactLookingFor = ['Backend, distributed systems and AI application internships', 'Summer 2027 (May–Aug)', 'Open to relocation'];
 
-export const githubUsername = 'PubuduGunasekara';
-export const githubFallbackRepos = 64;
 
 export const highlights = {
   kicker: 'The short version',
@@ -457,7 +443,7 @@ export const highlightProjects: HighlightItem[] = [
     kind: 'IoT project',
     accent: 'amber',
     fact: 'Top 10 Most Innovative Projects, NSBM Green EXE v1.0',
-    built: 'A phone app that controls an Arduino farm model (water, feed, gate, cleaning). I built the app’s control section and the model.',
+    built: 'A phone app that controls an Arduino farm model (water, feed, gate, cleaning). I led the team and built the app’s control section and the model.',
     used: ['React Native', 'Firebase', 'Arduino'],
     learned: 'How apps, cloud and hardware connect, and teamwork.',
     helps: 'I connect software to real devices and work in a team.',

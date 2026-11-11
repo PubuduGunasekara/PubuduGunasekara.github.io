@@ -70,10 +70,10 @@ export function SchedulerDiagram() {
   }
 
   return (
-    <div className="rounded-3xl border border-slate-500/15 bg-slate-500/[0.04] p-4 sm:p-6">
+    <div role="group" aria-label="Distributed task scheduler architecture diagram" className="rounded-3xl border border-slate-500/15 bg-slate-500/[0.04] p-4 sm:p-6">
       <p className="font-mono text-xs text-signal-cyan">architecture</p>
 
-      <svg viewBox={viewBox} className="mt-4 h-auto w-full" role="img" aria-label="Distributed task scheduler architecture diagram">
+      <svg viewBox={viewBox} className="mt-4 h-auto w-full">
         {straightEdges.map(([a, b]) => (
           <path key={`${a}-${b}`} d={edgePath(a, b, false)} fill="none" strokeWidth={1.5} className="stroke-slate-500/40" stroke="currentColor" />
         ))}
@@ -98,7 +98,7 @@ export function SchedulerDiagram() {
               transform={`translate(${n.x}, ${n.y})`}
               tabIndex={0}
               role="button"
-              aria-label={`${n.label}: ${n.info}`}
+              aria-label={`${n.label} ${n.sub}: ${n.info}`}
               aria-pressed={isActive}
               className={`cursor-pointer outline-none transition ${isActive ? 'text-signal-cyan' : inactiveTextClass}`}
               onClick={() => setSelected(id)}
@@ -125,7 +125,7 @@ export function SchedulerDiagram() {
                 <rect x={-83} y={-27} width={166} height={54} rx={14} fill="none" stroke="currentColor" strokeOpacity={0.9} strokeWidth={1.5} strokeDasharray="3 3" />
               )}
               <text textAnchor="middle" y={-3} fill="currentColor" className="font-mono text-[13px] font-semibold">
-                {n.label}
+                {n.label}{' '}
               </text>
               <text textAnchor="middle" y={15} fill="currentColor" className="font-mono text-[12px] opacity-85">
                 {n.sub}

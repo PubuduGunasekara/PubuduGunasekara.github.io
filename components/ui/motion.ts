@@ -18,3 +18,8 @@ export const revealItem: Variants = {
 };
 
 export const viewportOnce = { once: true, margin: '-72px' };
+
+export const instantVariants: Variants = {
+  hidden: { opacity: 1, y: 0, filter: 'blur(0px)' },
+  visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0 } },
+};

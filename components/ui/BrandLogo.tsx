@@ -28,7 +28,7 @@ export function BrandLogo({
           className={`${wide ? 'max-h-10 max-w-[9rem]' : 'max-h-9 max-w-9'} object-contain opacity-90 transition hover:opacity-100`}
         />
       ) : (
-        <span className="font-mono text-sm text-signal-cyan">{mark}</span>
+        <span className="font-mono text-sm text-ink-700">{mark}</span>
       )}
     </div>
   );

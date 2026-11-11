@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://readme-typing-svg.demolab.com?font=Geist+Mono&weight=600&size=24&pause=1200&color=0E7490&center=true&vCenter=true&width=780&lines=Hi%2C%20I%27m%20Pubudu%20Gunasekara;Backend%2C%20Distributed%20Systems%20%26%20AI%20Applications;M.S.%20Computer%20Science%20%40%20Northeastern;Seeking%20a%20SWE%20Internship%20-%20Summer%202027" alt="Pubudu Gunasekara - backend, distributed systems and AI applications" />
+<img src="https://readme-typing-svg.demolab.com?font=Geist+Mono&weight=600&size=24&pause=1200&color=0E7490&center=true&vCenter=true&width=780&lines=Hi%2C%20I%27m%20Pubudu%20Gunasekara;Backend%2C%20Distributed%20Systems%20%26%20AI;M.S.%20Computer%20Science%20%40%20Northeastern;Seeking%20a%20SWE%20Internship%20-%20Summer%202027" alt="Pubudu Gunasekara - Backend, Distributed Systems & AI" />
 
 ### pubudugunasekara.github.io — portfolio source
 
@@ -30,7 +30,7 @@ The homepage is deliberately short. The depth lives in three case studies that w
 - **Interactive architecture diagrams** — hand-built SVG, keyboard navigable, click or tab a node to read what it does.
 - **Content/presentation split** — all copy lives in `lib/content.ts` and `lib/caseStudies.ts`; components only render.
 - **Light and dark themes** with a persisted preference, tuned separately for contrast.
-- **Accessibility** — WCAG AA contrast targets, full keyboard navigation, `prefers-reduced-motion` respected throughout.
+- **Accessibility** — axe-core reports zero color-contrast and nested-interactive violations on the home page and the three case-study pages, in both the light and dark themes. Content renders immediately when the visitor prefers reduced motion.
 - **Static export** — no server, no runtime dependencies, deployed straight to GitHub Pages.
 
 ---
@@ -140,10 +140,11 @@ mindmap
       Retries and dead-letter queues
       Crash recovery
       Prometheus and Grafana
-    Applied AI and RAG
-      Embeddings and vector search
+    Applied AI
+      RAG
       Local LLMs with Ollama
-      Checking every model claim in code
+      Claim verification in code
+      Embeddings and vector search
       Structured outputs
       GitHub API integration
     Foundations
@@ -155,11 +156,11 @@ Selected work:
 
 | Project | What it is | Built with |
 |---|---|---|
-| [ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) · [case study](https://pubudugunasekara.github.io/projects/resumematch/) | A RAG system that matches a resume against 107,528 LinkedIn postings fully on a laptop, and checks every claim in code before showing it (226 tests) | Python, FastAPI, ChromaDB, Ollama, Next.js, TypeScript |
+| [ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) · [case study](https://pubudugunasekara.github.io/projects/resumematch/) | A RAG system that runs fully locally: it matches a resume against 107,528 LinkedIn postings and checks every claim in code before showing it | Python, FastAPI, ChromaDB, Ollama, Next.js |
 | [Distributed Task Scheduler](https://github.com/PubuduGunasekara/distributed-task-scheduler) | At-least-once background job execution with a Redis distributed lock, a database state machine, backoff retries, a dead-letter queue, crash recovery, and end-to-end observability | Java 21, Spring Boot, Kafka, Redis, PostgreSQL |
 | [AI Code Review Assistant](https://github.com/PubuduGunasekara/ai-code-reviewer) · [live](https://main.d3dm91k4g9mtr9.amplifyapp.com/) | Reviews a GitHub pull request via OAuth and returns severity-tagged findings in a strict JSON schema, with Redis rate limiting and caching | Node.js, Express, React, gpt-4o-mini, Redis, AWS |
-| [Travel Day Scheduler](https://github.com/PubuduGunasekara/SmartTravelPlanner) | Weighted / anytime A* itinerary planner with iterative weight escalation and heap pruning (2-person graduate algorithms project) | Python, Flask |
-| [Smart Farm](https://github.com/PubuduGunasekara/smart-farm-1.1.0) | IoT farm-monitoring app, Top 10 Most Innovative at NSBM Green EXE v1.0 | React Native, Firebase |
+| [Multi-User Blog](https://github.com/PubuduGunasekara/Multi-User-Blog) | A multi-user blog on the MERN stack with 93 REST endpoints; I added 42 API tests in 2026 | MongoDB, Express, React (Next.js), Node.js |
+| [Smart Farm](https://github.com/PubuduGunasekara/smart-farm-1.1.0) | IoT farm app and physical farm model. I led the team and built the app's control section and the physical model. Top 10 at NSBM Green EXE v1.0 | React Native, Firebase, Arduino |
 
 <div align="center">
 

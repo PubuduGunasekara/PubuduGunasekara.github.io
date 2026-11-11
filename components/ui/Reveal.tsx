@@ -1,7 +1,7 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { revealItem, staggerContainer, viewportOnce } from './motion';
+import { motion, useReducedMotion } from 'framer-motion';
+import { instantVariants, revealItem, staggerContainer, viewportOnce } from './motion';
 
 export function RevealGroup({
   children,
@@ -10,10 +10,13 @@ export function RevealGroup({
   children: React.ReactNode;
   className?: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <motion.div
-      initial="hidden"
-      whileInView="visible"
+      initial={reduceMotion ? false : 'hidden'}
+      animate={reduceMotion ? 'visible' : undefined}
+      whileInView={reduceMotion ? undefined : 'visible'}
       viewport={viewportOnce}
       variants={staggerContainer}
       className={className}
@@ -30,8 +33,10 @@ export function RevealItem({
   children: React.ReactNode;
   className?: string;
 }) {
+  const reduceMotion = useReducedMotion();
+
   return (
-    <motion.div variants={revealItem} className={className}>
+    <motion.div variants={reduceMotion ? instantVariants : revealItem} className={className}>
       {children}
     </motion.div>
   );

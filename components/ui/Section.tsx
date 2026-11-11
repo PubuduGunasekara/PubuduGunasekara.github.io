@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import { useTheme } from '@/lib/theme';
 import { staggerContainer, viewportOnce } from './motion';
 import { RevealItem } from './Reveal';
@@ -17,12 +17,14 @@ export function Section({
   children: React.ReactNode;
 }) {
   const { muted, theme } = useTheme();
+  const reduceMotion = useReducedMotion();
 
   return (
     <motion.section
       id={id}
-      initial="hidden"
-      whileInView="visible"
+      initial={reduceMotion ? false : 'hidden'}
+      animate={reduceMotion ? 'visible' : undefined}
+      whileInView={reduceMotion ? undefined : 'visible'}
       viewport={viewportOnce}
       variants={staggerContainer}
       className="grid gap-8 border-t border-slate-500/15 py-20 md:grid-cols-[12rem_1fr]"

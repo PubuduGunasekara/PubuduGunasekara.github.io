@@ -67,7 +67,7 @@ export function Hero() {
 
           <div>
             {/* University wordmark: the largest element, in Northeastern red (text only, no logo) */}
-            <p className="text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.03em] text-nu-red-text sm:text-5xl lg:text-6xl">
+            <p className="text-balance text-3xl font-semibold leading-[1.05] tracking-[-0.03em] text-nu-red-text sm:text-4xl lg:text-5xl">
               {heroUniversity}
             </p>
             <span aria-hidden="true" className="mx-auto mt-4 block h-0.5 w-16 rounded-full bg-nu-red md:mx-0" />
