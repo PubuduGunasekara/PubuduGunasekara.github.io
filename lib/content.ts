@@ -24,7 +24,7 @@ export type Metric = {
 export const resumeMatchMetrics: Metric[] = [
   { value: 107528, label: 'real LinkedIn postings searched' },
   { value: 13.8, decimals: 1, suffix: ' s', label: 'median per resume (M3 Pro, 3 resumes, 9 runs)' },
-  { value: 226, label: 'tests' },
+  { value: 355, label: 'tests' },
   { value: 73, suffix: '%', label: 'unsupported “matched” claims caught (35 of 48)' },
 ];
 
@@ -143,7 +143,7 @@ export const skills: SkillCategory[] = [
   {
     category: 'Frontend & Mobile',
     items: ['React', 'Next.js', 'Streamlit', 'React Native (Expo)', 'Vite', 'Redux', 'Firebase', 'Android, iOS and Android Wear (coursework)'],
-    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI; React Native and Firebase drive the Smart Farm app; ResumeMatch uses Next.js and Streamlit.',
+    context: 'React and Next.js power this site and the AI Code Review Assistant’s UI; React Native and Firebase drive the Smart Farm app; ResumeMatch’s web app is built with Next.js.',
   },
   {
     category: 'Fundamentals',
@@ -173,18 +173,19 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: 'ResumeMatch',
-    eyebrow: 'RAG system · Runs locally',
+    eyebrow: 'RAG web app · Runs locally',
     status: 'Built',
     statusColor: 'text-signal-green',
     href: 'https://github.com/PubuduGunasekara/rag-resumematch',
     demo: resumeMatchConfig.liveDemoUrl || null,
-    body: 'A retrieval-augmented generation (RAG) system that compares a resume with 107,528 real LinkedIn job postings and shows which requirements it meets, with every claim checked against the resume and the posting it came from.',
+    body: 'A retrieval-augmented generation (RAG) system that compares a resume with 107,528 real LinkedIn job postings and shows which requirements it meets, with every claim checked against the resume and the posting it came from. Around that check it offers tailoring, interview prep, an assistant, and a recruiter mode with blind review.',
     highlights: [
       'The model only proposes. Code checks that the cited posting asks for the requirement, that the resume quote is really in the resume, and that a “missing” skill is not listed. Rankings and verdicts are computed in code.',
       'Runs fully local: bge-small-en-v1.5 embeddings, ChromaDB and llama3.2:3b through Ollama. The resume never leaves the machine and no paid API is used.',
       'With the 3B model, 35 of 48 “matched” claims (73%) cited a posting that never mentioned them, so every claim is now checked from both sides.',
+      'A full web app: a Next.js site on a FastAPI service, with sign-in and roles, resume and cover letter tailoring, interview prep, version compare, a role report, and a recruiter mode that ranks up to 10 resumes with blind review.',
     ],
-    stack: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'Streamlit', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Docker', 'GitHub Actions'],
+    stack: ['Python', 'FastAPI', 'Next.js', 'TypeScript', 'ChromaDB', 'sentence-transformers', 'Ollama', 'Streamlit', 'Docker', 'GitHub Actions'],
     featured: true,
     embed: null,
     caseStudySlug: 'resumematch',
@@ -407,12 +408,12 @@ export type HighlightItem = {
 export const highlightProjects: HighlightItem[] = [
   {
     title: 'ResumeMatch',
-    kind: 'RAG system',
+    kind: 'RAG web app',
     href: '/projects/resumematch/',
     accent: 'red',
     fact: '107,528 postings searched',
-    built: 'A retrieval-augmented generation (RAG) app: it finds job postings that match a resume, then checks every claim against the resume and the posting.',
-    used: ['Python', 'FastAPI', 'ChromaDB', 'Ollama', 'RAG'],
+    built: 'A retrieval-augmented generation (RAG) web app: it finds job postings that match a resume, checks every claim against the resume and the posting, and lets recruiters rank resumes with blind review.',
+    used: ['Python', 'FastAPI', 'Next.js', 'ChromaDB', 'Ollama', 'RAG'],
     learned: '73% of a 3B model’s “matched” claims were unsupported, so code now checks every one.',
     helps: 'AI results you can verify, running fully on your own machine.',
   },

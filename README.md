@@ -24,7 +24,7 @@ The homepage is deliberately short. The depth lives in three case studies that w
 
 ### Highlights
 
-- **Three long-form case studies** — [ResumeMatch](https://pubudugunasekara.github.io/projects/resumematch/) (a RAG system), [Distributed Task Scheduler](https://pubudugunasekara.github.io/projects/task-scheduler/) and [AI Code Review Assistant](https://pubudugunasekara.github.io/projects/ai-code-reviewer/). The two backend studies follow Problem → Architecture → Key decisions → Failure scenarios → Testing → Observability → Deployment → Known limitations. ResumeMatch follows Problem → Approach → What failed first → What I measured → Limits.
+- **Three long-form case studies** — [ResumeMatch](https://pubudugunasekara.github.io/projects/resumematch/) (a RAG web app), [Distributed Task Scheduler](https://pubudugunasekara.github.io/projects/task-scheduler/) and [AI Code Review Assistant](https://pubudugunasekara.github.io/projects/ai-code-reviewer/). The two backend studies follow Problem → Architecture → Key decisions → Failure scenarios → Testing → Observability → Deployment → Known limitations. ResumeMatch follows Problem → What it does → Approach → Beyond the match → What failed first → What I measured → Privacy and security → Limits.
 - **A highlights card right under the hero** — every project and my work experience in one glance: what I built, what I used, what I learned and how it helps a team.
 - **Animated metrics** — count-up numbers for ResumeMatch that respect `prefers-reduced-motion` and show the final value in the static HTML.
 - **Interactive architecture diagrams** — hand-built SVG, keyboard navigable, click or tab a node to read what it does.
@@ -35,17 +35,35 @@ The homepage is deliberately short. The depth lives in three case studies that w
 
 ---
 
-### Featured: ResumeMatch (RAG system)
+### Featured: ResumeMatch (RAG web app)
 
-[ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) compares a resume with 107,528 real LinkedIn job postings (237,902 chunks) and shows which requirements the resume meets, with every claim checked against the resume and the posting it came from. It started in Fall 2026 as an NLP course project at Northeastern (CS6120). The portfolio version is my own, designed and built by me with Claude Code assistance; the design, experiments and measurements are mine.
+[ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) compares a resume with 107,528 real LinkedIn job postings (237,902 chunks) and shows which requirements the resume meets, with every claim checked against the resume and the posting it came from. Around that check it offers resume and cover letter tailoring, interview prep, an assistant, and a recruiter mode with blind review, in a Next.js site on a FastAPI service. It started in Fall 2026 as an NLP course project at Northeastern (CS6120). The portfolio version is my own, designed and built by me with Claude Code assistance; the design, experiments and measurements are mine.
 
-- **Fully local.** bge-small-en-v1.5 embeddings, ChromaDB and llama3.2:3b through Ollama. The resume never leaves the machine and no paid API is used.
+- **Fully local.** bge-small-en-v1.5 embeddings, ChromaDB and llama3.2:3b through Ollama. No resume text is sent to an outside service, uploads are deleted once read, and no paid API is used.
 - **The model only proposes.** Code checks that the cited posting asks for the requirement, that the resume quote is really in the resume, and that a "missing" skill is not listed. Rankings and verdicts are computed in code.
 - **Key finding.** With the 3B model, 35 of 48 "matched" claims (73%) cited a posting that never mentioned them, which is why every claim is checked from both sides.
-- **Measured.** 13.8 s median per resume on an M3 Pro (3 resumes, 9 runs), 57 s median in Docker on CPU, recall@30 against exact search 0.972 after tuning versus 0.791 with defaults, 226 tests.
-- **Honest limits.** The checks compare wording, only synthetic resumes are tested so far, and there are no ground-truth relevance labels yet.
+- **Measured.** 13.8 s median per resume on an M3 Pro (3 resumes, 9 runs), 57 s median in Docker on CPU, recall@30 against exact search 0.972 after tuning versus 0.791 with defaults, 355 tests that run in about 4 seconds.
+- **Honest limits.** The checks compare wording, only synthetic resumes are tested so far (20 fictional ones), and there are no ground-truth relevance labels yet.
 
 Read the full write-up in the [case study](https://pubudugunasekara.github.io/projects/resumematch/).
+
+---
+
+### Ask about me (search that runs in the browser)
+
+A floating "Ask about me" button opens a small panel where a recruiter can ask about my projects, education (GPA, courses, graduation), experience, skills, relocation and availability. It is not a live AI and there is no server: GitHub Pages only serves static files, so everything runs in the visitor's browser.
+
+- **Where answers come from.** Only this site's own content. `scripts/build-ask-index.ts` splits `lib/content.ts` and `lib/caseStudies.ts` into chunks and embeds them with the same model the browser uses (bge-small-en-v1.5, 8-bit). It writes `public/ask/index.json`, which is generated on every `npm run dev` and `npm run build` and is not committed.
+- **How it searches.** Keyword search (BM25) and meaning search (embeddings) are combined with reciprocal rank fusion, the same rule ResumeMatch uses. The question is also matched against alternate phrasings of each prepared answer.
+- **Direct answers for skills.** "Do you know Python?" is answered from the skills and project data, with links to where I used it. A skill that is not on the site gets a plain "I don't list that" plus what I do list, instead of a guess.
+- **Typos and suggestions.** A question is answered as typed first; a typo-corrected version is used only if that works better, and the panel says so ("Showing results for ..."). Corrections only touch words the site does not contain in any form. Suggested questions appear while typing, and every answer ends with three follow-ups: the answered question's curated chain first (`NEXT` in `scripts/ask-bank.ts`), then questions close in meaning, then others from the same topic. "Browse all questions" lists all 88 prepared questions by topic.
+- **Prepared questions.** About 100 prepared answers: the hand-written ones in `lib/askContent.ts`, answers generated from the site data, and `scripts/ask-bank.ts`, whose answers are copied word for word from the case studies and experience entries by heading, so the build fails if a heading is renamed and they cannot drift from the pages they quote.
+- **Opening by itself.** On the home page the panel loads in the background once the page has loaded and opens itself 3 seconds after navigation start, once per session, without taking focus. It does not open by itself on phone-width screens or when the browser asks to save data. On my machine with a fast connection, a cold first visit had smart search ready 4.7 s after navigation and a warm one 1.1 s, so on a warm visit everything is loaded before the panel appears.
+- **What it declines.** Work authorization, pay, personal details, work arrangements and requests to write code get a short "ask me by email" reply instead of a search result.
+- **Privacy and cost.** Questions never leave the browser. After the panel is opened, the 35 MB model comes from huggingface.co and the WebAssembly runtime from cdn.jsdelivr.net (cached by the browser). On slow or data-saving connections the download waits for a click. If the model cannot load, the panel falls back to keyword search.
+- **How well it works.** `npm run ask:eval` runs 120 questions (106 on three splits, 14 written for the project sub-answers) plus typo, skill-lookup and live-suggestion checks. The project sub-answers (`faq:ts-*`, `faq:rm-*`, `faq:acr-*`, `faq:skills-*`) are excerpts of a case study or skills row, so a question labelled with that case study also accepts them; the harness prints how many results relied on that rule (16 of 96). I wrote the questions myself, so this is a sanity check, not a measure of real recruiter behavior. On a holdout set written after the last fixes, the right source was first for 28 of 30 on-topic questions and in the top 3 for all 30, and 10 of 10 off-topic or not-on-the-site questions were declined. On the 14 sub-answer questions, which I wrote after the answers existed, the right answer was first for 13 and in the top 3 for all 14.
+
+To change what it knows, edit the site content, `lib/askContent.ts` (prepared answers and their alternate phrasings) or `scripts/ask-bank.ts`. Skills, education, contact and project answers are generated from the site's data.
 
 ---
 
@@ -58,6 +76,7 @@ Read the full write-up in the [case study](https://pubudugunasekara.github.io/pr
 | Styling | Tailwind CSS with CSS-variable design tokens (`ink` / `signal` scales) |
 | Motion | Framer Motion, gated behind `prefers-reduced-motion` |
 | Type | Space Grotesk + Geist Mono via `next/font` |
+| Search | transformers.js (in-browser embeddings), BM25, tsx for the index builder |
 | Hosting | GitHub Pages via GitHub Actions |
 
 ---
@@ -76,15 +95,19 @@ components/
   CaseStudyView.tsx     # shared case-study layout
   sections/             # one component per homepage section
     HighlightsSection.tsx                       # the one-glance overview under the hero
+  ask/                  # the "Ask about me" button and panel
     SchedulerDiagram.tsx  ReviewerDiagram.tsx   # interactive SVG diagrams
   ui/                   # Section, EditorialCard, Reveal, Metrics (count-up), ThemeToggle, icons
 lib/
   content.ts            # all homepage copy and data
   caseStudies.ts        # case-study content
+  askContent.ts         # prepared answers for the Ask panel
+  ask/                  # search, typo correction and suggestions (pure functions, shared with the eval)
   theme.tsx             # light/dark tokens and toggle
   hooks.ts              # prefers-reduced-motion and friends
+scripts/                # build-ask-index.ts (search index) and eval-ask.ts (evaluation)
 public/assets/          # résumé PDF, logos, profile image
-  resumematch/          # ResumeMatch report screenshots and pipeline diagram
+  resumematch/          # ResumeMatch app screenshots and pipeline diagram
 ```
 
 ---
@@ -156,7 +179,7 @@ Selected work:
 
 | Project | What it is | Built with |
 |---|---|---|
-| [ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) · [case study](https://pubudugunasekara.github.io/projects/resumematch/) | A RAG system that runs fully locally: it matches a resume against 107,528 LinkedIn postings and checks every claim in code before showing it | Python, FastAPI, ChromaDB, Ollama, Next.js |
+| [ResumeMatch](https://github.com/PubuduGunasekara/rag-resumematch) · [case study](https://pubudugunasekara.github.io/projects/resumematch/) | A RAG web app that runs fully locally: it matches a resume against 107,528 LinkedIn postings, checks every claim in code before showing it, and adds tailoring, interview prep and a recruiter mode with blind review | Python, FastAPI, ChromaDB, Ollama, Next.js |
 | [Distributed Task Scheduler](https://github.com/PubuduGunasekara/distributed-task-scheduler) | At-least-once background job execution with a Redis distributed lock, a database state machine, backoff retries, a dead-letter queue, crash recovery, and end-to-end observability | Java 21, Spring Boot, Kafka, Redis, PostgreSQL |
 | [AI Code Review Assistant](https://github.com/PubuduGunasekara/ai-code-reviewer) · [live](https://main.d3dm91k4g9mtr9.amplifyapp.com/) | Reviews a GitHub pull request via OAuth and returns severity-tagged findings in a strict JSON schema, with Redis rate limiting and caching | Node.js, Express, React, gpt-4o-mini, Redis, AWS |
 | [Multi-User Blog](https://github.com/PubuduGunasekara/Multi-User-Blog) | A multi-user blog on the MERN stack with 93 REST endpoints; I added 42 API tests in 2026 | MongoDB, Express, React (Next.js), Node.js |

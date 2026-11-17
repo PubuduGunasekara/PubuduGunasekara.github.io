@@ -8,6 +8,7 @@ import { Hero } from '@/components/Hero';
 import { HighlightsSection } from '@/components/sections/HighlightsSection';
 import { LearnMore } from '@/components/sections/LearnMore';
 import { Footer } from '@/components/Footer';
+import { AskLauncher } from '@/components/ask/AskLauncher';
 import { StorySection } from '@/components/sections/StorySection';
 import { ExperienceSection } from '@/components/sections/ExperienceSection';
 import { SkillsSection } from '@/components/sections/SkillsSection';
@@ -47,6 +48,7 @@ function PageBody() {
         <ContactSection />
         <Footer />
       </div>
+      <AskLauncher />
     </main>
   );
 }

@@ -7,18 +7,20 @@ import { ScrollProgress } from './ScrollProgress';
 import { BackgroundGrid } from './BackgroundGrid';
 import { Nav } from './Nav';
 import { Footer } from './Footer';
+import { AskLauncher } from './ask/AskLauncher';
 import { EditorialCard } from './ui/EditorialCard';
 import { StackRow } from './ui/StackRow';
 import { SecondaryLink, PrimaryLink } from './ui/Links';
 import { SchedulerDiagram } from './sections/SchedulerDiagram';
 import { ReviewerDiagram } from './sections/ReviewerDiagram';
 import { MetricsStrip } from './ui/Metrics';
+import { slugify } from '@/lib/ask/slug';
 import type { CaseStudy, CaseStudyImage, ClassicCaseStudy, SectionedCaseStudy } from '@/lib/caseStudies';
 
 function Prose({ title, children }: { title: string; children: React.ReactNode }) {
   const { muted } = useTheme();
   return (
-    <section className="border-t border-slate-500/15 py-12">
+    <section id={slugify(title)} className="scroll-mt-24 border-t border-slate-500/15 py-12">
       <h2 className="text-xl font-semibold tracking-tight">{title}</h2>
       <div className={`mt-4 space-y-4 leading-7 ${muted}`}>{children}</div>
     </section>
@@ -91,7 +93,7 @@ function DemoVideo({ url }: { url: string }) {
   );
 }
 
-function Figure({ image, className = '' }: { image: CaseStudyImage; className?: string }) {
+function Figure({ image, className = '', priority = false }: { image: CaseStudyImage; className?: string; priority?: boolean }) {
   const { muted } = useTheme();
 
   return (
@@ -102,6 +104,7 @@ function Figure({ image, className = '' }: { image: CaseStudyImage; className?: 
         width={image.width}
         height={image.height}
         sizes="(min-width: 1024px) 896px, 100vw"
+        priority={priority}
         className="h-auto w-full rounded-2xl border border-slate-500/15"
       />
       {image.caption && <figcaption className={`mt-2 text-xs ${muted}`}>{image.caption}</figcaption>}
@@ -128,7 +131,7 @@ function SectionedCaseStudyBody({ caseStudy }: { caseStudy: SectionedCaseStudy }
 
         {caseStudy.videoUrl && <DemoVideo url={caseStudy.videoUrl} />}
 
-        {caseStudy.heroImage && <Figure image={caseStudy.heroImage} className="mx-auto mt-8 max-w-2xl" />}
+        {caseStudy.heroImage && <Figure image={caseStudy.heroImage} className="mx-auto mt-8 max-w-2xl" priority />}
 
         {caseStudy.sections.map((section) => (
           <Prose key={section.heading} title={section.heading}>
@@ -151,7 +154,7 @@ function SectionedCaseStudyBody({ caseStudy }: { caseStudy: SectionedCaseStudy }
           </Prose>
         ))}
 
-        <section className="border-t border-slate-500/15 py-12">
+        <section id="links" className="scroll-mt-24 border-t border-slate-500/15 py-12">
           <h2 className="text-xl font-semibold tracking-tight">Links</h2>
           <div className="mt-4 flex flex-wrap gap-3">
             <SecondaryLink href={caseStudy.repo}>GitHub Repository</SecondaryLink>
@@ -161,6 +164,7 @@ function SectionedCaseStudyBody({ caseStudy }: { caseStudy: SectionedCaseStudy }
 
         <Footer />
       </div>
+      <AskLauncher />
     </main>
   );
 }
@@ -192,7 +196,7 @@ function CaseStudyBody({ caseStudy }: { caseStudy: ClassicCaseStudy }) {
         </Prose>
 
         {caseStudy.whyComponents && (
-          <section className="border-t border-slate-500/15 py-12">
+          <section id="why-these-components" className="scroll-mt-24 border-t border-slate-500/15 py-12">
             <h2 className="text-xl font-semibold tracking-tight">Why these components</h2>
             <div className="mt-4">
               <DecisionList items={caseStudy.whyComponents} />
@@ -200,14 +204,14 @@ function CaseStudyBody({ caseStudy }: { caseStudy: ClassicCaseStudy }) {
           </section>
         )}
 
-        <section className="border-t border-slate-500/15 py-12">
+        <section id="key-engineering-decisions" className="scroll-mt-24 border-t border-slate-500/15 py-12">
           <h2 className="text-xl font-semibold tracking-tight">Key engineering decisions</h2>
           <div className="mt-4">
             <DecisionList items={caseStudy.keyDecisions} />
           </div>
         </section>
 
-        <section className="border-t border-slate-500/15 py-12">
+        <section id="failure-scenarios-and-trade-offs" className="scroll-mt-24 border-t border-slate-500/15 py-12">
           <h2 className="text-xl font-semibold tracking-tight">Failure scenarios and trade-offs</h2>
           <div className="mt-4">
             <DecisionList items={caseStudy.failureScenarios} />
@@ -232,7 +236,7 @@ function CaseStudyBody({ caseStudy }: { caseStudy: ClassicCaseStudy }) {
           ))}
         </Prose>
 
-        <section className="border-t border-slate-500/15 py-12">
+        <section id="known-limitations-and-next-steps" className="scroll-mt-24 border-t border-slate-500/15 py-12">
           <h2 className="text-xl font-semibold tracking-tight">Known limitations and next steps</h2>
           <EditorialCard className="mt-4">
             <ul className={`space-y-3 leading-7 ${muted}`}>
@@ -246,7 +250,7 @@ function CaseStudyBody({ caseStudy }: { caseStudy: ClassicCaseStudy }) {
           </EditorialCard>
         </section>
 
-        <section className="border-t border-slate-500/15 py-12">
+        <section id="links" className="scroll-mt-24 border-t border-slate-500/15 py-12">
           <h2 className="text-xl font-semibold tracking-tight">Links</h2>
           <div className="mt-4 flex flex-wrap gap-3">
             <SecondaryLink href={caseStudy.repo}>GitHub Repository</SecondaryLink>
@@ -256,6 +260,7 @@ function CaseStudyBody({ caseStudy }: { caseStudy: ClassicCaseStudy }) {
 
         <Footer />
       </div>
+      <AskLauncher />
     </main>
   );
 }

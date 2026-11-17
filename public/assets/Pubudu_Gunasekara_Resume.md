@@ -54,8 +54,9 @@ Java 21, Spring Boot, Kafka, Redis, PostgreSQL, Prometheus, Docker, GitHub Actio
 [github.com/PubuduGunasekara/rag-resumematch](https://github.com/PubuduGunasekara/rag-resumematch)  
 Python, FastAPI, ChromaDB, Ollama, Next.js, TypeScript, Docker, GitHub Actions
 
-- Matched a resume against 107,528 LinkedIn postings (237,902 chunks) in 13.8 s median, fully on a laptop, by building a RAG pipeline: bge-small embeddings, ChromaDB search with rank fusion and a 3B model via Ollama.
-- Caught unsupported RAG claims (the model cited the wrong posting for 73% of its "matched" requirements, 35 of 48) by checking every claim in code before it is shown, and raised recall@30 from 0.79 to 0.97 by tuning the vector index. 226 tests, CI.
+- Matched a resume against 107,528 LinkedIn postings in about 14 seconds on a laptop by building a RAG pipeline with bge-small embeddings, ChromaDB search and a 3B model running in Ollama.
+- Blocked unsupported matches by checking every model claim in code, after testing showed it cited the wrong posting for 35 of 48 "matched" requirements. Raised recall@30 from 0.79 to 0.97 by tuning the index.
+- Shipped it as a full web app for job seekers and recruiters, with Next.js, FastAPI, role-based sign-in, a blind recruiter mode that ranks up to 10 resumes, and Docker Compose. 355 tests in CI.
 
 ### AI Code Review Assistant
 

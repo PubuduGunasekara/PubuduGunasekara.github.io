@@ -13,6 +13,9 @@
 /out
 /.next
 
+# generated search index for the Ask panel (built by scripts/build-ask-index.ts)
+/public/ask/index.json
+
 # misc
 .DS_Store
 .env.local

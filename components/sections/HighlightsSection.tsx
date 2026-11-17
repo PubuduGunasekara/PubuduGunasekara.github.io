@@ -9,6 +9,7 @@ import {
   type HighlightItem,
 } from '@/lib/content';
 import { useTheme } from '@/lib/theme';
+import { AskButton } from '../ask/AskLauncher';
 
 const accents: Record<HighlightAccent, { top: string; left: string; label: string; chip: string; tag: string }> = {
   cyan: {
@@ -167,6 +168,11 @@ export function HighlightsSection() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-3 text-sm">
+        <span className={muted}>Want something that is not here, like my GPA, courses or a specific skill?</span>
+        <AskButton />
       </div>
     </section>
   );
