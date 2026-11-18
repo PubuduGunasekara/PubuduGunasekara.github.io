@@ -41,6 +41,18 @@ export function ChatIcon() {
   );
 }
 
+export function ExpandIcon({ expanded }: { expanded: boolean }) {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" className="h-4 w-4">
+      {expanded ? (
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 4v6H4M14 20v-6h6M10 10 4 4M14 14l6 6" />
+      ) : (
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 10V4h6M20 14v6h-6M4 4l6 6M20 20l-6-6" />
+      )}
+    </svg>
+  );
+}
+
 export function MenuIcon({ open }: { open: boolean }) {
   return (
     <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5">

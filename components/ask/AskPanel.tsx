@@ -6,7 +6,7 @@ import { fallbackMessage } from '@/lib/ask/rules';
 import { ask, correctQuestion, prepare, suggestQuestions, type AskOutcome, type Prepared, type QueryVectors } from '@/lib/ask/search';
 import type { AskIndex, AskTech, Chunk, Source, Suggestion } from '@/lib/ask/types';
 import { useTheme } from '@/lib/theme';
-import { DetailsChevronIcon } from '../ui/icons';
+import { DetailsChevronIcon, ExpandIcon } from '../ui/icons';
 
 let indexPromise: Promise<Prepared> | null = null;
 function loadIndex(): Promise<Prepared> {
@@ -70,6 +70,24 @@ export default function AskPanel({
   const [input, setInput] = useState('');
   const [typing, setTyping] = useState<Suggestion[]>([]);
   const [busy, setBusy] = useState(false);
+  // A larger window for longer answers on screens wide enough for it (the toggle is hidden on phones). Remembered per tab.
+  const [expanded, setExpanded] = useState(() => {
+    try {
+      return sessionStorage.getItem('ask:expanded') === '1';
+    } catch {
+      return false;
+    }
+  });
+  const toggleExpanded = useCallback(() => {
+    setExpanded((v) => {
+      try {
+        sessionStorage.setItem('ask:expanded', v ? '0' : '1');
+      } catch {
+        // the choice just is not remembered
+      }
+      return !v;
+    });
+  }, []);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const logRef = useRef<HTMLDivElement>(null);
@@ -250,8 +268,10 @@ export default function AskPanel({
   }, [input, prepared]);
 
   const meta = prepared?.index.meta;
+  const isDark = theme === 'dark';
+  const botCard = 'rounded-2xl rounded-bl-md border border-slate-500/20 bg-slate-500/[0.07] px-3.5 py-3 text-sm leading-6';
   const chip =
-    'rounded-full border border-slate-500/25 bg-slate-500/10 px-3 py-1.5 text-left text-xs transition hover:border-signal-cyan/50 hover:text-signal-cyan motion-reduce:transition-none disabled:opacity-60';
+    'rounded-full border border-signal-cyan/30 bg-signal-cyan/[0.08] px-3 py-1.5 text-left text-xs transition hover:border-signal-cyan/60 hover:bg-signal-cyan/15 motion-reduce:transition-none disabled:opacity-60';
   const sourceLink =
     'inline-flex items-center rounded-full border border-signal-cyan/30 bg-signal-cyan/10 px-2.5 py-1 text-xs font-medium text-signal-cyan transition hover:bg-signal-cyan/20 motion-reduce:transition-none';
 
@@ -311,7 +331,7 @@ export default function AskPanel({
       .map((name) => ({ name, items: faqs.filter((c) => c.category === name) }))
       .filter((g) => g.items.length > 0);
     return (
-      <div className="border-l-2 border-signal-cyan/50 pl-3 text-sm leading-6">
+      <div className={botCard}>
         <p>Here is every question I have a prepared answer for, grouped by topic. You can also type your own.</p>
         <div className="mt-2 space-y-1.5">
           {groups.map((g, i) => (
@@ -348,7 +368,7 @@ export default function AskPanel({
     const r = outcome.result;
     const skills = prepared?.index.chunks.find((c) => c.id === 'faq:skills-overview');
     return (
-      <div className="border-l-2 border-signal-cyan/50 pl-3 text-sm leading-6">
+      <div className={botCard}>
         {outcome.correction && (
           <p className={`mb-1.5 text-xs ${muted}`}>
             Showing results for “{outcome.asked}”. You typed “{m.typed}”.
@@ -453,23 +473,61 @@ export default function AskPanel({
       onKeyDown={(e) => {
         if (e.key === 'Escape') onClose();
       }}
-      className={`fixed inset-x-3 bottom-3 z-50 max-h-[min(38rem,calc(100dvh-1.5rem))] flex-col overflow-hidden rounded-3xl border backdrop-blur-xl sm:inset-x-auto sm:bottom-5 sm:right-5 sm:w-[26rem] ${mobileMenuSurface} ${
-        open ? 'flex' : 'hidden'
-      }`}
+      style={{
+        boxShadow: isDark
+          ? '0 30px 90px -24px rgba(110,231,240,0.40), 0 0 0 1px rgba(110,231,240,0.28)'
+          : '0 30px 80px -24px rgba(12,106,133,0.45), 0 0 0 1px rgba(12,106,133,0.30)',
+      }}
+      className={`fixed inset-x-3 bottom-3 z-50 flex-col overflow-hidden rounded-3xl border backdrop-blur-xl sm:inset-x-auto sm:bottom-5 sm:right-5 ${
+        expanded
+          ? 'max-h-[min(38rem,calc(100dvh-1.5rem))] sm:h-[min(52rem,calc(100dvh-2.5rem))] sm:max-h-none sm:w-[min(46rem,calc(100vw-2.5rem))]'
+          : 'max-h-[min(38rem,calc(100dvh-1.5rem))] sm:w-[26rem]'
+      } ${mobileMenuSurface} ${open ? 'flex' : 'hidden'}`}
     >
-      <div className="flex items-start justify-between gap-3 border-b border-slate-500/15 px-4 py-3">
-        <div>
-          <h2 className="text-base font-semibold tracking-tight">Ask about Pubudu</h2>
-          <p className={`mt-0.5 text-xs leading-5 ${muted}`}>
-            Answers come straight from this site, not a live AI. Your questions stay in your browser.
-          </p>
-          {status && <p className={`mt-1 text-xs ${muted}`}>{status}</p>}
-          {semantic === 'offer' && prepared && (
-            <button type="button" className={`${chip} mt-1.5`} onClick={() => startSemantic(prepared)}>
-              Turn on smarter search (about 35 MB download)
-            </button>
-          )}
+      <div aria-hidden="true" className="h-1 w-full shrink-0 bg-gradient-to-r from-signal-cyan via-signal-blue to-signal-cyan" />
+      <div className="flex items-start justify-between gap-3 border-b border-slate-500/15 bg-gradient-to-br from-signal-cyan/15 via-transparent to-signal-blue/10 px-4 py-3">
+        <div className="flex min-w-0 gap-3">
+          <span
+            aria-hidden="true"
+            className={`relative mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-signal-cyan to-signal-blue ${isDark ? 'text-ink-950' : 'text-white'}`}
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5">
+              <path
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="1.8"
+                d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8.5A1.5 1.5 0 0 1 19 17h-7l-4.5 3.5V17H5a1.5 1.5 0 0 1-1.5-1.5V7A1.5 1.5 0 0 1 5 5.5Z"
+              />
+              <path fill="currentColor" d="M8.5 10.2h7v1.4h-7zm0 2.6h4.5v1.4H8.5z" />
+            </svg>
+            <span className={`absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 bg-signal-green ${isDark ? 'border-ink-950' : 'border-white'}`} />
+          </span>
+          <div className="min-w-0">
+            <h2 className="text-base font-semibold tracking-tight">Ask about Pubudu</h2>
+            <p className={`mt-0.5 text-xs leading-5 ${muted}`}>
+              Answers come straight from this site, not a live AI. Your questions stay in your browser.
+            </p>
+            {status && <p className={`mt-1 text-xs ${muted}`}>{status}</p>}
+            {semantic === 'offer' && prepared && (
+              <button type="button" className={`${chip} mt-1.5`} onClick={() => startSemantic(prepared)}>
+                Turn on smarter search (about 35 MB download)
+              </button>
+            )}
+          </div>
         </div>
+        <div className="flex shrink-0 gap-1.5">
+        <button
+          type="button"
+          onClick={toggleExpanded}
+          aria-pressed={expanded}
+          aria-label="Larger window"
+          title={expanded ? 'Shrink the window' : 'Enlarge the window'}
+          className="hidden h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-500/25 transition hover:border-signal-cyan/50 hover:text-signal-cyan motion-reduce:transition-none sm:inline-flex"
+        >
+          <ExpandIcon expanded={expanded} />
+        </button>
         <button
           type="button"
           onClick={onClose}
@@ -480,13 +538,15 @@ export default function AskPanel({
             <path fill="none" stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m6 6 12 12M18 6 6 18" />
           </svg>
         </button>
+        </div>
       </div>
 
       <div ref={logRef} role="log" aria-live="polite" aria-relevant="additions" className="min-h-[8rem] flex-1 space-y-4 overflow-y-auto px-4 py-3">
         {messages.length === 0 && (
           <div>
-            <p className="text-sm leading-6">
-              Ask me about my projects, education, experience, skills, or availability. Typos are fine.
+            <p className="text-lg font-semibold tracking-tight">What would you like to know?</p>
+            <p className={`mt-1 text-sm leading-6 ${muted}`}>
+              Ask about my projects, education, experience, skills, or availability. Typos are fine.
             </p>
             <ul className="mt-3 flex flex-wrap gap-1.5">
               {chips.map((c) => (
@@ -506,7 +566,10 @@ export default function AskPanel({
         )}
         {messages.map((m) =>
           m.role === 'user' ? (
-            <p key={m.id} className="ml-auto max-w-[85%] rounded-2xl rounded-br-md bg-signal-cyan/15 px-3 py-2 text-sm">
+            <p
+              key={m.id}
+              className={`ml-auto max-w-[85%] rounded-2xl rounded-br-md px-3.5 py-2 text-sm font-medium ${isDark ? 'bg-signal-cyan text-ink-950' : 'bg-ink-900 text-ink-100'}`}
+            >
               {m.text}
             </p>
           ) : m.role === 'browse' ? (
