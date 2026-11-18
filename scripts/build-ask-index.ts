@@ -330,7 +330,7 @@ function buildChunks(): { chunks: Chunk[]; aliases: { chunk: number; text: strin
     'graduation',
     'When do you graduate?',
     ['Expected graduation date', 'When will you finish your master’s', 'Graduation year', 'When did you start at Northeastern', 'How long is your program', 'When does your degree end'],
-    [`I started the ${nu.program} at Northeastern in Jan 2026 and I’m expected to graduate in May 2028.`],
+    [`I started the ${nu.program} at Northeastern in Jan 2026 and I’m expected to graduate in Dec 2027.`],
     eduSrc,
   );
   faq(

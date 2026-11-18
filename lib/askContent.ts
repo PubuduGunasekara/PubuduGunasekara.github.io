@@ -26,7 +26,7 @@ export const staticFaqs: Faq[] = [
     question: 'Who are you?',
     variants: ['Tell me about yourself', 'Give me the short version', 'Introduce yourself', 'Who is Pubudu', 'Summarize your background'],
     answer: [
-      'I’m Pubudu Gunasekara, an M.S. Computer Science student at Northeastern University (Khoury College, Silicon Valley). I’m expected to graduate in May 2028 and my GPA is 4.0 / 4.0. I’m based in San Jose, CA.',
+      'I’m Pubudu Gunasekara, an M.S. Computer Science student at Northeastern University (Khoury College, Silicon Valley). I’m expected to graduate in Dec 2027 and my GPA is 4.0 / 4.0. I’m based in San Jose, CA.',
       'I focus on backend, distributed systems and AI applications. My two main projects are ResumeMatch (a RAG system) and a Distributed Task Scheduler. Before my master’s I worked in QA at Virtusa on a platform with 1M+ users.',
     ],
     sources: [home('highlights', 'The short version'), home('education', 'Education')],

@@ -31,7 +31,7 @@ export const resumeMatchMetrics: Metric[] = [
 export const heroName = 'Pubudu Gunasekara';
 export const heroUniversity = 'Northeastern University';
 export const heroProgram = 'M.S. Computer Science, Khoury College of Computer Sciences, Silicon Valley';
-export const heroExpected = 'Expected May 2028';
+export const heroExpected = 'Expected Dec 2027';
 export const heroGpa = 'GPA 4.0 / 4.0';
 export const heroSeeking = {
   label: 'Seeking:',
@@ -354,7 +354,7 @@ export const education: Education[] = [
   {
     school: 'Northeastern University, Khoury College of Computer Sciences',
     program: 'M.S. Computer Science',
-    meta: 'San Jose, CA · Jan 2026 - Expected May 2028',
+    meta: 'San Jose, CA · Jan 2026 - Expected Dec 2027',
     detail: 'GPA: 4.0 / 4.0. Completed: Algorithms, Programming Design Paradigms (Java). In progress (Fall 2026): Machine Learning, Natural Language Processing.',
     logo: brandAssets.northeastern,
     mark: 'NU',

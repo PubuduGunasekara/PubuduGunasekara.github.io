@@ -12,7 +12,7 @@ MS in Computer Science, Northeastern | Seeking Software Engineering Internship, 
 ### Northeastern University, Khoury College of Computer Sciences
 
 Master of Science in Computer Science | GPA: 4.0 / 4.0  
-01/2026 - 05/2028 (Expected)
+01/2026 - 12/2027 (Expected)
 
 Coursework: Algorithms, Programming Design Paradigm; in progress: Machine Learning, NLP
 
